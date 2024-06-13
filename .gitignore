@@ -1,0 +1,26 @@
+# Compiled Object files
+*.o
+*.obj
+
+# Executables
+*.bin
+*.elf
+
+# PROS
+bin/
+.vscode/
+compile_commands.json
+temp.log
+temp.errors
+*.ini
+.d/
+.cache/clangd/index/main.cpp.370A92F3F45824F2.idx
+.cache/clangd/index/main.cpp.C6F6F4D87D2F8D2E.idx
+*.idx
+*.idx
+*.idx
+.cache/clangd/index/auton.cpp.80DDBB6CEE37AD3A.idx
+.cache/clangd/index/main.cpp.370A92F3F45824F2.idx
+.cache/clangd/index/main.cpp.C6F6F4D87D2F8D2E.idx
+.cache/clangd/index/pid.cpp.B3303A4D5928763C.idx
+.cache/clangd/index/robot.cpp.CA2A1FE26E14B6DF.idx

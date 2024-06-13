@@ -1,0 +1,57 @@
+#include "api.h"
+#include "main.h"
+#include "okapi/api.hpp"
+#include "pros/api_legacy.h"
+
+//header guards
+#ifndef PIDH
+#define PIDH
+
+
+extern void resetEncoders();
+extern void setConstants(double kp, double ki, double kd);
+extern double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn);
+extern double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn);
+extern void driveStraight(int target);
+extern void driveStraight2(int target);
+extern void driveStraightC(int target);
+extern void driveTurn(int target);
+extern void driveTurn2(int target);
+extern void chasMove(int voltageLF, int voltageLB, int voltageLM, int voltageRF, int voltageRB, int voltageRM);
+extern void driveArcL(double theta, double radius, int timeout);
+extern void driveArcLF(double theta, double radius, int timeout);
+extern void driveArcR(double theta, double radius, int timeout);
+extern void driveArcRF(double theta, double radius, int timeout);
+extern int time2;
+extern float error;
+extern float error2;
+extern int integral;
+//hello
+
+//tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+#define STRAIGHT_KP 0.95 // 
+#define STRAIGHT_KI 0.025 // 
+#define STRAIGHT_KD 7.75  // 
+
+//tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+#define STRAIGHT_INTEGRAL_KI 40
+#define STRAIGHT_MAX_INTEGRAL 14.5
+
+//tune to make heading correction more or less senstive 
+#define HEADING_CORRECTION_KP 0
+
+//tune turn constants here: setConstants(TURN_KP, TURN_KI, TURN_KD);
+#define TURN_KP 8.25 //5.25//8.75
+#define TURN_KI 0 //0.125//0.115
+#define TURN_KD 105 //38 //105 //70
+
+//tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
+#define TURN_INTEGRAL_KI 30
+#define TURN_MAX_INTEGRAL 25
+
+//tune to make headding correction in arcturns more or less sensitive 
+#define ARC_CORRECTION_KP 10
+
+
+
+#endif
