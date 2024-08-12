@@ -7,7 +7,7 @@
 #ifndef PIDH
 #define PIDH
 
-
+extern void setPosition(float xcoord, float ycoord, float heading);
 extern void resetEncoders();
 extern void setConstants(double kp, double ki, double kd);
 extern double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn);
@@ -22,16 +22,16 @@ extern void driveArcL(double theta, double radius, int timeout);
 extern void driveArcLF(double theta, double radius, int timeout);
 extern void driveArcR(double theta, double radius, int timeout);
 extern void driveArcRF(double theta, double radius, int timeout);
-extern int time2;
+extern int time2; 
 extern float error;
 extern float error2;
 extern int integral;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-#define STRAIGHT_KP 0.95 // 
-#define STRAIGHT_KI 0.025 // 
-#define STRAIGHT_KD 7.75  // 
+#define STRAIGHT_KP 0.95 // 1
+#define STRAIGHT_KI 0.025 // 0.001
+#define STRAIGHT_KD 7.75  // 1
 
 //tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 #define STRAIGHT_INTEGRAL_KI 40
@@ -51,6 +51,23 @@ extern int integral;
 
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
+
+#define HEADING_KP 8.25 //5.25//8.75
+#define HEADING_KI 0 //0.125//0.115
+#define HEADING_KD 0 //38 //105 //70
+
+#define HEADING_INTEGRAL_KI 0
+#define HEADING_MAX_INTEGRAL 0
+
+#define ARC_HEADING_KP 8.25 //5.25//8.75
+#define ARC_HEADING_KI 0 //0.125//0.115
+#define ARC_HEADING_KD 0 //38 //105 //70
+
+#define ARC_HEADING_INTEGRAL_KI 0
+#define ARC_HEADING_MAX_INTEGRAL 0
+
+
+
 
 
 

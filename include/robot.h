@@ -22,8 +22,12 @@ extern pros::Motor RB;
 extern pros::Motor RM;
 extern pros::Motor LM;
 
+extern pros::Motor TEST;
+extern pros::Motor TEST2;
+
 //intake
 extern pros::Motor INTAKE;
+extern pros::Motor HOOKS;
 
 //sensors
 // extern pros::ADIEncoder encLeft;

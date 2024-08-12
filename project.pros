@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "Right_Skills_Wings",
+    "project_name": "Odometry",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -308,7 +308,7 @@
       }
     },
     "upload_options": {
-      "description": "Right_wings",
+      "description": "Odometry ",
       "icon": "planet",
       "slot": 2
     }

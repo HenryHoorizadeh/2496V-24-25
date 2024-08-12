@@ -5,6 +5,7 @@
 #include "auton.h"
 #include "pid.h"
 #include "robot.h"
+#include "odometry.h"
 
 using namespace pros;
 using namespace std;
@@ -140,29 +141,52 @@ void opcontrol() {
   bool NEWR1 = false;
   bool arcToggle = true;
   bool tankToggle = false;
+  bool pistonToggle = false;
+  double maxRPM = 0;
+  double motorTotal = 0;
+  double avgRPM = 0;
+
   imu.tare_heading();
 
+//TEST.move(127);
+//TEST2.move(127);
+//delay(1000);
+
 	while (true) {
+
+    //TEST2.move_velocity(300);
+    if(RF.get_actual_velocity() > maxRPM){
+      maxRPM = RF.get_actual_velocity();
+    }
+
+    
+
+    motorTotal += TEST.get_actual_velocity();
+    cycle++;
+    avgRPM = motorTotal/cycle;
+
+
+
     
     //printing stuff
 		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
 		
-      if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
-        con.print(0, 0, "AUTON: %s           ", autstr);
-      } else if (time % 50 == 0 && time % 100 != 0){
-        con.print(1, 0, "Imu: %f           ", float(imu.get_heading()));
-      } else if (time % 50 == 0){
-        setConstants(0.075, 0, 0.1);
-        con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
-      } 
+    if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
+      con.print(0, 0, "AUTON: %s           ", autstr);
+    } else if (time % 100 == 0 && time % 150 != 0){
+      con.print(1, 0, "Max: %f           ", float(maxRPM));
+    } else if (time % 150 == 0){
+      con.print(2, 0, "CHASSRPM: %f        ", float(RF.get_actual_velocity())); 
+    } 
+    
 
 		//chassis arcade drive
 		int power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
 		int RX = con.get_analog(ANALOG_RIGHT_X); //turn is defined as left (positive) or right (negative)
 
-    //int turn = int(RX); // Normal Rates
-		//int turn = int(abs(RX) * RX / 75); //X Squared Rates
-    int turn = int(pow(RX, 3) / 5000); //X Cubed Rates
+     int turn = int(RX); // Normal Rates
+		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
+    //int turn = int(pow(RX, 3) / 15000); //X Cubed Rates
 		int left = power + turn;
 		int right = power - turn;
 
@@ -247,43 +271,65 @@ void opcontrol() {
   }
 
 //Double Press Logic
-/* 
+
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
+      INTAKE.move(127);
+      HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
-      down = false;
-      R1 = true;
+      HOOKS.move(-127);
 		}
 		else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 			INTAKE.move(127);
-      down = false;
-      R1 = false;
+      HOOKS.move(127);
 		}
 		else {
 			INTAKE.move(0);
-      down = false;
-      R1 = false;
+      HOOKS.move(0);
 		}
-*/
+
 
 //Non Double Press Logic
-    if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-			INTAKE.move(-127);
-		}
-		else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-			INTAKE.move(127);
-		}
-		else {
-			INTAKE.move(0);
-		}
+    // if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+		// 	INTAKE.move(127);
+		// } 
+    // else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+		// 	INTAKE.move(-127);
+		// } 
+    // else {
+		// 	INTAKE.move(0);
+		// }
+
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      driveStraight2(2000);
+      
+      // driveStraight2(2000);
+      setPosition(0,0,0);
+      boomerang(0, -1000);
+      //boomerang(-1000, 1000);
+     // boomerang(0, 0);
+      // while(true){
+      // odometry();
+      // delay(1);
+      // }
     }
 
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
+        pistonToggle = !pistonToggle;
+    }
+
+  piston.set_value(pistonToggle);
+  //piston2.set_value(wingToggle);
+
+  if (con.get_digital(E_CONTROLLER_DIGITAL_DOWN)){
+     piston.set_value(true);
+  } else {
+     piston.set_value(false);
+  }
+
 	  	time += 1;
-		  pros::delay(1);
+		  delay(1);
 	  }
   }
