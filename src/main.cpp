@@ -275,7 +275,7 @@ void opcontrol() {
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move(-127);
+      HOOKS.move_velocity(-650);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
       HOOKS.move(-127);
