@@ -25,6 +25,9 @@ extern pros::Motor LM;
 extern pros::Motor TEST;
 extern pros::Motor TEST2;
 
+//lift
+extern pros::Motor LIFT;
+
 //intake
 extern pros::Motor INTAKE;
 extern pros::Motor HOOKS;

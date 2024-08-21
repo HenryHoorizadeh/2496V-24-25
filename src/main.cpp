@@ -289,6 +289,16 @@ void opcontrol() {
       HOOKS.move(0);
 		}
 
+//lift
+    if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
+      LIFT.move(127);
+    }
+    else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+      LIFT.move(-127);
+    }
+    else {
+      LIFT.move(0);
+    }
 
 //Non Double Press Logic
     // if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
@@ -300,6 +310,8 @@ void opcontrol() {
     // else {
 		// 	INTAKE.move(0);
 		// }
+
+
 
 
     //pid tester
