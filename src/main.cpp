@@ -176,7 +176,7 @@ void opcontrol() {
     } else if (time % 100 == 0 && time % 150 != 0){
       con.print(1, 0, "Max: %f           ", float(maxRPM));
     } else if (time % 150 == 0){
-      con.print(2, 0, "CHASSRPM: %f        ", float(RF.get_actual_velocity())); 
+      con.print(2, 0, "CHASSRPM: %f        ", float(HOOKS.get_actual_velocity())); 
     } 
     
 
@@ -275,13 +275,14 @@ void opcontrol() {
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move_velocity(-450);
+      HOOKS.move_velocity(-150);
+    // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
       HOOKS.move(-127);
 		} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 			INTAKE.move(127);
-      HOOKS.move(127);
+     HOOKS.move(115);
 		} else {
 			INTAKE.move(0);
       HOOKS.move(0);
