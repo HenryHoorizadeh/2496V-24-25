@@ -4,6 +4,7 @@
 #include "api.h"
 #include "auton.h"
 #include "pid.h"
+#include "pros/motors.h"
 #include "robot.h"
 #include "odometry.h"
 
@@ -145,8 +146,10 @@ void opcontrol() {
   double maxRPM = 0;
   double motorTotal = 0;
   double avgRPM = 0;
+  double liftAngle = 0;
 
   imu.tare_heading();
+  LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
 //TEST.move(127);
 //TEST2.move(127);
@@ -275,7 +278,7 @@ void opcontrol() {
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move_velocity(-150);
+      HOOKS.move_velocity(-400);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
@@ -291,12 +294,15 @@ void opcontrol() {
 //lift
     if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       LIFT.move(127);
+      liftAngle = LIFT.get_position();
     }
     else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
       LIFT.move(-127);
+      liftAngle = LIFT.get_position();
     }
     else {
-      LIFT.move(0);
+      setConstants(LIFT_KP,LIFT_KI,LIFT_KD);
+      LIFT.move(calcPID(liftAngle,LIFT.get_position(),0,0,true));
     }
 
 //Non Double Press Logic
