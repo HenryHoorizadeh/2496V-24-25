@@ -189,8 +189,7 @@ void driveStraight(int target) {
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
-        voltag
-        e = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
 
         
 
@@ -224,7 +223,7 @@ void driveStraight(int target) {
         chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
         if (abs(target - encoderAvg) <= 4) count++;
         if (count >= 20 || time2 > timeout){
-            break;
+           // break;
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){

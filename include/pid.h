@@ -29,9 +29,9 @@ extern int integral;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-#define STRAIGHT_KP 0.95 // 1
-#define STRAIGHT_KI 0.025 // 0.001
-#define STRAIGHT_KD 7.75  // 1
+#define STRAIGHT_KP 1 // 1
+#define STRAIGHT_KI 0 // 0.001
+#define STRAIGHT_KD 0  // 1
 
 //tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 #define STRAIGHT_INTEGRAL_KI 40

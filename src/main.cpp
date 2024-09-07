@@ -323,9 +323,9 @@ void opcontrol() {
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
       
-      // driveStraight2(2000);
-      setPosition(0,0,0);
-      boomerang(0, -1000);
+      driveStraight(1000);
+      // setPosition(0,0,0);
+      // boomerang(0, -1000);
       //boomerang(-1000, 1000);
      // boomerang(0, 0);
       // while(true){
