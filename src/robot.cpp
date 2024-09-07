@@ -22,6 +22,7 @@
 #define ROTO_PORT 8
 #define TEST_PORT 1
 #define TEST_PORT2 2
+#define LIFT_PORT 5
 
 
 //rotation ssensor
@@ -36,6 +37,9 @@ pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06, false);
 
 pros::Motor TEST (TEST_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor TEST2 (TEST_PORT2, pros::E_MOTOR_GEARSET_06, false);
+
+//lift
+pros::Motor LIFT (LIFT_PORT, pros::E_MOTOR_GEARSET_06, true);
 
 
 //intake
