@@ -46,8 +46,11 @@ pros::Motor LIFT (LIFT_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor INTAKE (INTAKE_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
 
-//angler for intake
-pros::ADIDigitalOut piston ('E', false);
+//Mogo
+pros::ADIDigitalOut mogo ('A', false);
+
+//angler
+pros::ADIDigitalOut angler ('B', false);
 
 //auton selector
 pros::ADIDigitalIn selec ('G');
@@ -61,6 +64,8 @@ pros::Imu imu (IMU_PORT);
 
 //controller
 pros::Controller con (pros::E_CONTROLLER_MASTER);
+
+//pneumatics
 
 
 //gps

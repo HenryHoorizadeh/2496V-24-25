@@ -67,9 +67,9 @@ extern int integral;
 #define ARC_HEADING_MAX_INTEGRAL 0
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-#define LIFT_KP 100 // 1
+#define LIFT_KP 1 // 1
 #define LIFT_KI 0 // 0.001
-#define LIFT_KD 150  // 1
+#define LIFT_KD 0  // 1
 
 //tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 #define LIFT_INTEGRAL_KI 40

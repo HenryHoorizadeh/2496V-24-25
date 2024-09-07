@@ -142,7 +142,8 @@ void opcontrol() {
   bool NEWR1 = false;
   bool arcToggle = true;
   bool tankToggle = false;
-  bool pistonToggle = false;
+  bool mogoToggle = false;
+  bool anglerToggle = false;
   double maxRPM = 0;
   double motorTotal = 0;
   double avgRPM = 0;
@@ -333,18 +334,24 @@ void opcontrol() {
       // }
     }
 
-    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
-        pistonToggle = !pistonToggle;
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)){
+        mogoToggle = !mogoToggle;
     }
 
-  piston.set_value(pistonToggle);
+  mogo.set_value(mogoToggle);
+
+      if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
+        anglerToggle = !anglerToggle;
+    }
+
+  angler.set_value(anglerToggle);
   //piston2.set_value(wingToggle);
 
-  if (con.get_digital(E_CONTROLLER_DIGITAL_DOWN)){
-     piston.set_value(true);
-  } else {
-     piston.set_value(false);
-  }
+  // if (con.get_digital(E_CONTROLLER_DIGITAL_DOWN)){
+  //    piston.set_value(true);
+  // } else {
+  //    piston.set_value(false);
+  // }
 
 	  	time += 1;
 		  delay(1);

@@ -41,7 +41,8 @@ extern pros::Motor HOOKS;
 extern pros::Imu imu;
 
 //angler
-extern pros::ADIDigitalOut piston;
+extern pros::ADIDigitalOut mogo;
+extern pros::ADIDigitalOut angler;
 
 //gps
 // extern pros::Gps gps1;
