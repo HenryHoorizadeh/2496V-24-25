@@ -29,9 +29,9 @@ extern int integral;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-#define STRAIGHT_KP 1 // 1
-#define STRAIGHT_KI 0 // 0.001
-#define STRAIGHT_KD 0  // 1
+#define STRAIGHT_KP 1.65 // 1
+#define STRAIGHT_KI 0.2 // 0.001
+#define STRAIGHT_KD 9  // 1
 
 //tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 #define STRAIGHT_INTEGRAL_KI 40
@@ -41,18 +41,19 @@ extern int integral;
 #define HEADING_CORRECTION_KP 0
 
 //tune turn constants here: setConstants(TURN_KP, TURN_KI, TURN_KD);
-#define TURN_KP 1 //5.25//8.75
-#define TURN_KI 0 //0.125//0.115
-#define TURN_KD 0 //38 //105 //70
+#define TURN_KP 9//5.25//8.75
+#define TURN_KI 0.01 //0.125//0.115
+#define TURN_KD 105 //38 //105 //70
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30
+
 #define TURN_MAX_INTEGRAL 25
 
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 8.25 //5.25//8.75
+#define HEADING_KP 2.5 //5.25//8.75
 #define HEADING_KI 0 //0.125//0.115
 #define HEADING_KD 0 //38 //105 //70
 

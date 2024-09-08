@@ -180,7 +180,7 @@ void opcontrol() {
     } else if (time % 100 == 0 && time % 150 != 0){
       con.print(1, 0, "Max: %f           ", float(maxRPM));
     } else if (time % 150 == 0){
-      con.print(2, 0, "CHASSRPM: %f        ", float(HOOKS.get_actual_velocity())); 
+      con.print(2, 0, "Time2: %f        ", float(time2)); 
     } 
     
 
@@ -324,7 +324,7 @@ void opcontrol() {
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
       
-      driveStraight(1000);
+      driveTurn(175);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);

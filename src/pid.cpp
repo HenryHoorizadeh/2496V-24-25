@@ -182,7 +182,7 @@ void driveStraight(int target) {
     double x = 0;
     x = double(abs(target));
 
-    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; //Tune with Desmos
+    timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
 
     resetEncoders();
     while(true) {
@@ -221,9 +221,9 @@ void driveStraight(int target) {
         }
 
         chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
-        if (abs(target - encoderAvg) <= 4) count++;
+        if (abs(target - encoderAvg) <= 3) count++;
         if (count >= 20 || time2 > timeout){
-           // break;
+            break;
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
@@ -251,7 +251,8 @@ void driveStraight2(int target) {
     int timeout = 30000;
     double x = 0;
     x = double(abs(target));
-    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; //Tune with Desmos
+     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
+
     bool over = false;
     double voltage;
     double encoderAvg;
@@ -350,7 +351,7 @@ void driveStraightC(int target) {
     int timeout = 30000;
     double x = 0;
     x = double(abs(target));
-    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; //Tune with Desmos
+     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
 
     if(target > 0){
         target = target + 500;
@@ -464,11 +465,11 @@ void driveTurn(int target) { //target is inputted in autons
     double x = 0;
 
     x = double(abs(target));
-    variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-    variKD = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+   // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+    variKD = (-0.0000000025415 * pow(x,5)) + (0.00000122274 * pow(x, 4)) + (-0.000189778 * pow(x, 3)) + (0.0116785 * pow(x, 2)) + (-0.263317 * x) + 81.4328 ; // Use Desmos to tune
     //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
 
-   // setConstants(variKP, TURN_KI, variKD); 
+    setConstants(TURN_KP, TURN_KI, variKD); 
 
     imu.tare_heading();
 
@@ -486,7 +487,7 @@ void driveTurn(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; 
         if (count >= 20 || time2 > timeout) {
-           break; 
+          // break; 
         }
 
         
