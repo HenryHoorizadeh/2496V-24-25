@@ -24,18 +24,26 @@ void autonomous() {
   
   //INDEX
     //AUTON 0: SKILLS
-    //AUTON 1:
-    //AUTON 2: 
-    //AUTON 3:
-    //AUTON 4: 
-    //AUTON 5: 
+    //AUTON 1: blue right
+    //AUTON 2: blue left
+    //AUTON 3:red right
+    //AUTON 4: red left
+    //AUTON 5: elims
 
 //111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 
 
   if (atn == 0) {
 
+ //back into the stake grab and turn go into blue and red stack, grab blue; 
+ //push middle stacks over, score on high stake and back off to positive corner
   } else if (atn == 1) {
+    driveStraight(-170);
+    mogo.set_value(true);
+    driveTurn(90);
+    driveStraight(30);
+    INTAKE.move(100);
+
 
   } else if (atn == 2) { 
 
