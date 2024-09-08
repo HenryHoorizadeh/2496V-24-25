@@ -467,7 +467,7 @@ void driveTurn(int target) { //target is inputted in autons
     x = double(abs(target));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
     variKD = (-0.0000000025415 * pow(x,5)) + (0.00000122274 * pow(x, 4)) + (-0.000189778 * pow(x, 3)) + (0.0116785 * pow(x, 2)) + (-0.263317 * x) + 81.4328 ; // Use Desmos to tune
-    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+    timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
 
     setConstants(TURN_KP, TURN_KI, variKD); 
 
