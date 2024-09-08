@@ -143,11 +143,11 @@ void opcontrol() {
   bool arcToggle = true;
   bool tankToggle = false;
   bool mogoToggle = false;
-  bool anglerToggle = false;
+  bool scrapperToggle = false;
   double maxRPM = 0;
   double motorTotal = 0;
   double avgRPM = 0;
-  double liftAngle = 0;
+  double liftAngle = 0; 
 
   imu.tare_heading();
   LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
@@ -324,7 +324,7 @@ void opcontrol() {
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
       
-      driveTurn(175);
+      driveTurn(5);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);
@@ -342,10 +342,10 @@ void opcontrol() {
   mogo.set_value(mogoToggle);
 
       if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
-        anglerToggle = !anglerToggle;
+        scrapperToggle = !scrapperToggle;
     }
 
-  angler.set_value(anglerToggle);
+  scrapper.set_value(scrapperToggle);
   //piston2.set_value(wingToggle);
 
   // if (con.get_digital(E_CONTROLLER_DIGITAL_DOWN)){

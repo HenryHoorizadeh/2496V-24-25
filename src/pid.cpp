@@ -487,7 +487,7 @@ void driveTurn(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; 
         if (count >= 20 || time2 > timeout) {
-          // break; 
+          break; 
         }
 
         

@@ -49,8 +49,8 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
 //Mogo
 pros::ADIDigitalOut mogo ('A', false);
 
-//angler
-pros::ADIDigitalOut angler ('B', false);
+//scrapper
+pros::ADIDigitalOut scrapper ('C', false);
 
 //auton selector
 pros::ADIDigitalIn selec ('G');
