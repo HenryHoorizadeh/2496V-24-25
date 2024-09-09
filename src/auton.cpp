@@ -38,10 +38,10 @@ void autonomous() {
  //back into the stake grab and turn go into blue and red stack, grab blue; 
  //push middle stacks over, score on high stake and back off to positive corner
   } else if (atn == 1) {
-    driveStraight(-170);
+    driveStraight2(-1700);
     mogo.set_value(true);
-    driveTurn(90);
-    driveStraight(30);
+    driveTurn(-90);
+    driveStraight(1000);
     INTAKE.move(100);
 
 

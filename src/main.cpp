@@ -4,6 +4,7 @@
 #include "api.h"
 #include "auton.h"
 #include "pid.h"
+#include "pros/misc.h"
 #include "pros/motors.h"
 #include "robot.h"
 #include "odometry.h"
@@ -68,7 +69,7 @@ void disabled() {}
  * starts.
  */
 
-int atn = 1;
+int atn = 0;
 string autstr;
 
  
@@ -180,7 +181,7 @@ void opcontrol() {
     } else if (time % 100 == 0 && time % 150 != 0){
       con.print(1, 0, "Max: %f           ", float(maxRPM));
     } else if (time % 150 == 0){
-      con.print(2, 0, "Time2: %f        ", float(time2)); 
+      con.print(2, 0, "chasstempC: %f        ", float(chasstempC)); 
     } 
     
 
@@ -335,13 +336,13 @@ void opcontrol() {
       // }
     }
 
-    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)){
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
         mogoToggle = !mogoToggle;
     }
 
   mogo.set_value(mogoToggle);
 
-      if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
+      if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
         scrapperToggle = !scrapperToggle;
     }
 
