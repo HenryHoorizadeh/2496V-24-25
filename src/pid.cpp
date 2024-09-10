@@ -247,6 +247,110 @@ void driveStraight(int target) {
 
 
 //driving straight BUT GLOBAL
+void driveClamp(int target, int clampDistance) {
+    int timeout = 30000;
+    double x = 0;
+    x = double(abs(target));
+     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
+
+    bool over = false;
+    double voltage;
+    double encoderAvg;
+    int count = 0;
+    double init_heading = imu.get_heading();
+    double heading_error = 0;
+    int cycle = 0; // Controller Display Cycle
+    time2 = 0;
+
+    if(init_heading > 180){
+        init_heading = init_heading - 360;
+    }
+
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    resetEncoders();
+   
+
+    while(true) {
+
+    encoderAvg = (LF.get_position() + RF.get_position()) / 2;
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+
+
+    double position = imu.get_heading(); //this is where the units are set to be degrees
+
+    if (position > 180){
+        position = position - 360;
+    }
+
+    if((init_heading < 0) && (position > 0)){
+        if((position - init_heading) >= 180){
+            init_heading = init_heading + 360;
+            position = imu.get_heading();
+        } 
+    } else if ((init_heading > 0) && (position < 0)){
+        if((init_heading - position) >= 180){
+           position = imu.get_heading();
+        }
+    } 
+
+
+        // if(init_heading > 180) {
+        //     init_heading = (360 - init_heading);
+        // }
+
+        // if(imu.get_heading() < 180) {
+        //     heading_error = init_heading - imu.get_heading();
+        // }
+        // else {
+        //     heading_error = ((360 - imu.get_heading()) - init_heading);
+        // }
+
+        // heading_error = heading_error * HEADING_CORRECTION_KP;
+
+        
+        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+   
+        if(voltage > 127){
+            voltage = 127;
+        } else if (voltage < -127){
+            voltage = -127;
+        }
+
+        if(abs(error) < clampDistance){
+            mogo.set_value(true);
+        }
+
+
+
+        chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
+        if (abs(target - encoderAvg) <= 4) count++;
+        if (count >= 20 || time2 > timeout){
+            break;
+        } 
+
+
+        if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
+            con.print(0, 0, "ERROR: %f           ", float(error));
+        } else if (time2 % 100 == 0 && time2 % 150 != 0){
+            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+        } else if (time2 % 150 == 0){
+            con.print(2, 0, "Time: %f        ", float(time2));
+        } 
+
+        delay(10);
+        time2 += 10;
+        //hi
+    }
+    LF.brake();
+    LM.brake();
+    LB.brake();
+    RF.brake();
+    RM.brake();
+    RB.brake();
+}
+
 void driveStraight2(int target) {
     int timeout = 30000;
     double x = 0;
@@ -556,11 +660,12 @@ void driveTurn2(int target) { //target is inputted in autons
     int timeout = 2100;
 
     x = double(abs(turnv));
-    variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-    variKD = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+   // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+    variKD = (-0.0000000025415 * pow(x,5)) + (0.00000122274 * pow(x, 4)) + (-0.000189778 * pow(x, 3)) + (0.0116785 * pow(x, 2)) + (-0.263317 * x) + 81.4328 ; // Use Desmos to tune
+    timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
 
-    // setConstants(variKP, TURN_KI, variKD);
+    setConstants(TURN_KP, TURN_KI, variKD); 
+
 
 
     while(true) {

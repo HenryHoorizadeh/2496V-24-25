@@ -35,18 +35,39 @@ void autonomous() {
 
   if (atn == 0) {
 
- //back into the stake grab and turn go into blue and red stack, grab blue; 
- //push middle stacks over, score on high stake and back off to positive corner
+ //score preload, grab stake get reds back into under the middle hangbar
   } else if (atn == 1) {
-    driveStraight2(-1700);
-    mogo.set_value(true);
-    driveTurn(-90);
-    driveStraight(1000);
-    INTAKE.move(100);
+    INTAKE.move(127);
+    driveStraight2(-210);
+    LIFT.move_relative(-1000, 200);
+    delay(400);
+    driveStraight2(200);
+    LIFT.move(127);
+    delay(1000);
+    driveClamp(-1350, 400);
+    driveTurn2(-140);
+    INTAKE.move(127);
+    HOOKS.move(127);
+    driveStraight2(1000);
 
 
+    driveTurn2(-90);
+    driveStraight2(500);
+    INTAKE.move(300);
+    driveTurn2(30);
+    INTAKE.move(300);
+    driveStraight2(-300);
+    driveTurn2(30);
+    driveStraight2(-5000);
+  //blue left rush rush rush
   } else if (atn == 2) { 
-
+    driveStraight2(-2000);
+    mogo.set_value(true);
+    driveTurn2(45);
+    INTAKE.move(300);
+    driveStraight2(1000);
+    INTAKE.move(300);
+  //red right
   } else if (atn == 3) { 
 
   } else if (atn == 4) { 
