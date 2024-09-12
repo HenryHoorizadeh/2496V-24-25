@@ -38,21 +38,36 @@ void autonomous() {
  //score preload, grab stake get reds back into under the middle hangbar
   } else if (atn == 1) {
 
+    /*LIFT.move(30);
+    driveStraight(-390);
+    mogo.set_value(true);
+    driveTurn2(-90);
     HOOKS.move(127);
-    driveStraight2(-310);
+    driveStraight(-400);
+    driveStraight2(400);
+    mogo.set_value(false);
+    driveTurn2(-145);
+    driveClamp(-1300, 400);*/
 
-    // INTAKE.move(127);
-    // driveStraight2(-210);
-    // LIFT.move_relative(-1000, 200);
-    // delay(400);
-    // driveStraight2(200);
-    // LIFT.move(127);
-    // delay(1000);
-    // driveClamp(-1350, 400);
-    // driveTurn2(-140);
-    // INTAKE.move(127);
-    // HOOKS.move(127);
-    // driveStraight2(1000);
+    //driveStraight2(-310);
+
+    
+
+     INTAKE.move(127);
+     LIFT.move_relative(-1000, 100);
+     INTAKE.move(-127);
+     delay(400);
+     driveStraight2(260);
+     LIFT.move(127);
+    delay(1000);
+    driveClampS(-1400, 400, 72);
+    driveTurn2(-110);
+    INTAKE.move(127);
+    HOOKS.move(127);
+    driveStraight2(800);
+    driveTurn2(160);
+
+    
 
 
     // driveTurn2(-90);
@@ -71,6 +86,7 @@ void autonomous() {
     INTAKE.move(300);
     driveStraight2(1000);
     INTAKE.move(300);
+
   //red right
   } else if (atn == 3) { 
 
