@@ -15,6 +15,7 @@ extern double calcPID2(double target, double input, int integralKi, int maxInteg
 extern void driveStraight(int target);
 extern void driveStraight2(int target);
 extern void driveClamp(int target, int clampDistance);
+extern void driveClampS(int target, int clampDistance, int speed);
 extern void driveStraightC(int target);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);

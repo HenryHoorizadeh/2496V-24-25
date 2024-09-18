@@ -38,6 +38,10 @@ void autonomous() {
  //score preload, grab stake get reds back into under the middle hangbar
   } else if (atn == 1) {
 
+    /*LIFT.move(30);
+    driveStraight(-390);
+    mogo.set_value(true);
+    driveTurn2(-90);
     HOOKS.move(127);
     driveStraight2(-310);
 //lift
