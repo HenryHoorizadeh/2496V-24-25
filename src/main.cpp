@@ -69,7 +69,7 @@ void disabled() {}
  * starts.
  */
 
-int atn = 1;
+int atn = 2;
 string autstr;
 
  
@@ -281,7 +281,7 @@ void opcontrol() {
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move_velocity(-400);
+      HOOKS.move_velocity(-350);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
