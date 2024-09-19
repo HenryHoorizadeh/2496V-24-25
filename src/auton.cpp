@@ -38,63 +38,63 @@ void autonomous() {
  //score preload, grab stake get reds back into under the middle hangbar
   } else if (atn == 1) {
 
-    /*LIFT.move(30);
-    driveStraight(-390);
-    mogo.set_value(true);
-    driveTurn2(-90);
-    HOOKS.move(127);
-    driveStraight2(-310);
-//lift
-    // INTAKE.move(127);
-    // driveStraight2(-210);
-    // LIFT.move_relative(-1000, 200);
-    // delay(400);
-    // driveStraight2(200);
-    // LIFT.move(127);
-    // delay(1000);
-    // driveClamp(-1350, 400);
-    // driveTurn2(-140);
-    // INTAKE.move(127);
-    // HOOKS.move(127);
-    // driveStraight2(1000);
-
-//intake score
+    // LIFT.move(30);
+    // driveStraight(-390);
+    // mogo.set_value(true);
     // driveTurn2(-90);
-    // driveStraight2(500);
-    // INTAKE.move(300);
-    // driveTurn2(30);
-    // INTAKE.move(300);
-    // driveStraight2(-300);
-    // driveTurn2(30);
-    //driveStraight2(-5000);
-  //blue left rush rush rush
-  } else if (atn == 2) { 
-    driveStraight2(2200);
-    scrapper.set_value(true);
-    driveTurn2(45);
-    driveStraight(300);
-    INTAKE.move(300);
-    driveStraight2(1000);
-    INTAKE.move(300);
-    mogo.set_value(false);
-    driveTurn2(75);
-    driveStraight2(-1000);
-    mogo.set_value(true);
-    driveTurn2(-50);
-    driveStraight2(1100);
-    INTAKE.move(-200);
-    driveStraight2(100);
-    INTAKE.move(300);
-  //red right
-  } else if (atn == 3) { 
+    // HOOKS.move(127);
+    // driveStraight2(-310);
+  //lift
+    INTAKE.move(127);
+    driveStraight2(-210);
+    LIFT.move_relative(-1000, 200);
+    delay(400);
+    driveStraight2(200);
+    LIFT.move(127);
+    delay(1000);
     driveClamp(-1350, 400);
-    driveStraight2(200);
-    driveTurn2(-75);
-    driveClamp(-200, 170);
-    driveStraight2(200);
-    INTAKE.move(300);
-    LIFT.move(300);
-    driveStraight2(300);
+    driveTurn2(-140);
+    INTAKE.move(127);
+    HOOKS.move(127);
+    driveStraight2(1000);
+    
+  //intake score
+      // driveTurn2(-90);
+      // driveStraight2(500);
+      // INTAKE.move(300);
+      // driveTurn2(30);
+      // INTAKE.move(300);
+      // driveStraight2(-300);
+      // driveTurn2(30);
+      // driveStraight2(-5000);
+    //blue left rush rush rush
+    } else if (atn == 2) { 
+      driveStraight2(2200);
+      scrapper.set_value(true);
+      driveTurn2(45);
+      driveStraight(300);
+      INTAKE.move(300);
+      driveStraight2(1000);
+      INTAKE.move(300);
+      mogo.set_value(false);
+      driveTurn2(75);
+      driveStraight2(-1000);
+      mogo.set_value(true);
+      driveTurn2(-50);
+      driveStraight2(1100);
+      INTAKE.move(-200);
+      driveStraight2(100);
+      INTAKE.move(300);
+    //red right
+    } else if (atn == 3) { 
+      driveClamp(-1350, 400);
+      driveStraight2(200);
+      driveTurn2(-75);
+      driveClamp(-200, 170);
+      driveStraight2(200);
+      INTAKE.move(300);
+      LIFT.move(300);
+      driveStraight2(300);
   } else if (atn == 4) { 
 
   } else if(atn == 5) {
@@ -102,6 +102,4 @@ void autonomous() {
   } else if (atn == 6){
     
   }
-  
 }
-//////////////////////////////ARCHIVE/////////////////////////////////////////////////////////////////////////////////////////////////////////
