@@ -73,6 +73,7 @@ void opcontrol(void);
 #endif
 extern bool Global; 
 extern int atn;
+extern int RingColor;
 
 #ifdef __cplusplus
 /**

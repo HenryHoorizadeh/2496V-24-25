@@ -45,18 +45,30 @@ void autonomous() {
     // HOOKS.move(127);
     // driveStraight2(-310);
   //lift
-    INTAKE.move(127);
-    driveStraight2(-210);
-    LIFT.move_relative(-1000, 200);
+    INTAKE.move(-127);
+    LIFT.move_relative(-1000, 125);
     delay(400);
-    driveStraight2(200);
+    driveStraight2(250);
     LIFT.move(127);
-    delay(1000);
-    driveClamp(-1350, 400);
-    driveTurn2(-140);
+    delay(1200);
+    driveClampS(-1350, 400,60);
+    LIFT.move(0);
+    driveTurn2(-110);
     INTAKE.move(127);
     HOOKS.move(127);
-    driveStraight2(1000);
+    driveStraight2(500);
+    driveTurn2(-180);
+    INTAKE.move(127);
+    RingColor = 1;
+    HOOKS.move(127);
+    driveStraight2(500);
+    driveTurn2(30);
+    driveStraight2(100);
+    INTAKE.move(127);
+    HOOKS.move(127);
+    driveTurn2(10);
+    driveStraight2(200);
+    
     
   //intake score
       // driveTurn2(-90);

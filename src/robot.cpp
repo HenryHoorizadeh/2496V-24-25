@@ -19,11 +19,11 @@
 #define IMU_PORT 7
 #define INTAKE_PORT 9
 #define HOOKS_PORT 10
-#define ROTO_PORT 8
+#define ROTO_PORT 3
 #define TEST_PORT 1
 #define TEST_PORT2 2
 #define LIFT_PORT 5
-
+#define OPTICAL_PORT 4
 
 //rotation ssensor
 pros::Rotation roto(ROTO_PORT);
@@ -64,6 +64,8 @@ pros::Imu imu (IMU_PORT);
 
 //controller
 pros::Controller con (pros::E_CONTROLLER_MASTER);
+pros::Optical OpticalC (OPTICAL_PORT);
+
 
 //pneumatics
 

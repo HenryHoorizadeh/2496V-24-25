@@ -51,6 +51,8 @@ extern pros::ADIDigitalOut scrapper;
 //auton selector
 extern pros::ADIDigitalIn selec;
 
+extern pros::Optical OpticalC;
+
 //vision
 // extern pros::Vision vision;
 
