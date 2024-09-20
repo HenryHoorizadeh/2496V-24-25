@@ -43,6 +43,7 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+  OpticalC.set_led_pwm(100);
   pros::lcd::initialize();
   pros::lcd::set_text(1, "Hello PROS User!");
 
@@ -69,27 +70,17 @@ void disabled() {}
  * starts.
  */
 
-int atn = 5;
-int pressed = 0;
+int atn = 1;
+int RingColor = 2;
 string autstr;
 
  
 void competition_initialize() {
     while(true) {
-      
       if(selec.get_value() == true) {
-        pressed++;
+        atn ++;  
+        delay(350);
       }
-
-      if (selec.get_value() == false){
-        pressed = 0;
-      }
-
-      if (pressed == 1){
-        atn++;
-      }
-
-
       //resetEncoders();
       
       if (atn == 0) {
@@ -169,6 +160,7 @@ void opcontrol() {
 //delay(1000);
 
 	while (true) {
+    OpticalC.set_led_pwm(100);
 
     //TEST2.move_velocity(300);
     if(RF.get_actual_velocity() > maxRPM){
@@ -190,9 +182,9 @@ void opcontrol() {
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       con.print(0, 0, "AUTON: %s           ", autstr);
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "Max: %f           ", float(maxRPM));
+      con.print(1, 0, "Color: %f           ", float(OpticalC.get_hue()));
     } else if (time % 150 == 0){
-      con.print(2, 0, "chasstempC: %f        ", float(chasstempC)); 
+      con.print(2, 0, "Count: %f        ", float(ColorCount)); 
     } 
     
 
@@ -288,23 +280,25 @@ void opcontrol() {
   }
 
 //Double Press Logic
-
+/*
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move_velocity(-400);
+      HOOKS.move(-127);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
       HOOKS.move(-127);
 		} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
 			INTAKE.move(127);
-     HOOKS.move(115);
+     HOOKS.move(127);
 		} else {
 			INTAKE.move(0);
       HOOKS.move(0);
 		}
-
+*/
+INTAKE.move(127);
+ColorSort(1);
 //lift
     if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       LIFT.move(127);
@@ -335,9 +329,8 @@ void opcontrol() {
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      driveStraight(1000);
-      driveClamp(-1000, 30);
-      //driveTurn(5);
+      
+      driveTurn(5);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);
