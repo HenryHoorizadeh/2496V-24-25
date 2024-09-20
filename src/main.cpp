@@ -69,16 +69,27 @@ void disabled() {}
  * starts.
  */
 
-int atn = 1;
+int atn = 5;
+int pressed = 0;
 string autstr;
 
  
 void competition_initialize() {
     while(true) {
+      
       if(selec.get_value() == true) {
-        atn ++;  
-        delay(350);
+        pressed++;
       }
+
+      if (selec.get_value() == false){
+        pressed = 0;
+      }
+
+      if (pressed == 1){
+        atn++;
+      }
+
+
       //resetEncoders();
       
       if (atn == 0) {
@@ -324,8 +335,9 @@ void opcontrol() {
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      
-      driveTurn(5);
+      driveStraight(1000);
+      driveClamp(-1000, 30);
+      //driveTurn(5);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);

@@ -310,7 +310,7 @@
     "upload_options": {
       "description": "Odometry ",
       "icon": "planet",
-      "slot": 2
+      "slot": 1
     }
   }
 }

@@ -185,9 +185,10 @@ void driveStraight(int target) {
     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
 
     resetEncoders();
-    while(true) {
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
 
-        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    while(true) {
+        
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
         voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
 
@@ -223,7 +224,7 @@ void driveStraight(int target) {
         chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
         if (abs(target - encoderAvg) <= 3) count++;
         if (count >= 20 || time2 > timeout){
-            break;
+            break;n
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
@@ -430,7 +431,7 @@ void driveClampS(int target, int clampDistance, int speed) {
         if(voltage > 127 * double(speed)/100.0){
             voltage = 127 * double(speed)/100.0;
         } else if (voltage < -127 * double(speed)/100.0){
-             voltage = -127 * double(speed)/100.0;
+            voltage = -127 * double(speed)/100.0;
         }
 
 
@@ -463,9 +464,10 @@ void driveClampS(int target, int clampDistance, int speed) {
 
 void driveStraight2(int target) {
     int timeout = 30000;
+
     double x = 0;
     x = double(abs(target));
-     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
+    timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
 
     bool over = false;
     double voltage;
@@ -738,7 +740,7 @@ void driveTurn2(int target) { //target is inputted in autons
     position = imu.get_heading(); //this is where the units are set to be degrees
 
     if (position > 180){
-        position = ((360 - position) * -1 );
+        position = position - 360;
     }
 
     if((target < 0) && (position > 0)){
