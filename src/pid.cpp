@@ -161,53 +161,203 @@ double calcPID3(double target, double input, int integralKi, int maxIntegral, bo
     return power3;
 }
 
-bool InitColor = false;
-int ColorCount;
 
+
+// void ColorSort(int color){
+//     //blue color rejection
+//     if (color == 0){
+//         if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+//             InitColor = true;
+//         }
+
+//         if (InitColor){
+//             ColorCount += 1;
+//         }
+
+//         if(ColorCount > 105 && ColorCount < 800){
+//             HOOKS.move(0);
+//         } else {
+//             HOOKS.move(127);
+//         }
+//         if(ColorCount>=800){
+//             InitColor = false;
+//             ColorCount = 0;
+//         }
+
+
+//     } else if (color == 1) { //red color rejectiom
+//         if(OpticalC.get_hue()>0 && OpticalC.get_hue()<40){
+//             InitColor = true;
+//         } 
+
+//         if (InitColor){
+//             ColorCount += 1;
+//         }
+
+//         if(ColorCount > 110 && ColorCount < 800){
+//             HOOKS.move(-30);
+//         } else {
+//             HOOKS.move(127);
+//         }
+//         if(ColorCount>=800){
+//             InitColor = false;
+//             ColorCount = 0;
+//         }
+
+
+
+// }
+// }
+
+// bool Backwards = false;
+// void ColorSort(int color){
+//     //blue color rejection
+//     if (color == 0){
+//         if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+//             InitColor = true;
+//         }
+
+//         if (InitColor){
+//             if(Backwards == false){
+//                 HOOKS.move(127);
+//                 if(HOOKS.get_position() > 500){
+//                     Backwards = true; 
+//                 }
+//             } else {
+//                 HOOKS.move(-127);
+//                 if(HOOKS.get_position() < 200){
+//                     Backwards = false;
+//                     InitColor = false;
+//                 }
+//             }
+//         } else {
+//             HOOKS.move(127);
+//             HOOKS.tare_position();
+//         }
+
+
+
+
+
+
+//     } else if (color == 1) { //red color rejectiom
+//         if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
+//             InitColor = true;
+//         } 
+
+//         if (InitColor){
+//             if(Backwards == false){
+//                 HOOKS.move(127);
+//                 if(HOOKS.get_position() > 610){
+//                     Backwards = true; 
+//                 }
+//             } else {
+//                 HOOKS.move(-127);
+//                 if(HOOKS.get_position() < -200){
+//                     Backwards = false;
+//                     InitColor = false;
+//                 }
+//             }
+//         } else {
+//             HOOKS.move(50);
+//             HOOKS.tare_position();
+//         }
+
+
+
+// }
+// }
+
+bool InitColor = false;
+bool InitCorrect = false;
+int ColorCount;
+bool Backwards = false;
 void ColorSort(int color){
+    //blue color rejection
     if (color == 0){
         if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
             InitColor = true;
         }
 
         if (InitColor){
-            ColorCount += 1;
-        }
-
-        if(ColorCount > 110 && ColorCount < 500){
-            HOOKS.move(-127);
+            if(Backwards == false){
+                HOOKS.move(127);
+                if(HOOKS.get_position() > 500){
+                    Backwards = true; 
+                }
+            } else {
+                HOOKS.move(-127);
+                if(HOOKS.get_position() < 200){
+                    Backwards = false;
+                    InitColor = false;
+                }
+            }
         } else {
             HOOKS.move(127);
-        }
-        if(ColorCount>=2400){
-            InitColor = false;
-            ColorCount = 0;
+            HOOKS.tare_position();
         }
 
 
-    } else if (color == 1) {
+
+
+
+
+    } else if (color == 1) { //red color rejectiom
         if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
             InitColor = true;
         } 
 
+        if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+            InitCorrect = true;
+        }
+
         if (InitColor){
-            ColorCount += 1;
-        }
+            if(Backwards == false){
+                HOOKS.move(-127);
+                if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+                    INTAKE.move(0);
+                } else {
+                    INTAKE.move(60);
+                }
+                if(HOOKS.get_position() < -3000){
+                    Backwards = true; 
+                }
+            } else {
+                INTAKE.move(127);
+                HOOKS.move(127);
+                Backwards = false;
+                InitColor = false;
+            }
+        } else if(InitCorrect){
+            if(Backwards == false){
+                HOOKS.move(127);
+                if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
+                    INTAKE.move(0);
+                } else {
+                    INTAKE.move(60);
+                }
+                if(HOOKS.get_position() > 4000){
+                    Backwards = true; 
+                }
+            } else {
+                INTAKE.move(127);
+                HOOKS.move(-127);
+                Backwards = false;
+                InitColor = false;
+            }
 
-        if(ColorCount > 100 && ColorCount < 800){
-            HOOKS.move(-127);
         } else {
+
+            INTAKE.move(127);
             HOOKS.move(127);
-        }
-        if(ColorCount>=2400){
-            InitColor = false;
-            ColorCount = 0;
+            HOOKS.tare_position();
         }
 
 
 
 }
 }
+
 
 
 //driving straight

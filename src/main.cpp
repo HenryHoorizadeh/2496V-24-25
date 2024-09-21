@@ -70,8 +70,9 @@ void disabled() {}
  * starts.
  */
 
-int atn = 1;
+int atn = 4;
 int RingColor = 2;
+int pressed = 0;
 string autstr;
 
  
@@ -280,7 +281,7 @@ void opcontrol() {
   }
 
 //Double Press Logic
-/*
+
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
@@ -296,9 +297,9 @@ void opcontrol() {
 			INTAKE.move(0);
       HOOKS.move(0);
 		}
-*/
-INTAKE.move(127);
-ColorSort(1);
+
+// INTAKE.move(127);
+// ColorSort(1);
 //lift
     if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       LIFT.move(127);
@@ -329,8 +330,8 @@ ColorSort(1);
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      
-      driveTurn(5);
+      driveArcLF(130, 600, 3000);
+      //driveTurn(5);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);

@@ -45,6 +45,7 @@ void autonomous() {
     // HOOKS.move(127);
     // driveStraight2(-310);
   //lift
+    RingColor = 2;
     INTAKE.move(-127);
     LIFT.move_relative(-1000, 125);
     delay(400);
@@ -59,7 +60,6 @@ void autonomous() {
     driveStraight2(500);
     driveTurn2(-180);
     INTAKE.move(127);
-    RingColor = 1;
     HOOKS.move(127);
     driveStraight2(500);
     driveTurn2(30);
@@ -109,7 +109,54 @@ void autonomous() {
       driveStraight2(300);
   } else if (atn == 4) { 
 
+    //awp red left
+    RingColor = 2;
+    INTAKE.move(-127);
+    LIFT.move_relative(-1000, 125);
+    delay(400);
+    driveStraight2(250);
+    LIFT.move(127);
+    delay(1200);
+    driveClampS(-1350, 400,60);
+    LIFT.move(20);
+    driveTurn2(110);
+    INTAKE.move(127);
+    HOOKS.move(127);
+    driveStraight2(500);
+    driveTurn2(-115);
+    driveStraight2(550);
+    driveTurn2(140);
+    driveStraight2(300);
+    driveTurn2(130);
+    driveStraight2(300);
+    driveTurn2(170);
+    driveStraight2(-600);
+    LIFT.move_relative(-1150, 125);
+    driveTurn2(-90);
+    driveStraight2(600);
+
+
+
+        // driveArcLF(130, 600, 3000);
+    // driveStraight2(600);
+
+    // driveTurn2(180);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraight2(500);
+    // driveTurn2(-90);
+    // driveStraight2(100);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveTurn2(-10);
+    // driveStraight2(200);
+
   } else if(atn == 5) {
+//rush red right
+driveStraight2(1100);
+scrapper.set_value(true);
+driveStraight2(-1000);
+
   
   } else if (atn == 6){
     
