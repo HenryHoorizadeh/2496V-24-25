@@ -70,7 +70,7 @@ void disabled() {}
  * starts.
  */
 
-int atn = 4;
+int atn = 2;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
