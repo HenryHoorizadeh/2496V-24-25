@@ -46,14 +46,18 @@ pros::Motor LIFT (LIFT_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor INTAKE (INTAKE_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
 
-//Mogo
-pros::ADIDigitalOut mogo ('A', false);
+//intake
+    //Mogo
+    pros::ADIDigitalOut mogo ('A', false);
 
-//scrapper
-pros::ADIDigitalOut scrapper ('C', false);
+    //scrapper
+    pros::ADIDigitalOut scrapper ('C', false);
 
-//auton selector
-pros::ADIDigitalIn selec ('G');
+    //pistoned intake
+    pros:: ADIDigitalOut intake ('B',false);
+
+    //auton selector
+    pros::ADIDigitalIn selec ('G');
 
 //sensors
 // pros::ADIEncoder encLeft ({{1, 1, 2}, false});
@@ -65,9 +69,6 @@ pros::Imu imu (IMU_PORT);
 //controller
 pros::Controller con (pros::E_CONTROLLER_MASTER);
 pros::Optical OpticalC (OPTICAL_PORT);
-
-
-//pneumatics
 
 
 //gps

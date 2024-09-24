@@ -43,7 +43,7 @@ extern pros::Imu imu;
 //pneumatics
 extern pros::ADIDigitalOut mogo;
 extern pros::ADIDigitalOut scrapper;
-
+extern pros::ADIDigitalOut intake;
 //gps
 // extern pros::Gps gps1;
 // extern pros::c::gps_status_s_t gpsData;

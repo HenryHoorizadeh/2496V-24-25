@@ -147,6 +147,7 @@ void opcontrol() {
   bool arcToggle = true;
   bool tankToggle = false;
   bool mogoToggle = false;
+  bool intakeToggle = false;
   bool scrapperToggle = false;
   double maxRPM = 0;
   double motorTotal = 0;
@@ -341,6 +342,13 @@ void opcontrol() {
       // delay(1);
       // }
     }
+
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
+        intakeToggle = !intakeToggle;
+    }
+
+  intake.set_value(intakeToggle);
+
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
         mogoToggle = !mogoToggle;
