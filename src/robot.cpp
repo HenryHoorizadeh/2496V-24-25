@@ -54,7 +54,7 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
     pros::ADIDigitalOut scrapper ('C', false);
 
     //pistoned intake
-    pros:: ADIDigitalOut intake ('B',false);
+    pros:: ADIDigitalOut intake ('B',true);
 
     //auton selector
     pros::ADIDigitalIn selec ('G');

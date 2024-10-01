@@ -348,6 +348,7 @@ void opcontrol() {
     }
 
   intake.set_value(intakeToggle);
+  
 
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
