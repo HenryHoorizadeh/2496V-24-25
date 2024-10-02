@@ -30,6 +30,7 @@ extern float error;
 extern float error2;
 extern int integral;
 extern int ColorCount;
+extern double totalError;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);

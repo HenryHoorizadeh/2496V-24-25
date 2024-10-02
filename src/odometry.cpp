@@ -38,6 +38,12 @@ float center_encoder_pos;
 float localX;
 float localY;
 
+float local_polar_angle;
+float local_polar_length;
+float global_polar_angle;
+
+
+
 float phi;
 
 float prev_imu_pos;
@@ -116,6 +122,56 @@ void odometry (){
         odo_time += 10;
 
 }
+
+void odometryPolar (){
+  prev_imu_pos = imu_pos;
+  imu_pos = imu.get_rotation() + startingHeading;
+        
+  prev_left_encoder_pos = left_encoder_pos;
+  prev_right_encoder_pos = right_encoder_pos;
+  prev_center_encoder_pos = center_encoder_pos;
+
+  left_encoder_pos = LF.get_position();
+  right_encoder_pos = RF.get_position();
+  center_encoder_pos = 0;
+
+  delta_left_encoder_pos = left_encoder_pos - prev_left_encoder_pos;
+  delta_right_encoder_pos = right_encoder_pos - prev_right_encoder_pos;
+  delta_center_encoder_pos = center_encoder_pos - prev_center_encoder_pos;
+
+  // phi = (delta_left_encoder_pos - delta_right_encoder_pos) / trackwidth;
+
+  phi = imu_pos - prev_imu_pos;
+  phi = (pi*phi)/180;
+
+  if (phi == 0) {
+    localX = delta_center_encoder_pos;
+    localY = delta_right_encoder_pos;
+  } else {
+    localX = (2*sin(phi/2))*((delta_center_encoder_pos/phi)+FORWARD_OFFSET); 
+    localY = (2*sin(phi/2))*((delta_right_encoder_pos/phi)+SIDEWAYS_OFFSET);
+  }
+
+  if (localX == 0 && localY == 0){
+    local_polar_angle = 0;
+    local_polar_length = 0;
+  } else {
+    local_polar_angle = atan2(localY, localX); 
+    local_polar_length = sqrt(pow(localX, 2) + pow(localX, 2)); 
+  }
+
+  global_polar_angle = local_polar_angle - ((pi*prev_imu_pos)/180) - (phi/2);
+
+  deltaX = local_polar_length*cos(global_polar_angle); 
+  deltaY = local_polar_length*sin(global_polar_angle);
+
+  x_pos += deltaX;
+  y_pos += deltaY;
+
+
+   
+}
+
 
 void driveToPoint (double xTarget, double yTarget, double perferredHeading){
 

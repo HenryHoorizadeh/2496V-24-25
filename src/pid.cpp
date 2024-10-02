@@ -1150,6 +1150,8 @@ void driveArcL(double theta, double radius, int timeout){
 
     //int timeout = 30000;
 
+    double totalError = 0;
+
     double ltarget = 0;
     double rtarget = 0;
     double pi = 3.14159265359;
@@ -1209,7 +1211,7 @@ void driveArcL(double theta, double radius, int timeout){
 
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
         int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
-
+        totalError += error3;
     
         chasMove((voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 4) && (abs(rtarget - encoderAvgR) <= 4)) count++;
