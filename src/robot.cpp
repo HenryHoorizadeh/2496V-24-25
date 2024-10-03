@@ -59,6 +59,9 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
     //auton selector
     pros::ADIDigitalIn selec ('G');
 
+    //hang
+    pros::ADIDigitalOut hang ('D',true);
+
 //sensors
 // pros::ADIEncoder encLeft ({{1, 1, 2}, false});
 // pros::ADIEncoder encRight ({{1, 3, 4}, false});

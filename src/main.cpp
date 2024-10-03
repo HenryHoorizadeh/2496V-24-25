@@ -149,6 +149,7 @@ void opcontrol() {
   bool mogoToggle = false;
   bool intakeToggle = false;
   bool scrapperToggle = false;
+  bool hangToggle = false;
   double maxRPM = 0;
   double motorTotal = 0;
   double avgRPM = 0;
@@ -286,7 +287,7 @@ void opcontrol() {
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move(-127);
+      HOOKS.move(-110);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
@@ -347,8 +348,12 @@ void opcontrol() {
         intakeToggle = !intakeToggle;
     }
 
-  intake.set_value(intakeToggle);
-  
+  intake.set_value(hangToggle);
+      if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+        hangToggle = !hangToggle;
+    }
+
+  hang.set_value(hangToggle);
 
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){

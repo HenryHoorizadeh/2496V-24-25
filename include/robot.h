@@ -44,6 +44,7 @@ extern pros::Imu imu;
 extern pros::ADIDigitalOut mogo;
 extern pros::ADIDigitalOut scrapper;
 extern pros::ADIDigitalOut intake;
+extern pros::ADIDigitalOut hang;
 //gps
 // extern pros::Gps gps1;
 // extern pros::c::gps_status_s_t gpsData;
