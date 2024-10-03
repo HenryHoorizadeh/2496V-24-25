@@ -348,7 +348,7 @@ void opcontrol() {
         intakeToggle = !intakeToggle;
     }
 
-  intake.set_value(hangToggle);
+  intake.set_value(intakeToggle);
       if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
         hangToggle = !hangToggle;
     }
