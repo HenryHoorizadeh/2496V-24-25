@@ -52,22 +52,34 @@ void autonomous() {
     driveStraight2(250);
     LIFT.move(127);
     delay(1200);
-    driveClampS(-1350, 400,60);
+    driveClampS(-1400, 400, 50);//-1350
     LIFT.move(0);
-    driveTurn2(-110);
+    driveTurn2(-115); //-110
+    INTAKE.move(127);
+    HOOKS.move(127);
+    driveStraight2(900);
+    driveTurn2(90);
     INTAKE.move(127);
     HOOKS.move(127);
     driveStraight2(500);
-    driveTurn2(-180);
-    INTAKE.move(127);
-    HOOKS.move(127);
-    driveStraight2(500);
-    driveTurn2(30);
+    driveTurn2(130);
     driveStraight2(100);
     INTAKE.move(127);
     HOOKS.move(127);
     driveTurn2(10);
     driveStraight2(200);
+
+///old athens code
+    //  driveTurn2(-180);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraight2(500);
+    // driveTurn2(30);
+    // driveStraight2(100);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveTurn2(10);
+    // driveStraight2(200);
     
     
   //intake score
