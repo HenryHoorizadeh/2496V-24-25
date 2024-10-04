@@ -70,10 +70,13 @@ void disabled() {}
  * starts.
  */
 
+ 
+
 int atn = 1;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
+
 
  
 void competition_initialize() {
