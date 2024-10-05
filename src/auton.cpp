@@ -51,26 +51,57 @@ void autonomous() {
     RingColor = 2;
     INTAKE.move(-127);
     LIFT.move_relative(-1000, 125);
-    delay(400);
+    delay(300);
     driveStraight2(250);
     LIFT.move(127);
-    delay(1200);
+    delay(900);
     driveClampS(-1400, 400, 50);//-1350
     LIFT.move(0);
-    driveTurn2(-115); //-110
+
+
+    driveTurn2(18);
+    intake.set_value(true);
     INTAKE.move(127);
+    driveClampS(900, -100, 80);
     HOOKS.move(127);
-    driveStraight2(900);
-    driveTurn2(90);
-    INTAKE.move(127);
-    HOOKS.move(127);
-    driveStraight2(500);
-    driveTurn2(130);
-    driveStraight2(100);
-    INTAKE.move(127);
-    HOOKS.move(127);
-    driveTurn2(10);
-    driveStraight2(200);
+    delay(200);
+    intake.set_value(false);
+    driveStraight2(-200);
+    // delay(200);
+    driveStraight2(-800);
+    driveTurn2(-115);
+    driveStraight2(450);
+    driveTurn2(150);
+    driveStraight2(400);
+    driveStraight2(-600);
+    driveTurn2(175);
+    driveStraight2(650);
+
+    
+
+
+
+
+
+
+
+
+
+
+    // driveTurn2(-115); //-110
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraight2(900);
+    // driveTurn2(90);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraight2(500);
+    // driveTurn2(130);
+    // driveStraight2(100);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveTurn2(10);
+    // driveStraight2(200);
 
 ///old athens code
     //  driveTurn2(-180);
