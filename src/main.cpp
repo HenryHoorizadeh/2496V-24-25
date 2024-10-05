@@ -234,6 +234,34 @@ void opcontrol() {
       atn++;
       delay(350);
     }
+
+    // switch(atn){
+    //   case 0:
+    //     autstr = "Auton 0";
+    //     break;
+    //   case 1:
+    //     autstr = "Auton 1";
+    //     break;
+    //   case 2:
+    //     autstr = "Auton 2";
+    //     break;
+    //   case 3:
+    //     autstr = "Auton 3";
+    //     break;
+    //   case 4:
+    //     autstr = "Auton 4";
+    //     break;
+    //   case 5:
+    //     autstr = "Auton 5";
+    //     break;
+    //   case 6:
+    //     autstr = "Auton 6";
+    //     break;
+    //   case 7:
+    //     atn = 0;
+    //     break;
+
+    // }
     
     if (atn == 0) {
       autstr = "Auton 0";
