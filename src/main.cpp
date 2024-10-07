@@ -230,11 +230,11 @@ void opcontrol() {
     }
 
     //auton selector
-    if (selec.get_value() == true) { // brain was here
+    if (selec.get_value() == true) { 
       atn++;
       delay(350);
     }
-
+      // brain was here
     // switch(atn){
     //   case 0:
     //     autstr = "Auton 0";
