@@ -163,7 +163,7 @@ void opcontrol() {
 
 //TEST.move(127);
 //TEST2.move(127);
-//delay(1000);
+delay(3500);
 
 	while (true) {
     OpticalC.set_led_pwm(100);
@@ -363,17 +363,35 @@ void opcontrol() {
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      driveArcLF(130, 600, 3000);
+      //driveArcLF(130, 600, 3000);
       //driveTurn(5);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);
      // boomerang(0, 0);
+     //setPosition(0, 0, 0);
+     //boomerang(-1000, 1000);
+
+
+    //  boomerang(0, 3500);
+    //  boomerang(-3500, 3500);
+    //  boomerang(-3500, 0);
+    //  boomerang(0, 0);
+    driveTurn2(175);
+    driveStraight2(625);
+    LIFT.move(-127);
+    driveStraight2(-1000);
+    driveTurn2(100);
+    driveStraight2(1000);
+
+     
       // while(true){
-      // odometry();
-      // delay(1);
+      // odometry2();
+      // delay(5);
       // }
     }
+
+    odometry2();
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
         intakeToggle = !intakeToggle;

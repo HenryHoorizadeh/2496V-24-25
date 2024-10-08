@@ -123,7 +123,7 @@ void odometry (){
 
 }
 
-void odometryPolar (){
+void odometry2(){
   prev_imu_pos = imu_pos;
   imu_pos = imu.get_rotation() + startingHeading;
         
@@ -152,12 +152,14 @@ void odometryPolar (){
     localY = (2*sin(phi/2))*((delta_right_encoder_pos/phi)+SIDEWAYS_OFFSET);
   }
 
+  
+
   if (localX == 0 && localY == 0){
     local_polar_angle = 0;
     local_polar_length = 0;
   } else {
     local_polar_angle = atan2(localY, localX); 
-    local_polar_length = sqrt(pow(localX, 2) + pow(localX, 2)); 
+    local_polar_length = sqrt(pow(localX, 2) + pow(localY, 2)); 
   }
 
   global_polar_angle = local_polar_angle - ((pi*prev_imu_pos)/180) - (phi/2);
@@ -168,6 +170,18 @@ void odometryPolar (){
   x_pos += deltaX;
   y_pos += deltaY;
 
+   if (odo_time % 50 == 0 && odo_time % 100 != 0 && odo_time % 150 != 0){
+        con.print(0, 0, "x_pos: %f           ", float(x_pos));
+      } else if (odo_time % 100 == 0 && odo_time % 150 != 0){
+        con.print(1, 0, "y_pos: %f           ", float(y_pos));
+      } else if (odo_time % 150 == 0){
+        con.print(2, 0, "Pos: %f        ", float(phi));
+      } 
+
+      
+
+  odo_time += 10;
+
 
    
 }
@@ -177,7 +191,7 @@ void driveToPoint (double xTarget, double yTarget, double perferredHeading){
 
   while(true){
     double turnv = 0;
-    odometry();
+    odometry2();
       double distanceToTarget = sqrt(pow((x_pos - xTarget),2) + pow((y_pos - yTarget),2));
       double absoluteAngleToTarget = atan2(pow((x_pos - xTarget),2), pow((y_pos - yTarget),2));
 
@@ -221,7 +235,7 @@ void boomerang(double xTarget, double yTarget){
 
 
   while(true){
-    odometry();
+    odometry2();
     hypot = sqrt(pow((x_pos - xTarget),2) + pow((y_pos - yTarget),2));
     absoluteAngleToTarget = atan2((xTarget - x_pos),(yTarget - y_pos)) * (180/pi);
 
@@ -297,9 +311,9 @@ void boomerang(double xTarget, double yTarget){
     }
 
     chasMove((voltage + heading_correction), (voltage + heading_correction), (voltage + heading_correction), (voltage - heading_correction), (voltage - heading_correction), (voltage - heading_correction));
-    if(abs(hypot) < 15) count++;
+    if(abs(hypot) < 40) count++;
     if((count > 20) || (btime > timeout)){
-     // break;
+      break;
     }
 
     
