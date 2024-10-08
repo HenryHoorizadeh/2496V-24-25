@@ -377,18 +377,19 @@ delay(3500);
     //  boomerang(-3500, 3500);
     //  boomerang(-3500, 0);
     //  boomerang(0, 0);
-    driveTurn2(175);
-    driveStraight2(625);
-    LIFT.move(-127);
-    driveStraight2(-1000);
-    driveTurn2(100);
-    driveStraight2(1000);
+    
+    // driveTurn2(175);
+    // driveStraight2(625);
+    // LIFT.move(-127);
+    // driveStraight2(-1000);
+    // driveTurn2(100);
+    // driveStraight2(1000);
 
      
-      // while(true){
-      // odometry2();
-      // delay(5);
-      // }
+      while(true){
+      odometry2();
+      delay(5);
+      }
     }
 
     odometry2();

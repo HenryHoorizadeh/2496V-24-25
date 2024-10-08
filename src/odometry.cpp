@@ -48,6 +48,7 @@ float phi;
 
 float prev_imu_pos;
 float imu_pos;
+float imu_pos_radians;
 
 float x_pos;
 float y_pos;
@@ -126,6 +127,8 @@ void odometry (){
 void odometry2(){
   prev_imu_pos = imu_pos;
   imu_pos = imu.get_rotation() + startingHeading;
+  imu_pos_radians = (imu_pos*pi)/180;
+
         
   prev_left_encoder_pos = left_encoder_pos;
   prev_right_encoder_pos = right_encoder_pos;
