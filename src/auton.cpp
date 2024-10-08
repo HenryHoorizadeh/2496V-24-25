@@ -252,6 +252,9 @@ driveStraight2(-1000);
     driveTurn2(175);
     driveStraight2(625);
     LIFT.move(-127);
-    driveStraight2(-1000);
+    //driveStraight2(-1000);
+    // delay(200);
+    // driveTurn2(-110);
+    // driveStraight2(1000);
   }
 }

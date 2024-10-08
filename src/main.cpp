@@ -148,8 +148,8 @@ void opcontrol() {
   bool NEWL2 = false;
   bool NEWR2 = false;
   bool NEWR1 = false;
-  bool arcToggle = true;
-  bool tankToggle = false;
+  bool arcToggle = false;
+  bool tankToggle = true;
   bool mogoToggle = false;
   bool intakeToggle = false;
   bool scrapperToggle = false;
