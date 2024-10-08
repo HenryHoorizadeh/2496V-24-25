@@ -222,6 +222,36 @@ driveStraight2(-1000);
 
   
   } else if (atn == 6){
-    
+     RingColor = 2;
+    INTAKE.move(-127);
+    LIFT.move_relative(-1000, 125);
+    delay(500);
+    driveStraight2(250);
+    LIFT.move(127);
+    delay(900);
+    driveClampS(-1400, 400, 50);//-1400
+    LIFT.move(0);
+
+
+    driveTurn2(18);
+    intake.set_value(true);
+    INTAKE.move(127);
+    driveClampS(1000, -100, 50); //900
+    HOOKS.move(127);
+    delay(200);
+    intake.set_value(false);
+    driveStraight2(-200);
+    // delay(200);
+    driveStraight2(-800);
+    driveTurn2(-115);
+    driveStraight2(450);
+    driveTurn2(160); //150
+    driveStraight2(400);
+    driveTurn2(145);
+    driveStraight2(-500);
+    driveTurn2(175);
+    driveStraight2(625);
+    LIFT.move(-127);
+    driveStraight2(-1000);
   }
 }
