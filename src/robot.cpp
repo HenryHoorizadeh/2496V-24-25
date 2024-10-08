@@ -46,7 +46,7 @@ pros::Motor LIFT (LIFT_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor INTAKE (INTAKE_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
 
-//intake
+//pneumatics
     //Mogo
     pros::ADIDigitalOut mogo ('A', false);
 
@@ -71,6 +71,7 @@ pros::Imu imu (IMU_PORT);
 
 //controller
 pros::Controller con (pros::E_CONTROLLER_MASTER);
+//optical sensor
 pros::Optical OpticalC (OPTICAL_PORT);
 
 
