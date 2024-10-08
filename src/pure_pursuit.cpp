@@ -31,8 +31,8 @@ struct Intersection {
 vector<Point> path;
 vector<double> pathDistances;
 double lookaheadDistance = 500.0; // Adjust as needed (in mm)
-double robotVelocity = 200.0;     // Desired robot velocity (in mm/s)
-double wheelbase = 200.0;         // Distance between left and right wheels (in mm)
+double robotVelocity = 35.0;     // Desired robot velocity (in voltage)
+double wheelbase = 230.0;         // Distance between left and right wheels (in encoder_units)
 
 
 
@@ -41,8 +41,14 @@ void initializePath() {
     // Define your path here
     path.clear();
     path.push_back({0, 0});
-    path.push_back({1000, 0});
-    path.push_back({2000, 500});
+    //path.push_back({0, 500});
+    path.push_back({500, 500});
+    path.push_back({1000, 1000});
+    path.push_back({0, 1000});
+    path.push_back({0, 0});
+
+
+    //path.push_back({2000, 500});
     // Add more points as needed
 }
 
@@ -169,28 +175,38 @@ void computeWheelSpeeds(double curvature, double& leftSpeed, double& rightSpeed)
 void setMotorSpeeds(double leftSpeed, double rightSpeed) {
 // Convert speeds from mm/s to motor RPM if necessary
     // Assuming 200 RPM motors and wheel circumference of 320 mm (for 4" wheels)
-    double wheelCircumference = 4.0 * 25.4 * M_PI; // 4-inch wheels
-    double maxRPM = 200.0;
+    // double wheelCircumference = 4.0 * 25.4 * M_PI; // 4-inch wheels
+    // double maxRPM = 600.0;
 
-    double leftRPM = (leftSpeed / wheelCircumference) * 60.0;
-    double rightRPM = (rightSpeed / wheelCircumference) * 60.0;
+    // double leftRPM = (leftSpeed / wheelCircumference) * 60.0;
+    // double rightRPM = (rightSpeed / wheelCircumference) * 60.0;
 
-    // Clamp RPM values to max motor RPM
-    leftRPM = std::max(std::min(leftRPM, maxRPM), -maxRPM);
-    rightRPM = std::max(std::min(rightRPM, maxRPM), -maxRPM);
+    // // Clamp RPM values to max motor RPM
+    // leftRPM = std::max(std::min(leftRPM, maxRPM), -maxRPM);
+    // rightRPM = std::max(std::min(rightRPM, maxRPM), -maxRPM);
 
-    // Set motor velocities
-    LF.move_velocity(leftRPM);
-    LM.move_velocity(leftRPM);
-    LB.move_velocity(leftRPM);
-    RF.move_velocity(rightRPM);
-    RM.move_velocity(rightRPM);
-    RB.move_velocity(rightRPM);
+    // // Set motor velocities
+    // LF.move_velocity(leftRPM);
+    // LM.move_velocity(leftRPM);
+    // LB.move_velocity(leftRPM);
+    // RF.move_velocity(rightRPM);
+    // RM.move_velocity(rightRPM);
+    // RB.move_velocity(rightRPM);
+
+    LF.move(leftSpeed);
+    LM.move(leftSpeed);
+    LB.move(leftSpeed);
+    RF.move(rightSpeed);
+    RM.move(rightSpeed);
+    RB.move(rightSpeed);
+
+
 }
 
 // The main Pure Pursuit controller loop
 void purePursuitController() {
     while (true) {
+        odometry2();
         // Get robot's current position and heading
         double robotX = x_pos;
         double robotY = y_pos;

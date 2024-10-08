@@ -8,6 +8,7 @@
 #include "pros/motors.h"
 #include "robot.h"
 #include "odometry.h"
+#include "pure_pursuit.h"
 
 using namespace pros;
 using namespace std;
@@ -188,9 +189,9 @@ delay(3500);
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       con.print(0, 0, "AUTON: %s           ", autstr);
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "Color: %f           ", float(OpticalC.get_hue()));
+      con.print(1, 0, "X: %f           ", float(x_pos));
     } else if (time % 150 == 0){
-      con.print(2, 0, "Count: %f        ", float(ColorCount)); 
+      con.print(2, 0, "Y: %f        ", float(y_pos)); 
     } 
     
 
@@ -385,11 +386,17 @@ delay(3500);
     // driveTurn2(100);
     // driveStraight2(1000);
 
+    
+    initializePath();
+    initializePathDistances();
+    purePursuitController();
+
+
      
-      while(true){
-      odometry2();
-      delay(5);
-      }
+      // while(true){
+      // odometry2();
+      // delay(5);
+      // }
     }
 
     odometry2();
@@ -425,7 +432,7 @@ delay(3500);
   //    piston.set_value(false);
   // }
 
-	  	time += 1;
-		  delay(1);
+	  	time += 10;
+		  delay(10);
 	  }
   }
