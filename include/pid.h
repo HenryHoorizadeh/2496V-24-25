@@ -58,7 +58,7 @@ extern double totalError;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 2.5 //5.25//8.75
+#define HEADING_KP 10 //5.25//8.75
 #define HEADING_KI 0 //0.125//0.115
 #define HEADING_KD 0 //38 //105 //70
 

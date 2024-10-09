@@ -373,6 +373,8 @@ delay(3500);
      //setPosition(0, 0, 0);
      //boomerang(-1000, 1000);
 
+     driveArcL(90, 300, 3000);
+
 
     //  boomerang(0, 3500);
     //  boomerang(-3500, 3500);
@@ -387,9 +389,9 @@ delay(3500);
     // driveStraight2(1000);
 
     
-    initializePath();
-    initializePathDistances();
-    purePursuitController();
+    // initializePath();
+    // initializePathDistances();
+    // purePursuitController();
 
 
      

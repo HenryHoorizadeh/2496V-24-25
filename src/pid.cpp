@@ -1057,14 +1057,14 @@ void driveArcLF(double theta, double radius, int timeout){
 
     //int timeout = 5000;
     ltargetFinal = double((theta / 360) * 2 * pi * radius); // * double(2) * pi * double(radius));
-    rtargetFinal = double((theta / 360) * 2 * pi * (radius + 550));
+    rtargetFinal = double((theta / 360) * 2 * pi * (radius + 460));
     if(theta > 0){
         theta = theta + 45;
     } else {
         theta = theta - 45; 
     }
     ltarget = double((theta / 360) * 2 * pi * radius); // * double(2) * pi * double(radius));
-    rtarget = double((theta / 360) * 2 * pi * (radius + 550));
+    rtarget = double((theta / 360) * 2 * pi * (radius + 460));
     while (true){
 
         ColorSort(RingColor);
@@ -1103,7 +1103,7 @@ void driveArcLF(double theta, double radius, int timeout){
         // } else if (voltageL < -70){
         //     voltageL = -70;
         // }
-        int voltageR = calcPID(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
         // if(voltageR > 100){ // set right limit
         //     voltageR = 100;
         // } else if (voltageR < -100){
@@ -1162,7 +1162,7 @@ void driveArcL(double theta, double radius, int timeout){
     con.clear();
     //int timeout = 5000;
     ltarget = double((theta / 360) * 2 * pi * radius); 
-    rtarget = double((theta / 360) * 2 * pi * (radius + 550));
+    rtarget = double((theta / 360) * 2 * pi * (radius + 460));
 
     while (true){
         ColorSort(RingColor);
@@ -1255,7 +1255,7 @@ void driveArcR(double theta, double radius, int timeout){
     resetEncoders();
     con.clear();
     //int timeout = 5000;
-    ltarget = double((theta / 360) * 2 * pi * (radius + 550)); // * double(2) * pi * double(radius));
+    ltarget = double((theta / 360) * 2 * pi * (radius + 460)); // * double(2) * pi * double(radius));
     rtarget = double((theta / 360) * 2 * pi * (radius));
     while (true){
         ColorSort(RingColor);
@@ -1291,7 +1291,7 @@ void driveArcR(double theta, double radius, int timeout){
         // } else if (voltageL < -100){
         //     voltageL = -100;
         // }
-        int voltageR = calcPID(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
         // if(voltageR > 70){ //set right limit
         //     voltageR = 70;
         // } else if (voltageR < -70){
@@ -1340,14 +1340,14 @@ void driveArcRF(double theta, double radius, int timeout){
     resetEncoders();
     con.clear();
     //int timeout = 5000;
-    ltargetFinal = double((theta / 360) * 2 * pi * (radius+550)); // * double(2) * pi * double(radius));
+    ltargetFinal = double((theta / 360) * 2 * pi * (radius+460)); // * double(2) * pi * double(radius));
     rtargetFinal = double((theta / 360) * 2 * pi * (radius));
     if(theta > 0){
         theta = theta + 45;
     } else{
         theta = theta - 45;
     }
-    ltarget = double((theta / 360) * 2 * pi * (radius + 550)); // * double(2) * pi * double(radius));
+    ltarget = double((theta / 360) * 2 * pi * (radius + 460)); // * double(2) * pi * double(radius));
     rtarget = double((theta / 360) * 2 * pi * (radius));
 
     while (true){
@@ -1382,7 +1382,7 @@ void driveArcRF(double theta, double radius, int timeout){
         // } else if (voltageL < -100){
         //     voltageL = -100;
         // }
-        int voltageR = calcPID(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
         // if(voltageR > 70){ //set right limit
         //     voltageR = 70;
         // } else if (voltageR < -70){
