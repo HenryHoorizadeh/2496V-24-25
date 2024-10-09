@@ -189,7 +189,7 @@ delay(3500);
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       con.print(0, 0, "AUTON: %s           ", autstr);
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "X: %f           ", float(x_pos));
+      con.print(1, 0, ": %f           ", float(x_pos));
     } else if (time % 150 == 0){
       con.print(2, 0, "Y: %f        ", float(y_pos)); 
     } 

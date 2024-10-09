@@ -4,6 +4,7 @@
 #include "pid.h"
 #include "robot.h"
 #include "auton.h"
+#include "odometry.h"
 // #include "<valarray>"
 // #include "<sstream>"
 // #include "<string>"
@@ -79,6 +80,7 @@ void chasMove(int voltageLF, int voltageLB, int voltageLM, int voltageRF, int vo
 
 int slew = 3;
 double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+    odometry2();
     int integral;
     
     prevError = error;

@@ -3,6 +3,7 @@
 #include "main.h"
 #include "robot.h"
 #include "pid.h"
+#include "odometry.h"
 
 using namespace std;
 using namespace pros;
@@ -10,7 +11,8 @@ using namespace pros;
 /**
  * Runs the user autonomous code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
+ * the Field Management System or t
+ * he VEX Competition Switch in the autonomous
  * mode. Alternatively, this function may be called in initialize or opcontrol
  * for non-competition testing purposes.
  *
@@ -223,6 +225,7 @@ driveStraight2(-1000);
   
   } else if (atn == 6){
      RingColor = 2;
+    //setPosition(0,0, -147);
     INTAKE.move(-127);
     LIFT.move_relative(-1000, 125);
     delay(500);
@@ -252,7 +255,8 @@ driveStraight2(-1000);
     driveTurn2(175);
     driveStraight2(625);
     LIFT.move(-127);
-    //driveStraight2(-1000);
+    // boomerang(300, -1000);
+    driveStraight2(-1000);
     // delay(200);
     // driveTurn2(-110);
     // driveStraight2(1000);
