@@ -77,12 +77,16 @@ void autonomous() {
     driveStraight2(400);
     driveTurn2(145);
     driveStraight2(-500);
-    driveTurn2(175);
+    driveTurn2(160);//175
     driveStraight2(625);
     LIFT.move(-127);
-    driveStraight2(-1000);
-    driveTurn2(105);
-    driveStraight2(400);
+    // driveArcLF(-90, 100, 1800);
+    // driveStraight2(-1000);
+
+
+    // driveStraight2(-1000);
+    // driveTurn2(105);
+    // driveStraight2(400);
 
     
 
@@ -239,24 +243,26 @@ driveStraight2(-1000);
     driveTurn2(18);
     intake.set_value(true);
     INTAKE.move(127);
-    driveClampS(1000, -100, 50); //900
+    driveClampS(1000, -100, 70); //900 //50%
     HOOKS.move(127);
     delay(200);
     intake.set_value(false);
     driveStraight2(-200);
     // delay(200);
     driveStraight2(-800);
-    driveTurn2(-115);
+    driveTurn2(-115); //-115
     driveStraight2(450);
-    driveTurn2(160); //150
+    driveTurn2(150); //160
     driveStraight2(400);
     driveTurn2(145);
     driveStraight2(-500);
-    driveTurn2(175);
+    driveTurn2(175);//175
     driveStraight2(625);
     LIFT.move(-127);
-    // boomerang(300, -1000);
+    driveArcLF(-90, 150, 1800);
     driveStraight2(-1000);
+    // boomerang(300, -1000);
+    //driveStraight2(-1000);
     // delay(200);
     // driveTurn2(-110);
     // driveStraight2(1000);

@@ -669,7 +669,7 @@ void driveStraight2(int target) {
     int timeout = 30000;
     double x = 0;
     x = double(abs(target));
-     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
+     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 301.746; //361.746 //Tune with Desmos
 
     bool over = false;
     double voltage;
@@ -740,7 +740,7 @@ void driveStraight2(int target) {
 
         chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
         if (abs(target - encoderAvg) <= 4) count++;
-        if (count >= 20 || time2 > timeout){
+        if (count >= 8 || time2 > timeout){
             break;
         } 
 
@@ -867,6 +867,110 @@ void driveStraightC(int target) {
         //hi
     }
 }
+
+
+void driveStraightSlow(int target, int speed) {
+    int timeout = 30000;
+    double x = 0;
+    x = double(abs(target));
+     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 301.746; //361.746 //Tune with Desmos
+
+    bool over = false;
+    double voltage;
+    double encoderAvg;
+    int count = 0;
+    double init_heading = imu.get_heading();
+    double heading_error = 0;
+    int cycle = 0; // Controller Display Cycle
+    time2 = 0;
+
+    if(init_heading > 180){
+        init_heading = init_heading - 360;
+    }
+
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    resetEncoders();
+   
+
+    while(true) {
+
+    ColorSort(RingColor);
+
+    encoderAvg = (LF.get_position() + RF.get_position()) / 2;
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+
+
+    double position = imu.get_heading(); //this is where the units are set to be degrees
+
+    if (position > 180){
+        position = position - 360;
+    }
+
+    if((init_heading < 0) && (position > 0)){
+        if((position - init_heading) >= 180){
+            init_heading = init_heading + 360;
+            position = imu.get_heading();
+        } 
+    } else if ((init_heading > 0) && (position < 0)){
+        if((init_heading - position) >= 180){
+           position = imu.get_heading();
+        }
+    } 
+
+
+        // if(init_heading > 180) {
+        //     init_heading = (360 - init_heading);
+        // }
+
+        // if(imu.get_heading() < 180) {
+        //     heading_error = init_heading - imu.get_heading();
+        // }
+        // else {
+        //     heading_error = ((360 - imu.get_heading()) - init_heading);
+        // }
+
+        // heading_error = heading_error * HEADING_CORRECTION_KP;
+
+        
+        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+   
+
+        if(voltage > 127 * double(speed)/100.0){
+            voltage = 127 * double(speed)/100.0;
+        } else if (voltage < -127 * double(speed)/100.0){
+             voltage = -127 * double(speed)/100.0;
+        }
+
+
+        chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
+        if (abs(target - encoderAvg) <= 4) count++;
+        if (count >= 8 || time2 > timeout){
+            break;
+        } 
+
+
+        if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
+            con.print(0, 0, "ERROR: %f           ", float(error));
+        } else if (time2 % 100 == 0 && time2 % 150 != 0){
+            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+        } else if (time2 % 150 == 0){
+            con.print(2, 0, "Time: %f        ", float(time2));
+        } 
+
+        delay(10);
+        time2 += 10;
+        //hi
+    }
+    LF.brake();
+    LM.brake();
+    LB.brake();
+    RF.brake();
+    RM.brake();
+    RB.brake();
+}
+
 
 
 //Turning
@@ -1059,14 +1163,14 @@ void driveArcLF(double theta, double radius, int timeout){
 
     //int timeout = 5000;
     ltargetFinal = double((theta / 360) * 2 * pi * radius); // * double(2) * pi * double(radius));
-    rtargetFinal = double((theta / 360) * 2 * pi * (radius + 460));
+    rtargetFinal = double((theta / 360) * 2 * pi * (radius + 390));
     if(theta > 0){
         theta = theta + 45;
     } else {
         theta = theta - 45; 
     }
     ltarget = double((theta / 360) * 2 * pi * radius); // * double(2) * pi * double(radius));
-    rtarget = double((theta / 360) * 2 * pi * (radius + 460));
+    rtarget = double((theta / 360) * 2 * pi * (radius + 390));
     while (true){
 
         ColorSort(RingColor);
@@ -1164,7 +1268,7 @@ void driveArcL(double theta, double radius, int timeout){
     con.clear();
     //int timeout = 5000;
     ltarget = double((theta / 360) * 2 * pi * radius); 
-    rtarget = double((theta / 360) * 2 * pi * (radius + 460));
+    rtarget = double((theta / 360) * 2 * pi * (radius + 390));
 
     while (true){
         ColorSort(RingColor);
@@ -1218,13 +1322,13 @@ void driveArcL(double theta, double radius, int timeout){
         chasMove((voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 4) && (abs(rtarget - encoderAvgR) <= 4)) count++;
         if (count >= 20 || time2 > timeout){
-            break;
+          //  break;
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
             con.print(0, 0, "ERROR: %f           ", float(error));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
-            con.print(1, 0, "EncoderL: %f           ", float(encoderAvgL));
+            con.print(1, 0, "fix: %f           ", float(fix));
         } else if (time2 % 150 == 0){
             con.print(2, 0, "Time: %f        ", float(time2));
         } 
@@ -1257,7 +1361,7 @@ void driveArcR(double theta, double radius, int timeout){
     resetEncoders();
     con.clear();
     //int timeout = 5000;
-    ltarget = double((theta / 360) * 2 * pi * (radius + 460)); // * double(2) * pi * double(radius));
+    ltarget = double((theta / 360) * 2 * pi * (radius + 390)); // * double(2) * pi * double(radius));
     rtarget = double((theta / 360) * 2 * pi * (radius));
     while (true){
         ColorSort(RingColor);
@@ -1342,14 +1446,14 @@ void driveArcRF(double theta, double radius, int timeout){
     resetEncoders();
     con.clear();
     //int timeout = 5000;
-    ltargetFinal = double((theta / 360) * 2 * pi * (radius+460)); // * double(2) * pi * double(radius));
+    ltargetFinal = double((theta / 360) * 2 * pi * (radius+390)); // * double(2) * pi * double(radius));
     rtargetFinal = double((theta / 360) * 2 * pi * (radius));
     if(theta > 0){
         theta = theta + 45;
     } else{
         theta = theta - 45;
     }
-    ltarget = double((theta / 360) * 2 * pi * (radius + 460)); // * double(2) * pi * double(radius));
+    ltarget = double((theta / 360) * 2 * pi * (radius + 390)); // * double(2) * pi * double(radius));
     rtarget = double((theta / 360) * 2 * pi * (radius));
 
     while (true){

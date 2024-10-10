@@ -14,6 +14,7 @@ extern double calcPID(double target, double input, int integralKi, int maxIntegr
 extern double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern void driveStraight(int target);
 extern void driveStraight2(int target);
+extern void driceStraightSlow(int target, int speed);
 extern void driveClamp(int target, int clampDistance);
 extern void driveClampS(int target, int clampDistance, int speed);
 extern void driveStraightC(int target);
@@ -58,14 +59,14 @@ extern double totalError;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 10 //5.25//8.75
+#define HEADING_KP 20 //5.25//8.75
 #define HEADING_KI 0 //0.125//0.115
-#define HEADING_KD 0 //38 //105 //70
+#define HEADING_KD 100 //38 //105 //70
 
 #define HEADING_INTEGRAL_KI 0
 #define HEADING_MAX_INTEGRAL 0
 
-#define ARC_HEADING_KP 1 //5.25//8.75
+#define ARC_HEADING_KP 40 //5.25//8.75
 #define ARC_HEADING_KI 0 //0.125//0.115
 #define ARC_HEADING_KD 0 //38 //105 //70
 

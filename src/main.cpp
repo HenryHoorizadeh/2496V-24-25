@@ -164,7 +164,7 @@ void opcontrol() {
 
 //TEST.move(127);
 //TEST2.move(127);
-delay(3500);
+//delay(3500);
 
 	while (true) {
     OpticalC.set_led_pwm(100);
@@ -319,7 +319,7 @@ delay(3500);
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move(-110);
+      HOOKS.move(-100);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
@@ -372,8 +372,9 @@ delay(3500);
      // boomerang(0, 0);
      //setPosition(0, 0, 0);
      //boomerang(-1000, 1000);
+      driveArcLF(-90, 100, 1800);
 
-     driveArcL(90, 300, 3000);
+    //  driveArcL(90, 300, 3000);
 
 
     //  boomerang(0, 3500);
@@ -401,7 +402,7 @@ delay(3500);
       // }
     }
 
-    odometry2();
+    //odometry2();
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
         intakeToggle = !intakeToggle;
