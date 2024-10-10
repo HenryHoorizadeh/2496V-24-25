@@ -236,7 +236,7 @@ driveStraight2(-1000);
     driveStraight2(250);
     LIFT.move(127);
     delay(900);
-    driveClampS(-1400, 400, 50);//-1400
+    driveSlow(-1400, 50);//-1400
     LIFT.move(0);
 
 
