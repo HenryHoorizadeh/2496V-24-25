@@ -236,14 +236,14 @@ driveStraight2(-1000);
     driveStraight2(250);
     LIFT.move(127);
     delay(900);
-    driveSlow(-1400, 50);//-1400
+    driveClampS(-1400, 400, 50);//-1400
     LIFT.move(0);
 
 
     driveTurn2(18);
     intake.set_value(true);
     INTAKE.move(127);
-    driveClampS(1000, -100, 70); //900 //50%
+    driveStraightSlow(1000, 70); //900 //50%
     HOOKS.move(127);
     delay(200);
     intake.set_value(false);
@@ -252,15 +252,17 @@ driveStraight2(-1000);
     driveStraight2(-800);
     driveTurn2(-115); //-115
     driveStraight2(450);
-    driveTurn2(150); //160
+    driveTurn2(155); //160 //150
     driveStraight2(400);
     driveTurn2(145);
     driveStraight2(-500);
     driveTurn2(175);//175
     driveStraight2(625);
     LIFT.move(-127);
-    driveArcLF(-90, 150, 1800);
-    driveStraight2(-1000);
+    driveTurn2(55);
+    driveStraight2(1000);
+    // driveArcLF(-90, 150, 1800);
+    // driveStraight2(-1000);
     // boomerang(300, -1000);
     //driveStraight2(-1000);
     // delay(200);

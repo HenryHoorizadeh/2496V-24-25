@@ -154,10 +154,12 @@ void opcontrol() {
   bool intakeToggle = false;
   bool scrapperToggle = false;
   bool hangToggle = false;
+  bool liftToggle = false;
   double maxRPM = 0;
   double motorTotal = 0;
   double avgRPM = 0;
   double liftAngle = 0; 
+  double rotoAngle = 0;
 
   imu.tare_heading();
   LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
@@ -189,7 +191,7 @@ void opcontrol() {
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       con.print(0, 0, "AUTON: %s           ", autstr);
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, ": %f           ", float(x_pos));
+      con.print(1, 0, "Rotation: %f           ", float(roto.get_angle()));
     } else if (time % 150 == 0){
       con.print(2, 0, "Y: %f        ", float(y_pos)); 
     } 
@@ -338,12 +340,21 @@ void opcontrol() {
     if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
       LIFT.move(127);
       liftAngle = LIFT.get_position();
+      liftToggle = false;
     }
     else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
       LIFT.move(-127);
       liftAngle = LIFT.get_position();
-    }
-    else {
+      liftToggle = false;
+    } else if (liftToggle){
+      setConstants(LIFT_KP2,LIFT_KI2,LIFT_KD2);
+      if(roto.get_angle() < 15000){
+        rotoAngle = roto.get_angle() + 36000;
+      } else {
+        rotoAngle = roto.get_angle();
+      }
+      LIFT.move(calcPID(30200,(rotoAngle),0,0,true));
+    } else {
       setConstants(LIFT_KP,LIFT_KI,LIFT_KD);
       LIFT.move(calcPID(liftAngle,LIFT.get_position(),0,0,true));
     }
@@ -365,14 +376,14 @@ void opcontrol() {
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
       //driveArcLF(130, 600, 3000);
-      //driveTurn(5);
+      driveTurn(130);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);
      // boomerang(0, 0);
      //setPosition(0, 0, 0);
      //boomerang(-1000, 1000);
-      driveArcLF(-90, 100, 1800);
+     // driveArcLF(-90, 100, 1800);
 
     //  driveArcL(90, 300, 3000);
 
@@ -406,6 +417,10 @@ void opcontrol() {
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
         intakeToggle = !intakeToggle;
+    }
+
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)){
+        liftToggle = !liftToggle;
     }
 
   intake.set_value(intakeToggle);

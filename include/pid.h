@@ -14,7 +14,7 @@ extern double calcPID(double target, double input, int integralKi, int maxIntegr
 extern double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern void driveStraight(int target);
 extern void driveStraight2(int target);
-extern void driceStraightSlow(int target, int speed);
+extern void driveStraightSlow(int target, int speed);
 extern void driveClamp(int target, int clampDistance);
 extern void driveClampS(int target, int clampDistance, int speed);
 extern void driveStraightC(int target);
@@ -49,7 +49,7 @@ extern double totalError;
 //tune turn constants here: setConstants(TURN_KP, TURN_KI, TURN_KD);
 #define TURN_KP 9//5.25//8.75
 #define TURN_KI 0.01 //0.125//0.115
-#define TURN_KD 105 //38 //105 //70
+#define TURN_KD 80 //38 //105 //70
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30
@@ -59,7 +59,7 @@ extern double totalError;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 20 //5.25//8.75
+#define HEADING_KP 15 //5.25//8.75
 #define HEADING_KI 0 //0.125//0.115
 #define HEADING_KD 100 //38 //105 //70
 
@@ -77,6 +77,10 @@ extern double totalError;
 #define LIFT_KP 1 // 1
 #define LIFT_KI 0 // 0.001
 #define LIFT_KD 0  // 1
+
+#define LIFT_KP2 0.125 // 1
+#define LIFT_KI2 0 // 0.001
+#define LIFT_KD2 0.5  // 1
 
 //tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 #define LIFT_INTEGRAL_KI 40
