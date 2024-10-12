@@ -138,20 +138,79 @@ void autonomous() {
       // driveStraight2(-5000);
     //blue left rush rush rush
     } else if (atn == 2) { 
-      driveStraight2(700);
-      INTAKE.move(300);
-      driveTurn2(20);
-      driveStraight2(700);
-      INTAKE.move(0);
-      scrapper.set_value(true);
-      driveStraight2(-500);
-      scrapper.set_value(false);
-      driveTurn2(-70);
-      driveStraight(-400);
-      mogo.set_value(true);
-      delay(500);
-      driveTurn2(-30);
-      driveStraight2(500);
+
+    RingColor = 2;
+    //setPosition(0,0, -147);
+    INTAKE.move(-127);
+    LIFT.move_relative(-1000, 125);
+    delay(500);
+    driveStraight2(250);
+    LIFT.move(127);
+    delay(900);
+    driveClampS(-1500, 400, 50);//-1400
+    LIFT.move(10);
+
+
+    driveTurn2(-18);
+    intake.set_value(true);
+    INTAKE.move(127);
+    driveStraightSlow(950, 70); //900 //50%
+    HOOKS.move(127);
+    delay(200);
+    intake.set_value(false);
+    driveStraight2(-350);
+
+    driveTurn2(60);
+    mogo.set_value(false);
+
+    driveTurn2(140);
+    HOOKS.move(0);
+    driveStraight2(1400);
+    driveTurn2(55);
+    driveClampS(-275, 100, 25);
+    INTAKE.move(127);
+    HOOKS.move(127);
+
+
+
+    // driveTurn2(60);
+    // delay(500);
+    // mogo.set_value(false);
+    // driveStraight2(350);//350
+    // delay(500);
+    // driveTurn2(-20); //-10
+    // driveStraight2(-1000);
+    // driveTurn2(10);
+    // driveClampS(-300, 100, 30);
+
+    // driveArcLF(-2.75, 20000,3000);
+    // driveArcLF(-40, 300,3000);
+    // driveClampS(-10,10,50);
+    
+    // driveClampS(-1350,100,70);
+
+    // driveStraightC(-150);
+    // driveArcLF(-40, 350, 1800);
+    // driveClampS(-650,200,70);
+
+
+      
+
+      ///rush rush rush
+      // driveStraight2(700);
+      // INTAKE.move(300);
+      // driveTurn2(20);
+      // driveStraight2(700);
+      // INTAKE.move(0);
+      // scrapper.set_value(true);
+      // driveStraight2(-500);
+      // scrapper.set_value(false);
+      // driveTurn2(-70);
+      // driveStraight(-400);
+      // mogo.set_value(true);
+      // delay(500);
+      // driveTurn2(-30);
+      // driveStraight2(500);
       
 
       /*INTAKE.move(300);

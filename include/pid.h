@@ -66,9 +66,9 @@ extern double totalError;
 #define HEADING_INTEGRAL_KI 0
 #define HEADING_MAX_INTEGRAL 0
 
-#define ARC_HEADING_KP 40 //5.25//8.75
+#define ARC_HEADING_KP 40 //5.25//8.75 //40
 #define ARC_HEADING_KI 0 //0.125//0.115
-#define ARC_HEADING_KD 0 //38 //105 //70
+#define ARC_HEADING_KD 40 //38 //105 //70
 
 #define ARC_HEADING_INTEGRAL_KI 0
 #define ARC_HEADING_MAX_INTEGRAL 0
