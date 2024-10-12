@@ -12,18 +12,18 @@
 // 2496v
 #define LF_PORT 20
 #define LM_PORT 19
-#define LB_PORT 18
-#define RF_PORT 17
-#define RM_PORT 16
+#define LB_PORT 16
+#define RF_PORT 18
+#define RM_PORT 17
 #define RB_PORT 15
 #define IMU_PORT 7
 #define INTAKE_PORT 9
 #define HOOKS_PORT 10
-#define ROTO_PORT 3
+#define ROTO_PORT 6
 #define TEST_PORT 1
 #define TEST_PORT2 2
 #define LIFT_PORT 5
-#define OPTICAL_PORT 4
+#define OPTICAL_PORT 8
 
 //rotation ssensor
 pros::Rotation roto(ROTO_PORT);
