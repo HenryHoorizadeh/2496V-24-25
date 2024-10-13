@@ -196,24 +196,24 @@ void autonomous() {
 
       
 
-      ///rush rush rush
-      // driveStraight2(700);
-      // INTAKE.move(300);
-      // driveTurn2(20);
-      // driveStraight2(700);
-      // INTAKE.move(0);
-      // scrapper.set_value(true);
-      // driveStraight2(-500);
-      // scrapper.set_value(false);
-      // driveTurn2(-70);
-      // driveStraight(-400);
-      // mogo.set_value(true);
-      // delay(500);
-      // driveTurn2(-30);
-      // driveStraight2(500);
+      //rush rush rush
+      driveStraight2(700);
+      INTAKE.move(300);
+      driveTurn2(20);
+      driveStraight2(700);
+      INTAKE.move(0);
+      scrapper.set_value(true);
+      driveStraight2(-500);
+      scrapper.set_value(false);
+      driveTurn2(-70);
+      driveStraight(-400);
+      mogo.set_value(true);
+      delay(500);
+      driveTurn2(-30);
+      driveStraight2(500);
       
 
-      /*INTAKE.move(300);
+      INTAKE.move(300);
       driveStraight2(1000);
       INTAKE.move(300);
       mogo.set_value(false);
@@ -224,17 +224,46 @@ void autonomous() {
       driveStraight2(1100);
       INTAKE.move(-200);
       driveStraight2(100);
-      INTAKE.move(300);*/
+      INTAKE.move(300);
     //red right
     } else if (atn == 3) { 
-      driveClamp(-1350, 400);
-      driveStraight2(200);
-      driveTurn2(-75);
-      driveClamp(-200, 170);
-      driveStraight2(200);
-      INTAKE.move(300);
-      LIFT.move(300);
-      driveStraight2(300);
+      //not mirrored
+    RingColor = 2;
+    //setPosition(0,0, -147);
+    INTAKE.move(-127);
+    LIFT.move_relative(-1000, 125);
+    delay(500);
+    driveStraight2(250);
+    LIFT.move(127);
+    delay(900);
+    driveClampS(-1500, 400, 50);//-1400
+    LIFT.move(10);
+    driveTurn2(18);
+    intake.set_value(true);
+    INTAKE.move(127);
+    driveStraightSlow(950, 70); //900 //50%
+    HOOKS.move(127);
+    delay(200);
+    intake.set_value(false);
+    driveStraight2(-350);
+    driveTurn2(-60);
+    mogo.set_value(false);
+    driveTurn2(-140);
+    HOOKS.move(0);
+    driveStraight2(1400);
+    driveTurn2(-55);
+    driveClampS(-275, 100, 25);
+    INTAKE.move(127);
+    HOOKS.move(127);
+
+      // driveClamp(-1350, 400);
+      // driveStraight2(200);
+      // driveTurn2(-75);
+      // driveClamp(-200, 170);
+      // driveStraight2(200);
+      // INTAKE.move(300);
+      // LIFT.move(300);
+      // driveStraight2(300);
   } else if (atn == 4) { 
 
     //awp red left
