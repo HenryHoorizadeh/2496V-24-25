@@ -224,12 +224,17 @@ void purePursuitController() {
         double leftSpeed, rightSpeed;
         computeWheelSpeeds(curvature, leftSpeed, rightSpeed);
 
-        // Set motor speeds
+    
         setMotorSpeeds(leftSpeed, rightSpeed);
 
         delay(10);
     }
 }
+
+
+//add motion tracking
+
+
 
 
 
