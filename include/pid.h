@@ -53,7 +53,6 @@ extern double totalError;
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30
-
 #define TURN_MAX_INTEGRAL 25
 
 //tune to make headding correction in arcturns more or less sensitive 
@@ -61,7 +60,7 @@ extern double totalError;
 
 #define HEADING_KP 15 //5.25//8.75
 #define HEADING_KI 0 //0.125//0.115
-#define HEADING_KD 100 //38 //105 //70
+#define HEADING_KD 180 //38 //105 //70 //100
 
 #define HEADING_INTEGRAL_KI 0
 #define HEADING_MAX_INTEGRAL 0

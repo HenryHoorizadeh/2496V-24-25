@@ -61,6 +61,8 @@ void autonomous() {
     LIFT.move(0);
 
 
+
+
     driveTurn2(18);
     intake.set_value(true);
     INTAKE.move(127);
@@ -147,27 +149,30 @@ void autonomous() {
     driveStraight2(250);
     LIFT.move(127);
     delay(900);
-    driveClampS(-1500, 400, 50);//-1400
-    LIFT.move(10);
+    driveClampS(-1400, 400, 50);//-1400
+    
 
 
     driveTurn2(-18);
     intake.set_value(true);
     INTAKE.move(127);
-    driveStraightSlow(950, 70); //900 //50%
+    driveStraightSlow(830, 35); //900 //50% //930
     HOOKS.move(127);
     delay(200);
     intake.set_value(false);
-    driveStraight2(-350);
+    driveStraightSlow(-550, 75);
+    driveStraight2(300);
 
-    driveTurn2(60);
+    driveTurn2(-60);
+    LIFT.move(10);
+    //delay(500);
     mogo.set_value(false);
 
-    driveTurn2(140);
+    driveTurn2(131);//137
     HOOKS.move(0);
     driveStraight2(1400);
-    driveTurn2(55);
-    driveClampS(-275, 100, 25);
+    driveTurn2(21);
+    driveClampS(-410, 20, 40); //make further
     INTAKE.move(127);
     HOOKS.move(127);
 
@@ -309,10 +314,13 @@ void autonomous() {
     // driveStraight2(200);
 
   } else if(atn == 5) {
+
+
+
 //rush red right
-driveStraight2(1100);
-scrapper.set_value(true);
-driveStraight2(-1000);
+// driveStraight2(1100);
+// scrapper.set_value(true);
+// driveStraight2(-1000);
 
   
   } else if (atn == 6){
