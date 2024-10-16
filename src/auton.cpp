@@ -324,7 +324,8 @@ void autonomous() {
 
   
   } else if (atn == 6){
-    //skills starts here
+    //50 skills starts here
+    // https://www.youtube.com/watch?v=5inrqB0fCFc
     //scoring alliance wall stake
     driveStraight2(100);
     LIFT.move(127);
@@ -353,14 +354,44 @@ void autonomous() {
     driveStraight2(500);
     driveTurn2(-140);
     driveArcLF(30,2,4);
-    mogo.set_value(true);
+    mogo.set_value(false);
     driveStraight2(50);
     driveTurn2(210);
     //second mobile stake;
     driveClampS(1000,25,100);
+    driveTurn2(-90);
+    driveStraight2(200);
+    driveTurn2(45);
+    driveStraight2(200);
+    driveStraight2(-200);
+    driveTurn2(-140);
+    driveStraight2(100);
+    driveTurn2(90);
+    driveStraight2(200);
+    driveTurn2(65);
+    driveStraight2(50);
+    driveTurn(50);
+    driveStraight2(-30);
+    mogo.set_value(false);
+    //scoring another wall stakes
+    driveTurn2(-10);
+    HOOKS.move(-127);
+    driveStraight2(300);
+    driveTurn(90);
+    HOOKS.move(127);
+    driveStraight2(50);
+        while (LIFT.move(-127)){
+      driveStraight2(-200);
+    }
+    //getting another mobile stake
+    driveTurn(140);
+    driveStraight2(200);
+    driveTurn(180);
+    driveStraight2(-50); 
+    driveArcLF(30,100,4);
+    mogo.set_value(true);
 
-
-    
+    //possibly correct spot here using boomerang or odom?
 
     //  RingColor = 2;
     // //setPosition(0,0, -147);
