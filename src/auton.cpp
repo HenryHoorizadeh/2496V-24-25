@@ -149,27 +149,30 @@ void autonomous() {
     driveStraight2(250);
     LIFT.move(127);
     delay(900);
-    driveClampS(-1500, 400, 50);//-1400
-    LIFT.move(10);
+    driveClampS(-1400, 400, 50);//-1400
+    
 
 
     driveTurn2(-18);
     intake.set_value(true);
     INTAKE.move(127);
-    driveStraightSlow(950, 70); //900 //50%
+    driveStraightSlow(830, 35); //900 //50% //930
     HOOKS.move(127);
     delay(200);
     intake.set_value(false);
-    driveStraight2(-350);
+    driveStraightSlow(-550, 75);
+    driveStraight2(300);
 
-    driveTurn2(60);
+    driveTurn2(-60);
+    LIFT.move(10);
+    //delay(500);
     mogo.set_value(false);
 
-    driveTurn2(140);
+    driveTurn2(131);//137
     HOOKS.move(0);
     driveStraight2(1400);
-    driveTurn2(55);
-    driveClampS(-275, 100, 25);
+    driveTurn2(21);
+    driveClampS(-410, 20, 40); //make further
     INTAKE.move(127);
     HOOKS.move(127);
 
@@ -199,34 +202,34 @@ void autonomous() {
       
 
       //rush rush rush
-      driveStraight2(700);
-      INTAKE.move(300);
-      driveTurn2(20);
-      driveStraight2(700);
-      INTAKE.move(0);
-      scrapper.set_value(true);
-      driveStraight2(-500);
-      scrapper.set_value(false);
-      driveTurn2(-70);
-      driveStraight(-400);
-      mogo.set_value(true);
-      delay(500);
-      driveTurn2(-30);
-      driveStraight2(500);
+      // driveStraight2(700);
+      // INTAKE.move(300);
+      // driveTurn2(20);
+      // driveStraight2(700);
+      // INTAKE.move(0);
+      // scrapper.set_value(true);
+      // driveStraight2(-500);
+      // scrapper.set_value(false);
+      // driveTurn2(-70);
+      // driveStraight(-400);
+      // mogo.set_value(true);
+      // delay(500);
+      // driveTurn2(-30);
+      // driveStraight2(500);
       
 
-      INTAKE.move(300);
-      driveStraight2(1000);
-      INTAKE.move(300);
-      mogo.set_value(false);
-      driveTurn2(75);
-      driveStraight2(-1000);
-      mogo.set_value(true);
-      driveTurn2(-50);
-      driveStraight2(1100);
-      INTAKE.move(-200);
-      driveStraight2(100);
-      INTAKE.move(300);
+      // INTAKE.move(300);
+      // driveStraight2(1000);
+      // INTAKE.move(300);
+      // mogo.set_value(false);
+      // driveTurn2(75);
+      // driveStraight2(-1000);
+      // mogo.set_value(true);
+      // driveTurn2(-50);
+      // driveStraight2(1100);
+      // INTAKE.move(-200);
+      // driveStraight2(100);
+      // INTAKE.move(300);
     //red right
     } else if (atn == 3) { 
       //not mirrored
@@ -311,10 +314,13 @@ void autonomous() {
     // driveStraight2(200);
 
   } else if(atn == 5) {
+
+
+
 //rush red right
-driveStraight2(1100);
-scrapper.set_value(true);
-driveStraight2(-1000);
+// driveStraight2(1100);
+// scrapper.set_value(true);
+// driveStraight2(-1000);
 
   
   } else if (atn == 6){
