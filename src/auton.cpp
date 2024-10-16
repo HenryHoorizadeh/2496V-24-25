@@ -197,34 +197,34 @@ void autonomous() {
       
 
       //rush rush rush
-      driveStraight2(700);
-      INTAKE.move(300);
-      driveTurn2(20);
-      driveStraight2(700);
-      INTAKE.move(0);
-      scrapper.set_value(true);
-      driveStraight2(-500);
-      scrapper.set_value(false);
-      driveTurn2(-70);
-      driveStraight(-400);
-      mogo.set_value(true);
-      delay(500);
-      driveTurn2(-30);
-      driveStraight2(500);
+      // driveStraight2(700);
+      // INTAKE.move(300);
+      // driveTurn2(20);
+      // driveStraight2(700);
+      // INTAKE.move(0);
+      // scrapper.set_value(true);
+      // driveStraight2(-500);
+      // scrapper.set_value(false);
+      // driveTurn2(-70);
+      // driveStraight(-400);
+      // mogo.set_value(true);
+      // delay(500);
+      // driveTurn2(-30);
+      // driveStraight2(500);
       
 
-      INTAKE.move(300);
-      driveStraight2(1000);
-      INTAKE.move(300);
-      mogo.set_value(false);
-      driveTurn2(75);
-      driveStraight2(-1000);
-      mogo.set_value(true);
-      driveTurn2(-50);
-      driveStraight2(1100);
-      INTAKE.move(-200);
-      driveStraight2(100);
-      INTAKE.move(300);
+      // INTAKE.move(300);
+      // driveStraight2(1000);
+      // INTAKE.move(300);
+      // mogo.set_value(false);
+      // driveTurn2(75);
+      // driveStraight2(-1000);
+      // mogo.set_value(true);
+      // driveTurn2(-50);
+      // driveStraight2(1100);
+      // INTAKE.move(-200);
+      // driveStraight2(100);
+      // INTAKE.move(300);
     //red right
     } else if (atn == 3) { 
       //not mirrored
