@@ -173,13 +173,13 @@ void odometry2(){
   x_pos += deltaX;
   y_pos += deltaY;
 
-   if (odo_time % 50 == 0 && odo_time % 100 != 0 && odo_time % 150 != 0){
-        con.print(0, 0, "x_pos: %f           ", float(x_pos));
-      } else if (odo_time % 100 == 0 && odo_time % 150 != 0){
-        con.print(1, 0, "y_pos: %f           ", float(y_pos));
-      } else if (odo_time % 150 == 0){
-        con.print(2, 0, "Pos: %f        ", float(phi));
-      } 
+  //  if (odo_time % 50 == 0 && odo_time % 100 != 0 && odo_time % 150 != 0){
+  //       con.print(0, 0, "x_pos: %f           ", float(x_pos));
+  //     } else if (odo_time % 100 == 0 && odo_time % 150 != 0){
+  //       con.print(1, 0, "y_pos: %f           ", float(y_pos));
+  //     } else if (odo_time % 150 == 0){
+  //       con.print(2, 0, "Pos: %f        ", float(phi));
+  //     } 
 
       
 

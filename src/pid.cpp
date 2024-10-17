@@ -14,6 +14,8 @@ using namespace pros;
 using namespace c;
 using namespace std;
 
+bool mogoValues = false;
+
 //constants used for calculating power/voltage
 double vKp;
 double vKi;
@@ -50,6 +52,7 @@ int integral3;
 int derivative3;
 int time23;
 double power3;
+
 
 
 void setConstants(double kp, double ki, double kd) {
@@ -421,7 +424,7 @@ void driveStraight(int target) {
         } else if (voltage < -127){
             voltage = -127;
         }
-
+        errorp = abs(target - encoderAvg);
         chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
         if (abs(target - encoderAvg) <= 3) count++;
         if (count >= 20 || time2 > timeout){
@@ -990,10 +993,13 @@ void driveTurn(int target) { //target is inputted in autons
 
     x = double(abs(target));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-    variKD =(-0.0000000041963 * pow(x,5)) + (0.00000168787 * pow(x, 4)) + (-0.000218576 * pow(x, 3)) + (0.0111906 * pow(x, 2)) + (-0.210071 * x) + 80.9862; // Use Desmos to tune
+   variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 94.6899; // Use Desmos to tune
+   if(mogoValues){
+    variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+   } 
     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
 
-    setConstants(TURN_KP, TURN_KI, variKD); 
+    //setConstants(TURN_KP, TURN_KI, variKD); 
 
     imu.tare_heading();
 
@@ -1008,10 +1014,11 @@ void driveTurn(int target) { //target is inputted in autons
         voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL, false);
         
         chasMove(voltage, voltage, voltage, -voltage, -voltage, -voltage);
-        
+        //errorp = abs(target - position);
         if (abs(target - position) <= 0.5) count++; 
         if (count >= 20 || time2 > timeout) {
-         // break; 
+            errorp = error;
+          break; 
         }
 
         
@@ -1081,7 +1088,10 @@ void driveTurn2(int target) { //target is inputted in autons
 
     x = double(abs(turnv));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-     variKD =(-0.0000000041963 * pow(x,5)) + (0.00000168787 * pow(x, 4)) + (-0.000218576 * pow(x, 3)) + (0.0111906 * pow(x, 2)) + (-0.210071 * x) + 80.9862; // Use Desmos to tune
+     variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 94.6899; // Use Desmos to tune
+   if(mogoValues){
+    variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+   } 
     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
 
     setConstants(TURN_KP, TURN_KI, variKD); 
@@ -1122,6 +1132,7 @@ void driveTurn2(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
+            errorp=error;
            break; 
         }
 
@@ -1130,7 +1141,7 @@ void driveTurn2(int target) { //target is inputted in autons
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
             con.print(1, 0, "IMU: %f           ", float(imu.get_heading()));
         } else if (time2 % 150 == 0){
-            con.print(2, 0, "Time: %f        ", float(time2));
+            con.print(2, 0, "mogoValues: %f        ", float(mogoValues));
         } 
 
         time2 += 10;

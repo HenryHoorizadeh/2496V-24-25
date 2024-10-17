@@ -74,6 +74,8 @@ void opcontrol(void);
 extern bool Global; 
 extern int atn;
 extern int RingColor;
+extern float errorp;
+extern bool mogoValues;
 
 #ifdef __cplusplus
 /**

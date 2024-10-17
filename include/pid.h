@@ -32,6 +32,8 @@ extern float error2;
 extern int integral;
 extern int ColorCount;
 extern double totalError;
+
+extern bool mogoValues;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
@@ -46,10 +48,10 @@ extern double totalError;
 //tune to make heading correction more or less senstive 
 #define HEADING_CORRECTION_KP 0
 
-//tune turn constants here: setConstants(TURN_KP, TURN_KI, TURN_KD);
-#define TURN_KP 9//5.25//8.75
+//tune turn constans here: setConstants(TURN_KP, TURN_KI, TURN_KD);
+#define TURN_KP 8.5//5.25//8.75
 #define TURN_KI 0.01 //0.125//0.115
-#define TURN_KD 80 //38 //105 //70
+#define TURN_KD 93 //38 //105 //70
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30

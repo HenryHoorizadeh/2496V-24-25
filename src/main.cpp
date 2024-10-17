@@ -7,7 +7,7 @@
 #include "pros/misc.h"
 #include "pros/motors.h"
 #include "robot.h"
-#include "odometry.h"
+//#include "odometry.h"
 #include "pure_pursuit.h"
 
 using namespace pros;
@@ -77,6 +77,7 @@ int atn = 2;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
+float errorp;
 
 
  
@@ -187,13 +188,13 @@ void opcontrol() {
     
     //printing stuff
 		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
-		
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       con.print(0, 0, "AUTON: %s           ", autstr);
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "Rotation: %f           ", float(roto.get_angle()));
+      con.print(1, 0, "Imu: %f           ", float(imu.get_heading()));
     } else if (time % 150 == 0){
-      con.print(2, 0, "Y: %f        ", float(y_pos)); 
+      con.print(2, 0, "Error: %f        ", (errorp)); 
+      // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
     
 
@@ -376,7 +377,8 @@ void opcontrol() {
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
       //driveArcLF(130, 600, 3000);
-      driveTurn(130);
+      mogoValues=true;
+       driveTurn2(40);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);
@@ -394,7 +396,7 @@ void opcontrol() {
     //  boomerang(0, 0);
     
     // driveTurn2(175);
-    // driveStraight2(625);
+    // driveStraight(625);
     // LIFT.move(-127);
     // driveStraight2(-1000);
     // driveTurn2(100);
