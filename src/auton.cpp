@@ -459,7 +459,7 @@ driveTurn2(-125);
     driveStraight2(-50); 
     driveArcLF(30,100,4);
     mogo.set_value(true);
-
+    
     //possibly correct spot here using boomerang or odom?
 
     //  RingColor = 2;
