@@ -32,7 +32,7 @@ extern float error2;
 extern int integral;
 extern int ColorCount;
 extern double totalError;
-
+extern bool longValues;
 extern bool mogoValues;
 //hello
 
@@ -60,9 +60,13 @@ extern bool mogoValues;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 15 //5.25//8.75
+#define HEADING_KP 15 //5.25//8.75 //15
 #define HEADING_KI 0 //0.125//0.115
-#define HEADING_KD 180 //38 //105 //70 //100
+#define HEADING_KD 400 //38 //105 //70 //100 //180
+
+#define HEADING_KP2 30 //5.25//8.75 //15
+#define HEADING_KI2 0 //0.125//0.115
+#define HEADING_KD2 4000 //38 //105 //70 //100 //180
 
 #define HEADING_INTEGRAL_KI 0
 #define HEADING_MAX_INTEGRAL 0

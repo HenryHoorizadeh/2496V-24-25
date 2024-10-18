@@ -15,6 +15,7 @@ using namespace c;
 using namespace std;
 
 bool mogoValues = false;
+bool longValues = false;
 
 //constants used for calculating power/voltage
 double vKp;
@@ -414,8 +415,11 @@ void driveStraight(int target) {
             position = imu.get_heading();
             }
         } 
-
-        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
 
 
@@ -515,8 +519,12 @@ void driveClamp(int target, int clampDistance) {
 
         // heading_error = heading_error * HEADING_CORRECTION_KP;
 
-        
-        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
+
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
    
         if(voltage > 127){
@@ -620,8 +628,12 @@ void driveClampS(int target, int clampDistance, int speed) {
 
         // heading_error = heading_error * HEADING_CORRECTION_KP;
 
-        
-        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
+
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
    
         // if(voltage > 127){
@@ -731,8 +743,12 @@ void driveStraight2(int target) {
 
         // heading_error = heading_error * HEADING_CORRECTION_KP;
 
-        
-        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
+
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
    
         if(voltage > 127){
@@ -936,7 +952,12 @@ void driveStraightSlow(int target, int speed) {
         // heading_error = heading_error * HEADING_CORRECTION_KP;
 
         
-        setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
+        
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
    
 
