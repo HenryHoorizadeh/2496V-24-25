@@ -193,7 +193,7 @@ void opcontrol() {
     } else if (time % 100 == 0 && time % 150 != 0){
       con.print(1, 0, "Imu: %f           ", float(imu.get_heading()));
     } else if (time % 150 == 0){
-      con.print(2, 0, "Error: %f        ", (errorp)); 
+      con.print(2, 0, "Temp: %f        ", (chasstempC)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
     
@@ -376,9 +376,14 @@ void opcontrol() {
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
+      // longValues = true;
+      // driveClampS(-2500, 400, 70);
+      // longValues = false;
+
+      
       //driveArcLF(130, 600, 3000);
-      mogoValues=true;
-       driveTurn2(40);
+      // mogoValues=true;
+      //  driveTurn2(40);
       // setPosition(0,0,0);
       // boomerang(0, -1000);
       //boomerang(-1000, 1000);

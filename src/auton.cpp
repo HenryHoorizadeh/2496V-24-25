@@ -279,7 +279,7 @@ void autonomous() {
     driveStraight2(250);
     LIFT.move(127);
     delay(1200);
-    driveClampS(-1350, 400,60);
+    driveClampS(-1350, 400,90);
     LIFT.move(20);
     driveTurn2(110);
     INTAKE.move(127);
@@ -336,28 +336,57 @@ driveTurn2(-20); //-15
 driveStraight2(800);
 driveTurn2(0);
 driveStraightSlow(1050, 40);
+delay(1000);
 driveTurn2(125);
 driveStraight2(400);
 driveTurn2(-155);
 driveStraight2(-300);
 mogo.set_value(false);
-HOOKS.move(127);
+HOOKS.move(-127);
 mogoValues = false;
 delay(200);
 driveStraight2(300);
-driveTurn2(90);
+driveTurn2(89);
+
+driveStraight2(-1900);
 longValues = true;
-driveClampS(-2700, 100, 85);
+driveClampS(-900, 200, 60);
 longValues = false;
+
+
+
+HOOKS.move(127);
+HOOKS.move(127);
+INTAKE.move(127);
+mogoValues = true;
 driveTurn2(180);
 driveStraight2(750);
 driveTurn2(-125);
-driveStraight2(1100);
-driveTurn2(15);
+driveStraight2(1250); //1300
+driveTurn2(20); //-15
 driveStraight2(800);
 driveTurn2(0);
 driveStraightSlow(1050, 40);
+delay(1000);
 driveTurn2(-125);
+driveStraight2(400);
+driveTurn2(155);
+driveStraight2(-300);
+mogo.set_value(false);
+HOOKS.move(-127);
+mogoValues = false;
+delay(200);
+driveStraight2(300);
+driveTurn2(127.5);
+HOOKS.move(0);
+driveStraight2(2700);
+driveTurn2(-135);
+HOOKS.move_relative(800, 125);
+driveStraight2(800);
+driveTurn2(-45);
+
+
+
 
 
 
