@@ -314,6 +314,73 @@ void autonomous() {
     // driveStraight2(200);
 
   } else if(atn == 5) {
+/// skills 
+HOOKS.move(-127);
+LIFT.move_relative(-800, 125);
+driveStraight2(-400);
+driveStraight2(400);
+LIFT.move(127);
+delay(300);
+driveStraight2(-275);
+driveTurn2(-90);
+driveClampS(-875, 100, 55);
+//driveStraight2(200);
+HOOKS.move(127);
+INTAKE.move(127);
+mogoValues = true;
+driveTurn2(180);
+driveStraight2(750);
+driveTurn2(125);
+driveStraight2(1100); //1300
+driveTurn2(-15);
+driveStraight2(800);
+driveTurn2(0);
+driveStraightSlow(1050, 40);
+driveTurn2(125);
+driveStraight2(400);
+driveTurn2(-155);
+driveStraight2(-300);
+mogo.set_value(false);
+HOOKS.move(127);
+mogoValues = false;
+delay(200);
+driveStraight2(300);
+driveTurn2(90);
+driveClampS(-2700, 100, 70);
+driveTurn2(180);
+driveStraight2(750);
+driveTurn2(-125);
+driveStraight2(1100);
+driveTurn2(15);
+driveStraight2(800);
+driveTurn2(0);
+driveStraightSlow(1050, 40);
+driveTurn2(-125);
+
+
+
+
+
+
+
+// driveStraight2(600);
+// driveTurn2(16);
+// driveClampS(-3000, 100, 60);
+// HOOKS.move(0);
+// INTAKE.move(0);
+// driveTurn2(150);
+// scrapper.set_value(true);
+// driveStraight2(800);
+// driveTurn2(-45);
+// LIFT.move_relative(-400, 125);
+
+
+
+
+
+
+
+
 
 
 
