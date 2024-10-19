@@ -64,9 +64,9 @@ extern bool mogoValues;
 #define HEADING_KI 0 //0.125//0.115
 #define HEADING_KD 400 //38 //105 //70 //100 //180
 
-#define HEADING_KP2 23 //5.25//8.75 //15
+#define HEADING_KP2 30 //5.25//8.75 //15
 #define HEADING_KI2 0 //0.125//0.115
-#define HEADING_KD2 10000000000000 //38 //105 //70 //100 //180
+#define HEADING_KD2 600 //38 //105 //70 //100 //180
 
 #define HEADING_INTEGRAL_KI 0
 #define HEADING_MAX_INTEGRAL 0
