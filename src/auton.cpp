@@ -409,13 +409,26 @@ delay(1000);
 driveTurn2(-55);
 driveStraight2(400);
 driveTurn2(-163); //155
+HOOKS.move(0);
 scrapper.set_value(true);
-driveStraight2(400);
-driveTurn2(45);
+driveStraight2(100);
+driveTurn2(45); 
 driveStraight2(-300);
 mogo.set_value(false);
 HOOKS.move(-127);
 mogoValues = false;
+driveStraight2(500);
+driveTurn2(100);
+driveStraight2(5000);
+INTAKE.move(-127);
+driveStraight2(-700);
+driveTurn2(-45);
+hang.set_value(true);
+driveStraight2(1500);
+LIFT.move(127);
+
+
+
 
 
 
