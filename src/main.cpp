@@ -73,7 +73,7 @@ void disabled() {}
 
  
 
-int atn = 5;
+int atn = 4;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
@@ -90,27 +90,27 @@ void competition_initialize() {
       //resetEncoders();
       
       if (atn == 0) {
-        autstr = "Skills";
+        autstr = "NONE";
         con.print(0, 0, "Aut 0: %s", autstr);
       }
       else if (atn == 1) {
-        autstr = "NONE";
+        autstr = "BLUE RIGHT";
         con.print(0, 0, "Aut 1: %s", autstr);
       }
       else if (atn == 2) {
-        autstr = "AWPON";
+        autstr = "BLUE LEFT";
         con.print(0, 0, "Aut 2: %s", autstr);
       }
       else if (atn == 3) {
-       autstr = "AWPOFF";
+       autstr = "RED RIGHT";
         con.print(0, 0, "Aut 3: %s", autstr);
       }
       else if (atn == 4) {
-       autstr = "ML1";
+       autstr = "RED LEFT";
         con.print(0, 0, "Aut 4: %s", autstr);
       }
       else if (atn == 5) {
-       autstr = "DEFN1";
+       autstr = "SKILLS";
         con.print(0, 0, "Aut 5: %s", autstr);
       }
       else if (atn == 6) {
@@ -151,7 +151,7 @@ void opcontrol() {
   bool NEWR1 = false;
   bool arcToggle = false;
   bool tankToggle = true;
-  bool mogoToggle = false;
+  bool mogoToggle = true;
   bool intakeToggle = false;
   bool scrapperToggle = false;
   bool hangToggle = false;
@@ -268,22 +268,22 @@ void opcontrol() {
     // }
     
     if (atn == 0) {
-      autstr = "Auton 0";
+      autstr = "NONE";
     }
     if (atn == 1) {
-      autstr = "Auton 1";
+      autstr = "BLUE RIGHT";
     }
     else if (atn == 2) {
-      autstr = "Auton 2";
+      autstr = "BLUE LEFT";
     }
     else if (atn == 3) {
-      autstr = "Auton 3";
+      autstr = "RED RIGHT";
     }
     else if (atn == 4) {
-      autstr = "Auton 4";
+      autstr = "RED LEFT";
     }
     else if (atn == 5) {
-      autstr = "Auton 5";
+      autstr = "SKILLS";
     } 
     else if (atn == 6) {
       autstr = "Auton 6";
@@ -322,7 +322,7 @@ void opcontrol() {
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move(-90);
+      HOOKS.move(-110);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
@@ -379,6 +379,9 @@ void opcontrol() {
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
+      chasMove(40,40,40,40,40,40);
+     hang.set_value(true);
+      delay(2000);
 
       
       //driveArcLF(130, 600, 3000);
