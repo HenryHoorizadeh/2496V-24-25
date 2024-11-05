@@ -15,18 +15,22 @@
 #define LB_PORT 16
 #define RF_PORT 18
 #define RM_PORT 17
-#define RB_PORT 14
-#define IMU_PORT 7
+#define RB_PORT 13
+#define IMU_PORT 1
 #define INTAKE_PORT 9
 #define HOOKS_PORT 10
 #define ROTO_PORT 6
-#define TEST_PORT 1
+#define ODOMX_PORT 7
+#define ODOMY_PORT 3
+#define TEST_PORT 2
 #define TEST_PORT2 2
 #define LIFT_PORT 5
 #define OPTICAL_PORT 8
 
 //rotation ssensor
 pros::Rotation roto(ROTO_PORT);
+pros::Rotation ODOMX(ODOMX_PORT);
+pros::Rotation ODOMY(ODOMY_PORT);
 
 pros::Motor LF (LF_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor LM (LM_PORT, pros::E_MOTOR_GEARSET_06, true);

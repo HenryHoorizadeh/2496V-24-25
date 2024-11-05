@@ -13,47 +13,47 @@ int turnv = 0;
 double absoluteAngleToTarget = 0;
 double position = 0;
 
-float deltaX;
-float deltaY;
+double deltaX;
+double deltaY;
 
-float startingX;
-float startingY;
-float startingHeading;
+double startingX;
+double startingY;
+double startingHeading;
 
-float r0;
-float r1;
+double r0;
+double r1;
 
-float delta_left_encoder_pos;
-float delta_right_encoder_pos;
-float delta_center_encoder_pos;
+double delta_left_encoder_pos;
+double delta_right_encoder_pos;
+double delta_center_encoder_pos;
 
-float prev_left_encoder_pos;
-float prev_right_encoder_pos;
-float prev_center_encoder_pos;
+double prev_left_encoder_pos;
+double prev_right_encoder_pos;
+double prev_center_encoder_pos;
 
-float left_encoder_pos;
-float right_encoder_pos;
-float center_encoder_pos;
+double left_encoder_pos;
+double right_encoder_pos;
+double center_encoder_pos;
 
-float localX;
-float localY;
+double localX;
+double localY;
 
-float local_polar_angle;
-float local_polar_length;
-float global_polar_angle;
+double local_polar_angle;
+double local_polar_length;
+double global_polar_angle;
 
 
 
-float phi;
+double phi;
 
-float prev_imu_pos;
-float imu_pos;
-float imu_pos_radians;
+double prev_imu_pos;
+double imu_pos;
+double imu_pos_radians;
 
-float x_pos;
-float y_pos;
+double x_pos;
+double y_pos;
 
-float pi = 3.14159265359;
+double pi = 3.14159265359;
 
 int odo_time = 0;
 
@@ -134,9 +134,10 @@ void odometry2(){
   prev_right_encoder_pos = right_encoder_pos;
   prev_center_encoder_pos = center_encoder_pos;
 
-  left_encoder_pos = LF.get_position();
-  right_encoder_pos = RF.get_position();
-  center_encoder_pos = 0;
+
+  left_encoder_pos = (ODOMY.get_position()/36000.0)*(2*pi);
+  right_encoder_pos =(ODOMY.get_position()/36000.0)*(2*pi);
+  center_encoder_pos = (ODOMX.get_position()/36000.0)*(2*pi);
 
   delta_left_encoder_pos = left_encoder_pos - prev_left_encoder_pos;
   delta_right_encoder_pos = right_encoder_pos - prev_right_encoder_pos;
@@ -295,7 +296,7 @@ void boomerang(double xTarget, double yTarget){
     setConstants(TURN_KP, TURN_KI, TURN_KD);
     heading_correction = calcPID(absoluteAngleToTarget, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL, true);
 
-    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    setConstants(STRAIGHT_KP*5, STRAIGHT_KI*5, STRAIGHT_KD*5);
     // if(abs(position - absoluteAngleToTarget) < 90){
     //   voltage = -calcPID2(0, hypot, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
     // } else {
@@ -314,10 +315,18 @@ void boomerang(double xTarget, double yTarget){
     }
 
     chasMove((voltage + heading_correction), (voltage + heading_correction), (voltage + heading_correction), (voltage - heading_correction), (voltage - heading_correction), (voltage - heading_correction));
-    if(abs(hypot) < 40) count++;
+    if(abs(hypot) < 1) count++;
     if((count > 20) || (btime > timeout)){
       break;
     }
+
+       if (btime % 50 == 0 && btime % 100 != 0 && btime % 150 != 0){
+        con.print(0, 0, "x_pos: %f           ", float(x_pos));
+      } else if (btime % 100 == 0 && btime % 150 != 0){
+        con.print(1, 0, "y_pos: %f           ", float(y_pos));
+      } else if (btime % 150 == 0){
+        con.print(2, 0, "Pos: %f        ", float(hypot));
+      } 
 
     
 

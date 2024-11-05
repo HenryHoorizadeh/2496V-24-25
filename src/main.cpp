@@ -7,7 +7,7 @@
 #include "pros/misc.h"
 #include "pros/motors.h"
 #include "robot.h"
-//#include "odometry.h"
+#include "odometry.h"
 #include "pure_pursuit.h"
 
 using namespace pros;
@@ -47,6 +47,8 @@ void initialize() {
   OpticalC.set_led_pwm(100);
   pros::lcd::initialize();
   pros::lcd::set_text(1, "Hello PROS User!");
+  ODOMY.reset_position();
+  ODOMX.reset_position();
 
   // pros::lcd::register_btn1_cb(on_center_button);
   // optical.set_led_pwm(100);
@@ -167,7 +169,7 @@ void opcontrol() {
 
 //TEST.move(127);
 //TEST2.move(127);
-//delay(3500);
+delay(3500);
 
 	while (true) {
     OpticalC.set_led_pwm(100);
@@ -191,9 +193,9 @@ void opcontrol() {
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       con.print(0, 0, "AUTON: %s           ", autstr);
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "Imu: %f           ", float(imu.get_heading()));
+      con.print(1, 0, "x_pos: %f           ", float(x_pos));
     } else if (time % 150 == 0){
-      con.print(2, 0, "Temp: %f        ", (chasstempC)); 
+      con.print(2, 0, "y_pos: %f        ", float(y_pos)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
     
@@ -202,9 +204,9 @@ void opcontrol() {
 		int power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
 		int RX = con.get_analog(ANALOG_RIGHT_X); //turn is defined as left (positive) or right (negative)
 
-     int turn = int(RX); // Normal Rates
+    //int turn = int(RX); // Normal Rates
 		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
-    //int turn = int(pow(RX, 3) / 15000); //X Cubed Rates
+    int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
 		int left = power + turn;
 		int right = power - turn;
 
@@ -232,6 +234,8 @@ void opcontrol() {
       RM.move(right);
       RB.move(right);
     }
+
+
 
     //auton selector
     if (selec.get_value() == true) { 
@@ -379,9 +383,9 @@ void opcontrol() {
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
-      chasMove(40,40,40,40,40,40);
-     hang.set_value(true);
-      delay(2000);
+    //   chasMove(40,40,40,40,40,40);
+    //  hang.set_value(true);
+    //   delay(2000);
 
       
       //driveArcLF(130, 600, 3000);
@@ -397,8 +401,10 @@ void opcontrol() {
 
     //  driveArcL(90, 300, 3000);
 
-
-    //  boomerang(0, 3500);
+  setPosition(0, 0, 0);
+  //boomerang(0, 90);
+  boomerang(48, 60);
+  boomerang(0, 10);
     //  boomerang(-3500, 3500);
     //  boomerang(-3500, 0);
     //  boomerang(0, 0);
@@ -423,7 +429,7 @@ void opcontrol() {
       // }
     }
 
-    //odometry2();
+    odometry2();
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
         intakeToggle = !intakeToggle;
