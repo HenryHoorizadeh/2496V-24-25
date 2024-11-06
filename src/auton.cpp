@@ -176,36 +176,73 @@ void autonomous() {
       // driveStraight2(-5000);
     //blue left rush rush rush
     } else if (atn == 2) { 
-
-       //awp red left
-    RingColor = 2;
+//setPosition(0,0, -147);
     INTAKE.move(-127);
     HOOKS.move(-127);
     LIFT.move_relative(-1000, 125);
-    delay(400);
+    delay(500);
     driveStraight2(250);
     LIFT.move(127);
-    delay(1200);
-    driveClampS(-1200, 100,40);
-    LIFT.move(20);
-    driveTurn2(-112);
+    delay(900);
+    driveClampS(-1500, 400, 100);//-1400
+
+
+
+    driveTurn2(-18);
+    intake.set_value(true);
+    INTAKE.move(127);
+    driveStraightSlow(830, 35); //900 //50% //930
+    HOOKS.move(127);
+    delay(200);
+    intake.set_value(false);
+    driveStraightSlow(-550, 75);
+    driveStraight2(300);
+
+    driveTurn2(-60);
+    LIFT.move(10);
+    //delay(500);
+    mogo.set_value(false);
+
+    driveTurn2(131);//137
+    HOOKS.move(0);
+    driveStraight2(1400);
+    driveTurn2(21);
+    driveClampS(-410, 20, 40); //make further
     INTAKE.move(127);
     HOOKS.move(127);
-    driveStraight2(500);
-    driveTurn2(115);
-    driveStraight2(525);//550
-    driveTurn2(-140);
-    driveStraight2(300);
-    delay(500);
-    driveTurn2(-130);
-    driveStraight2(300);
-    delay(500);
-    driveStraight2(-500);
-    driveTurn2(-170);
-    driveStraight2(-600);
-    // LIFT.move_relative(-1150, 125);
-    driveTurn2(110);
-    // driveStraight2(600);
+
+
+
+
+       //awp red left
+    // RingColor = 2;
+    // INTAKE.move(-127);
+    // HOOKS.move(-127);
+    // LIFT.move_relative(-1000, 125);
+    // delay(400);
+    // driveStraight2(250);
+    // LIFT.move(127);
+    // delay(1200);
+    // driveClampS(-1200, 100,40);
+    // LIFT.move(20);
+    // driveTurn2(-112);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraight2(500);
+    // driveTurn2(115);
+    // driveStraight2(525);//550
+    // driveTurn2(-140);
+    // driveStraight2(300);
+    // delay(500);
+    // driveTurn2(-130);
+    // driveStraight2(300);
+    // delay(500);
+    // driveStraight2(-500);
+    // driveTurn2(-170);
+    // driveStraight2(-600);
+    // // LIFT.move_relative(-1150, 125);
+    // driveTurn2(110);
+    // // driveStraight2(600);
 
 
     // RingColor = 2;

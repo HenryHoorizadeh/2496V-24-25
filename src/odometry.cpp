@@ -127,6 +127,9 @@ void odometry (){
 void odometry2(){
   prev_imu_pos = imu_pos;
   imu_pos = imu.get_rotation() + startingHeading;
+  // if(abs(imu_pos - prev_imu_pos)<IMU_THRESHOLD){
+  //   imu_pos = prev_imu_pos;
+  // }
   imu_pos_radians = (imu_pos*pi)/180;
 
         
@@ -137,7 +140,9 @@ void odometry2(){
 
   left_encoder_pos = (ODOMY.get_position()/36000.0)*(2*pi);
   right_encoder_pos =(ODOMY.get_position()/36000.0)*(2*pi);
-  center_encoder_pos = (ODOMX.get_position()/36000.0)*(2*pi);
+  center_encoder_pos = 0;
+//((ODOMX.get_position()/36000.0)*(2*pi) )
+ // + (imu.get_rotation()/360.0)*(2*pi*4.6)
 
   delta_left_encoder_pos = left_encoder_pos - prev_left_encoder_pos;
   delta_right_encoder_pos = right_encoder_pos - prev_right_encoder_pos;
@@ -148,7 +153,7 @@ void odometry2(){
   phi = imu_pos - prev_imu_pos;
   phi = (pi*phi)/180;
 
-  if (phi == 0) {
+  if (phi <= IMU_THRESHOLD) {
     localX = delta_center_encoder_pos;
     localY = delta_right_encoder_pos;
   } else {
@@ -179,7 +184,7 @@ void odometry2(){
   //     } else if (odo_time % 100 == 0 && odo_time % 150 != 0){
   //       con.print(1, 0, "y_pos: %f           ", float(y_pos));
   //     } else if (odo_time % 150 == 0){
-  //       con.print(2, 0, "Pos: %f        ", float(phi));
+  //       con.print(2, 0, "Pos: %f        ", float(center_encoder_pos));
   //     } 
 
       

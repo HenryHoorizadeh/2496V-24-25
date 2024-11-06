@@ -75,7 +75,7 @@ void disabled() {}
 
  
 
-int atn = 4;
+int atn = 5;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
@@ -163,6 +163,7 @@ void opcontrol() {
   double avgRPM = 0;
   double liftAngle = 0; 
   double rotoAngle = 0;
+  float xvelo = 0;
 
   imu.tare_heading();
   LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
@@ -172,6 +173,14 @@ void opcontrol() {
 delay(3500);
 
 	while (true) {
+
+  pros::c::imu_accel_s_t accel = imu.get_accel();
+
+  // if(abs(accel.x)>0.04){
+  // xvelo += accel.x;
+  // }
+  xvelo += accel.x-0.032;
+
     OpticalC.set_led_pwm(100);
 
     //TEST2.move_velocity(300);
@@ -191,7 +200,8 @@ delay(3500);
     //printing stuff
 		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
-      con.print(0, 0, "AUTON: %s           ", autstr);
+      // con.print(0, 0, "AUTON: %s           ", autstr);
+      con.print(0, 0, "phi: %f         ", phi);
     } else if (time % 100 == 0 && time % 150 != 0){
       con.print(1, 0, "x_pos: %f           ", float(x_pos));
     } else if (time % 150 == 0){
@@ -326,7 +336,7 @@ delay(3500);
     if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
       //Double Press action
       INTAKE.move(127);
-      HOOKS.move(-110);
+      HOOKS.move(-95);
     // HOOKS.move(-127);
     } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			INTAKE.move(-127);
@@ -466,7 +476,7 @@ delay(3500);
   //    piston.set_value(false);
   // }
 
-	  	time += 10;
-		  delay(10);
+	  	time += 1;
+		  delay(1);
 	  }
   }
