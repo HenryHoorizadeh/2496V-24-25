@@ -449,7 +449,111 @@ void autonomous() {
 
   } else if(atn == 5) {
 /// skills 
+LIFT.move_relative(-900, 125);
+delay(200);
+HOOKS.move(-127);
+delay(600);
+LIFT.move(127);
+delay(300);
+driveStraight2(-275);
+driveTurn2(-90);
+driveClampS(-825, 100, 55); //-875
+//driveStraight2(200);
+HOOKS.move(127);
+INTAKE.move(127);
+mogoValues = true;
+driveTurn2(180);
+driveStraightC(200);
+driveArcLF(70, 500, 1800);
+driveStraight2(500);
+driveTurn2(-20); //-15
+driveArcRF(23,350,1800);
+driveStraightSlow(2100,40);
+delay(1000);
+driveTurn2(125);
+driveStraight2(400);
+driveTurn2(-155);
+driveStraight2(-300);
+mogo.set_value(false);
+HOOKS.move(-127);
+mogoValues = false;
+delay(200);
+driveStraight2(250); //300
+driveTurn2(90);
+longValues = true;
+driveStraight2(-1750);
+longValues = false;
+driveClampS(-1100, 200, 60);
+driveStraight2(200);
+HOOKS.move(127);
 
+driveTurn2(180);
+driveArcRF(90, 700, 1800);
+driveStraight2(500);
+driveTurn2(20); //-15
+driveArcLF(23,280,1800);
+driveStraightSlow(2100,40);
+
+delay(1000);
+driveTurn2(-125);
+driveStraight2(400);
+driveTurn2(155);
+driveStraight2(-300);
+mogo.set_value(false);
+HOOKS.move(-127);
+mogoValues = false;
+
+driveStraight2(300);
+driveTurn2(127);
+HOOKS.move(0);
+driveStraight2(2500);
+
+INTAKE.move(127);
+driveTurn2(-135);
+HOOKS.move_relative(500, 600);
+chasMove(40,40,40,40,40,40);
+hang.set_value(true);
+delay(2000);
+hang.set_value(false);
+driveStraight2(-400);
+driveStraight2(1000);
+driveTurn2(-45);
+driveClampS(-1200,100,40);
+mogoValues = true;
+HOOKS.move(127);
+driveTurn2(-62);
+driveStraight2(1900);
+driveTurn2(180);
+driveStraightSlow(1050, 40);
+delay(1000);
+driveTurn2(-55);
+driveStraight2(400);
+driveTurn2(-163); //155
+HOOKS.move(0);
+scrapper.set_value(true);
+driveStraight2(100);
+driveTurn2(45); 
+scrapper.set_value(false);
+driveStraight2(-300);
+mogo.set_value(false);
+HOOKS.move(-127);
+mogoValues = false;
+driveStraight2(500);
+driveTurn2(100);
+driveStraight2(5000);
+INTAKE.move(-127);
+driveStraight2(-700);
+driveTurn2(-45);
+hang.set_value(true);
+driveStraight2(1500);
+LIFT.move(127);
+
+
+
+
+
+//old skills 
+/*
 LIFT.move_relative(-900, 125);
 delay(200);
 HOOKS.move(-127);
@@ -558,7 +662,7 @@ driveStraight2(1500);
 LIFT.move(127);
 
 
-
+*/
 
 
 

@@ -1241,13 +1241,13 @@ void driveArcLF(double theta, double radius, int timeout){
             position = position - 360;
         }
 
-        if((leftcorrect < 0) && (position > 0)){
-            if((position - leftcorrect) >= 180){
+        if(((init_heading + leftcorrect)< 0) && (position > 0)){
+            if((position - (init_heading + leftcorrect)) >= 180){
                 leftcorrect = leftcorrect + 360;
                 position = imu.get_heading();
             } 
-        } else if ((leftcorrect > 0) && (position < 0)){
-            if((leftcorrect - position) >= 180){
+        } else if (((init_heading + leftcorrect) > 0) && (position < 0)){
+            if(((init_heading + leftcorrect) - position) >= 180){
             position = imu.get_heading();
             }
         } 
@@ -1495,6 +1495,7 @@ void driveArcRF(double theta, double radius, int timeout){
     // }
     int count = 0;
     int time = 0;
+    double rightcorrect = 0;
     resetEncoders();
     con.clear();
     //int timeout = 5000;
@@ -1520,13 +1521,13 @@ void driveArcRF(double theta, double radius, int timeout){
             position = position - 360;
         }
 
-        if((init_heading < 0) && (position > 0)){
-            if((position - init_heading) >= 180){
+        if(((init_heading + rightcorrect) < 0) && (position > 0)){
+            if((position - (init_heading + rightcorrect)) >= 180){
                 init_heading = init_heading + 360;
                 position = imu.get_heading();
             } 
-        } else if ((init_heading > 0) && (position < 0)){
-            if((init_heading - position) >= 180){
+        } else if (((init_heading + rightcorrect)> 0) && (position < 0)){
+            if(((init_heading + rightcorrect) - position) >= 180){
             position = imu.get_heading();
             }
         } 
@@ -1547,7 +1548,7 @@ void driveArcRF(double theta, double radius, int timeout){
         //     voltageR = -70;
         // }
 
-        double rightcorrect = (encoderAvgR * 360) / (2 * pi * radius);
+        rightcorrect = (encoderAvgR * 360) / (2 * pi * radius);
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
         int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
 
