@@ -464,11 +464,13 @@ INTAKE.move(127);
 mogoValues = true;
 driveTurn2(180);
 driveStraightC(200);
-driveArcLF(70, 500, 1800);
-driveStraight2(500);
-driveTurn2(-20); //-15
-driveArcRF(23,350,1800);
-driveStraightSlow(2100,40);
+driveArcLF(75, 500, 2800);
+driveStraight2(950);
+driveStraight2(-350);
+driveTurn2(0);
+// driveTurn2(-20); //-15
+// driveArcRF(23,350,1800);
+driveStraightSlow(2400,40);//2100
 delay(1000);
 driveTurn2(125);
 driveStraight2(400);
@@ -484,24 +486,24 @@ longValues = true;
 driveStraight2(-1750);
 longValues = false;
 driveClampS(-1100, 200, 60);
-driveStraight2(200);
 HOOKS.move(127);
-
+INTAKE.move(127);
+mogoValues = true;
 driveTurn2(180);
-driveArcRF(90, 700, 1800);
-driveStraight2(500);
-driveTurn2(20); //-15
-driveArcLF(23,280,1800);
-driveStraightSlow(2100,40);
-
+driveStraightC(200);
+driveArcRF(75, 500, 2800);
+driveStraight2(950);
+driveStraight2(-350);
+driveTurn2(0);
+// driveTurn2(-20); //-15
+// driveArcRF(23,350,1800);
+driveStraightSlow(2400,40);//2100
 delay(1000);
 driveTurn2(-125);
 driveStraight2(400);
 driveTurn2(155);
 driveStraight2(-300);
 mogo.set_value(false);
-HOOKS.move(-127);
-mogoValues = false;
 
 driveStraight2(300);
 driveTurn2(127);
