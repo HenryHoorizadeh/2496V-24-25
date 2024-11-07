@@ -51,7 +51,7 @@ extern bool mogoValues;
 //tune turn constans here: setConstants(TURN_KP, TURN_KI, TURN_KD);
 #define TURN_KP 8.5//5.25//8.75
 #define TURN_KI 0.01 //0.125//0.115
-#define TURN_KD 93 //38 //105 //70
+#define TURN_KD 125 //38 //105 //70
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30
@@ -60,9 +60,9 @@ extern bool mogoValues;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 15 //5.25//8.75 //15
+#define HEADING_KP 8 //5.25//8.75 //15/////////15
 #define HEADING_KI 0 //0.125//0.115
-#define HEADING_KD 400 //38 //105 //70 //100 //180
+#define HEADING_KD 400 //38 //105 //70 //100 //180///////////////400
 
 #define HEADING_KP2 20 //5.25//8.75 //15
 #define HEADING_KI2 0 //0.125//0.115

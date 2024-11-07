@@ -1016,11 +1016,15 @@ void driveTurn(int target) { //target is inputted in autons
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
    variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 94.6899; // Use Desmos to tune
    if(mogoValues){
-    variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+    //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+    variKD =(0.00000000982635 * pow(x,5)) + (-0.00000354451 * pow(x, 4)) + (0.000379494 * pow(x, 3)) + (-0.00861751 * pow(x, 2)) + (-0.151957 * x) + 96.4185; // Use Desmos to tune
    } 
     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
-
-    //setConstants(TURN_KP, TURN_KI, variKD); 
+    if(abs(target>=25)){
+    setConstants(TURN_KP, TURN_KI, variKD); 
+    } else if(mogoValues == false) {
+    setConstants(5, TURN_KI, 90); 
+    }
 
     imu.tare_heading();
 
@@ -1107,15 +1111,31 @@ void driveTurn2(int target) { //target is inputted in autons
     double variKD = 0;
     int timeout = 2100;
 
-    x = double(abs(turnv));
+
+     x = double(abs(turnv));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-     variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 94.6899; // Use Desmos to tune
+   variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 94.6899; // Use Desmos to tune
    if(mogoValues){
-    variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+    //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+    variKD =(0.00000000982635 * pow(x,5)) + (-0.00000354451 * pow(x, 4)) + (0.000379494 * pow(x, 3)) + (-0.00861751 * pow(x, 2)) + (-0.151957 * x) + 96.4185; // Use Desmos to tune
    } 
     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
-
+    if(abs(turnv)>=25){
     setConstants(TURN_KP, TURN_KI, variKD); 
+    } else if(mogoValues == false) {
+    setConstants(5, TURN_KI, 90); 
+    }
+
+//     x = double(abs(turnv));
+//    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+//      //variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 128.6899;
+//      variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 97.7549; // Use Desmos to tune //94.6899
+//    if(mogoValues){
+//     variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 97.7549; // Use Desmos to tune
+//    } 
+//     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
+
+//     setConstants(TURN_KP, TURN_KI, variKD); 
 
 
 

@@ -170,7 +170,7 @@ void opcontrol() {
 
 //TEST.move(127);
 //TEST2.move(127);
-delay(3500);
+//delay(3500);
 
 	while (true) {
 
@@ -201,11 +201,11 @@ delay(3500);
 		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
       // con.print(0, 0, "AUTON: %s           ", autstr);
-      con.print(0, 0, "phi: %f         ", phi);
+      con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "x_pos: %f           ", float(x_pos));
+      con.print(1, 0, "error: %f           ", float(error));
     } else if (time % 150 == 0){
-      con.print(2, 0, "y_pos: %f        ", float(y_pos)); 
+      con.print(2, 0, "time2: %f        ", float(time2)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
     
@@ -411,10 +411,14 @@ delay(3500);
 
     //  driveArcL(90, 300, 3000);
 
-  setPosition(0, 0, 0);
-  //boomerang(0, 90);
-  boomerang(48, 60);
-  boomerang(0, 10);
+
+  // setPosition(0, 0, 0);
+  // //boomerang(0, 90);
+  // boomerang(48, 60);
+  // boomerang(0, 10);
+
+
+  
     //  boomerang(-3500, 3500);
     //  boomerang(-3500, 0);
     //  boomerang(0, 0);
@@ -425,7 +429,10 @@ delay(3500);
     // driveStraight2(-1000);
     // driveTurn2(100);
     // driveStraight2(1000);
+    // mogoValues = true;
+    // driveTurn(175);
 
+    driveArcL(90,400,1800);
     
     // initializePath();
     // initializePathDistances();

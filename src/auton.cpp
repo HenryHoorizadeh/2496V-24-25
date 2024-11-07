@@ -450,16 +450,15 @@ void autonomous() {
   } else if(atn == 5) {
 /// skills 
 
-
+LIFT.move_relative(-900, 125);
+delay(200);
 HOOKS.move(-127);
-LIFT.move_relative(-800, 125);
-driveStraight2(-400);
-driveStraight2(400);
+delay(600);
 LIFT.move(127);
 delay(300);
 driveStraight2(-275);
 driveTurn2(-90);
-driveClampS(-800, 100, 40); //-875
+driveClampS(-825, 100, 55); //-875
 //driveStraight2(200);
 HOOKS.move(127);
 INTAKE.move(127);
@@ -467,11 +466,11 @@ mogoValues = true;
 driveTurn2(180);
 driveStraight2(750);
 driveTurn2(125);
-driveStraight2(1250); //1300
+driveStraight2(1100); //1250
 driveTurn2(-20); //-15
-driveStraight2(800);
+driveStraight2(650);//800
 driveTurn2(0);
-driveStraightSlow(1050, 40);
+driveStraightSlow(1050, 35);//40
 delay(1000);
 driveTurn2(125);
 driveStraight2(400);
@@ -520,7 +519,7 @@ driveStraight2(2500);
 
 INTAKE.move(127);
 driveTurn2(-135);
-HOOKS.move_relative(1800, 600);
+HOOKS.move_relative(500, 600);
 chasMove(40,40,40,40,40,40);
 hang.set_value(true);
 delay(2000);
