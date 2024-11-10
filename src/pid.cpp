@@ -572,7 +572,7 @@ void driveClampS(int target, int clampDistance, int speed) {
     double x = 0;
     x = double(abs(target));
      timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
-
+    timeout = timeout*((1.0-(speed/100.0))+1.0);
     bool over = false;
     double voltage;
     double encoderAvg;

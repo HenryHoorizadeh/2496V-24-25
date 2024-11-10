@@ -448,7 +448,7 @@ void autonomous() {
     // driveStraight2(200);
 
   } else if(atn == 5) {
-/// skills 
+// skills 
 LIFT.move_relative(-900, 125);
 delay(200);
 HOOKS.move(-127);
@@ -463,10 +463,10 @@ HOOKS.move(127);
 INTAKE.move(127);
 mogoValues = true;
 driveTurn2(180);
-driveStraightC(200);
-driveArcLF(76, 500, 2800); //75
+driveStraightC(220);
+driveArcLF(78, 480, 2800); //75
 driveStraight2(950);
-driveStraight2(-350);
+driveStraight2(-375);
 driveTurn2(0);
 // driveTurn2(-20); //-15
 // driveArcRF(23,350,1800);
@@ -494,7 +494,7 @@ INTAKE.move(127);
 mogoValues = true;
 driveTurn2(180);
 driveStraightC(200);
-driveArcRF(76, 500, 2800);
+driveArcRF(75, 500, 2800);
 driveStraight2(950);
 driveStraight2(-350);
 driveTurn2(0);
@@ -508,52 +508,88 @@ driveTurn2(-125);
 driveStraight2(400);
 driveTurn2(155);
 driveStraight2(-300);
+HOOKS.move(-127);
 mogo.set_value(false);
 
 driveStraight2(300);
-driveTurn2(127);
+driveTurn2(130);
 HOOKS.move(0);
 driveStraight2(2500);
-
+LIFT.move(50);
 INTAKE.move(127);
 driveTurn2(-135);
-HOOKS.move_relative(500, 600);
 chasMove(40,40,40,40,40,40);
-hang.set_value(true);
+hang.set_value(true); 
 delay(2000);
 hang.set_value(false);
-driveStraight2(-400);
+driveStraight2(-300);
+INTAKE.move(127);
+HOOKS.move_relative(500, 600);
 driveStraight2(1000);
-driveTurn2(-45);
-driveClampS(-1200,100,40);
+driveTurn2(-50);
+driveClampS(-1400,150,55);
 mogoValues = true;
 HOOKS.move(127);
 driveTurn2(-62);
-driveStraight2(1900);
-driveTurn2(180);
-driveStraightSlow(1050, 40);
-delay(1000);
+driveStraight2(1800); //1800
+HOOKS.move(127);
+driveStraight2(-400);
+driveTurn2(-135);
+driveStraightC(200);
+driveArcLF(35,150,2000);
+driveStraight2(950);
 driveTurn2(-55);
-driveStraight2(400);
-driveTurn2(-163); //155
-HOOKS.move(0);
-scrapper.set_value(true);
-driveStraight2(100);
-driveTurn2(45); 
-scrapper.set_value(false);
-driveStraight2(-300);
+driveStraight2(300);
+delay(1000);
+driveTurn2(45);
 mogo.set_value(false);
-HOOKS.move(-127);
-mogoValues = false;
-driveStraight2(500);
-driveTurn2(100);
-driveStraight2(5000);
+// driveStraightC(-150);
+// mogo.set_value(false);
+// //delay(2000);
+// driveStraight2(-500);
+driveStraight2(-650);
+driveStraightC(700);
+driveArcRF(60,100,80);
+driveStraight2(3400);
 INTAKE.move(-127);
-driveStraight2(-700);
-driveTurn2(-45);
+driveStraight2(-400);
+driveTurn2(-35);
 hang.set_value(true);
-driveStraight2(1500);
+driveStraight2(1700);
 LIFT.move(127);
+
+
+
+
+
+
+
+
+
+// driveTurn2(180);
+// driveStraightSlow(1050, 40);
+// delay(1000);
+// driveTurn2(-55);
+// driveStraight2(400);
+// driveTurn2(-163); //155
+// HOOKS.move(0);
+// scrapper.set_value(true);
+// driveStraight2(100);
+// driveTurn2(45); 
+// scrapper.set_value(false);
+// driveStraight2(-300);
+// mogo.set_value(false);
+// HOOKS.move(-127);
+// mogoValues = false;
+// driveStraight2(500);
+// driveTurn2(100);
+// driveStraight2(5000);
+// INTAKE.move(-127);
+// driveStraight2(-700);
+// driveTurn2(-45);
+// hang.set_value(true);
+// driveStraight2(1500);
+// LIFT.move(127);
 
 
 
@@ -709,72 +745,101 @@ LIFT.move(127);
 
   
   } else if (atn == 6){
-    //50 skills starts here
-    // https://www.youtube.com/watch?v=5inrqB0fCFc
-    //scoring alliance wall stake
-    driveStraight2(100);
-    LIFT.move(127);
-    driveStraight2(-400);
-    //collecting rings
-    driveTurn2(-90);
-    driveClampS(-350,50, 50);
-    driveTurn2(90);
+    //currently rush auton(red)
+    driveStraightC(-650);
+    driveArcRF(-38,420,3000);
+    driveStraight2(-450);
+    mogo.set_value(true);
+    delay(1000);
+    driveStraight2(50);
     INTAKE.move(127);
     HOOKS.move(127);
-    driveStraight2(100);
-    driveTurn2(15);
+    driveTurn2(0);
     driveStraight2(200);
-    driveArcLF(30,200,4);
-    driveTurn2(130);
-    //scoring wall stake
-    HOOKS.move(-127);
-    driveTurn2(-90);
-    LIFT.move(127);
-    driveStraight2(100);
-    while (LIFT.move(-127)){
-      driveStraight2(-200);
-    }
-    driveTurn2(90);
-    HOOKS.move(127);
-    driveStraight2(500);
-    driveTurn2(-140);
-    driveArcLF(30,2,4);
-    mogo.set_value(false);
-    driveStraight2(50);
-    driveTurn2(210);
-    //second mobile stake;
-    driveClampS(1000,25,100);
-    driveTurn2(-90);
-    driveStraight2(200);
-    driveTurn2(45);
-    driveStraight2(200);
-    driveStraight2(-200);
-    driveTurn2(-140);
-    driveStraight2(100);
-    driveTurn2(90);
-    driveStraight2(200);
-    driveTurn2(65);
-    driveStraight2(50);
-    driveTurn(50);
-    driveStraight2(-30);
-    mogo.set_value(false);
-    //scoring another wall stakes
-    driveTurn2(-10);
-    HOOKS.move(-127);
-    driveStraight2(300);
-    driveTurn(90);
-    HOOKS.move(127);
-    driveStraight2(50);
-        while (LIFT.move(-127)){
-      driveStraight2(-200);
-    }
-    //getting another mobile stake
-    driveTurn(140);
-    driveStraight2(200);
-    driveTurn(180);
-    driveStraight2(-50); 
-    driveArcLF(30,100,4);
-    mogo.set_value(true);
+    // driveArcRF(90,300,2800);
+    // driveStraightC(200);
+    // driveTurn2(70);
+    // driveTurn2(40);
+    // driveStraightC(1000);
+    // mogo.set_value(false);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraightC(200);
+    // INTAKE.move(127);
+    // HOOKS.move_relative(500, 600);
+    // driveClampS(500,100,80);
+    // driveTurn2(150);
+    // driveStraightC(-200);
+
+
+
+
+    // //archived barcbot skills starts here
+    // // https://www.youtube.com/watch?v=5inrqB0fCFc
+    // //scoring alliance wall stake
+    // driveStraight2(100);
+    // LIFT.move(127);
+    // driveStraight2(-400);
+    // //collecting rings
+    // driveTurn2(-90);
+    // driveClampS(-350,50, 50);
+    // driveTurn2(90);
+    // INTAKE.move(127);
+    // HOOKS.move(127);
+    // driveStraight2(100);
+    // driveTurn2(15);
+    // driveStraight2(200);
+    // driveArcLF(30,200,4);
+    // driveTurn2(130);
+    // //scoring wall stake
+    // HOOKS.move(-127);
+    // driveTurn2(-90);
+    // LIFT.move(127);
+    // driveStraight2(100);
+    // while (LIFT.move(-127)){
+    //   driveStraight2(-200);
+    // }
+    // driveTurn2(90);
+    // HOOKS.move(127);
+    // driveStraight2(500);
+    // driveTurn2(-140);
+    // driveArcLF(30,2,4);
+    // mogo.set_value(false);
+    // driveStraight2(50);
+    // driveTurn2(210);
+    // //second mobile stake;
+    // driveClampS(1000,25,100);
+    // driveTurn2(-90);
+    // driveStraight2(200);
+    // driveTurn2(45);
+    // driveStraight2(200);
+    // driveStraight2(-200);
+    // driveTurn2(-140);
+    // driveStraight2(100);
+    // driveTurn2(90);
+    // driveStraight2(200);
+    // driveTurn2(65);
+    // driveStraight2(50);
+    // driveTurn(50);
+    // driveStraight2(-30);
+    // mogo.set_value(false);
+    // //scoring another wall stakes
+    // driveTurn2(-10);
+    // HOOKS.move(-127);
+    // driveStraight2(300);
+    // driveTurn(90);
+    // HOOKS.move(127);
+    // driveStraight2(50);
+    //     while (LIFT.move(-127)){
+    //   driveStraight2(-200);
+    // }
+    // //getting another mobile stake
+    // driveTurn(140);
+    // driveStraight2(200);
+    // driveTurn(180);
+    // driveStraight2(-50); 
+    // driveArcLF(30,100,4);
+    // mogo.set_value(true);
     
     //possibly correct spot here using boomerang or odom?
 
