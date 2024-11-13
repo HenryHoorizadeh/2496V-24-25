@@ -419,7 +419,8 @@ void opcontrol() {
     // mogoValues = true;
     // driveTurn(175);
 
-    driveArcL(90,400,1800);
+    driveArcLF(90,300,1800);
+   // driveStraight2(100);
     
     // initializePath();
     // initializePathDistances();

@@ -1200,7 +1200,7 @@ void driveTurn2(int target) { //target is inputted in autons
 
 void driveArcLF(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-
+    int trueTheta = theta;
     double ltarget = 0;
     double rtarget = 0;
     double ltargetFinal = 0;
@@ -1277,14 +1277,18 @@ void driveArcLF(double theta, double radius, int timeout){
 
         chasMove( (voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
 
-        if (theta > 0){
-            if ((encoderAvgL - ltargetFinal) > 0){
-                over = true;
-            }
-        } else {
-            if ((ltargetFinal - encoderAvgL) > 0){
-                over = true;
-            }
+        // if (theta > 0){
+        //     if ((encoderAvgL - ltargetFinal) > 0){
+        //         over = true;
+        //     }
+        // } else {
+        //     if ((ltargetFinal - encoderAvgL) > 0){
+        //         over = true;
+        //     }
+        // }
+
+        if(abs((init_heading - position) > trueTheta)){
+            over = true;
         }
 
         if (over || time > timeout){
@@ -1296,7 +1300,7 @@ void driveArcLF(double theta, double radius, int timeout){
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
             con.print(1, 0, "EncoderL: %f           ", float(encoderAvgL));
         } else if (time2 % 150 == 0){
-            con.print(2, 0, "Time: %f        ", float(time2));
+            con.print(2, 0, "Theta: %f        ", float(abs((init_heading + leftcorrect) - position)));
         } 
 
         time += 10;
@@ -1486,6 +1490,7 @@ void driveArcR(double theta, double radius, int timeout){
 void driveArcRF(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
     bool over = false;
+    int trueTheta = theta;
     double ltarget = 0;
     double rtarget = 0;
     double ltargetFinal = 0;
@@ -1559,14 +1564,18 @@ void driveArcRF(double theta, double radius, int timeout){
 
         chasMove((voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
 
-        if (theta > 0){
-            if ((encoderAvgR - rtargetFinal) > 0){
-                over = true;
-            }
-        } else {
-            if ((rtargetFinal - encoderAvgR) > 0){
-                over = true;
-            }
+        // if (theta > 0){
+        //     if ((encoderAvgR - rtargetFinal) > 0){
+        //         over = true;
+        //     }
+        // } else {
+        //     if ((rtargetFinal - encoderAvgR) > 0){
+        //         over = true;
+        //     }
+        // }
+
+        if(abs((init_heading - position) > trueTheta)){
+            over = true;
         }
 
         if (over || time > timeout){
