@@ -516,6 +516,39 @@ RingColor = 2;
 
   } else if(atn == 5) {
 // skills 
+
+LIFT.move_relative(-900, 125);
+delay(200);
+HOOKS.move(-127);
+delay(600);
+LIFT.move(127);
+delay(300);
+driveStraight2(-275);
+driveTurn2(-90);
+driveClampS(-825, 100, 55); //-875
+INTAKE.move(127);
+driveTurn2(180);
+driveStraightC(350);
+driveArcLF(41, 50, 2000);
+driveStraightC(1000);
+driveArcRF(20, 300, 1800);
+driveStraight2(800);
+HOOKS.move(127);
+LIFT.move(-127);
+driveTurn2(16);
+driveStraight2(900);
+driveTurn2(90);
+LIFT.move(-127);
+
+
+
+
+
+
+
+
+//// old route
+/*
 LIFT.move_relative(-900, 125);
 delay(200);
 HOOKS.move(-127);
@@ -638,7 +671,7 @@ driveStraight2(1700);
 LIFT.move(127);
 
 
-
+*/
 
 
 

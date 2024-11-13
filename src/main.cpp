@@ -75,7 +75,7 @@ void disabled() {}
 
  
 
-int atn =1;
+int atn =5;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
@@ -196,20 +196,7 @@ void opcontrol() {
 
 
 
-    
-    //printing stuff
-		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
-    if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
-      // con.print(0, 0, "AUTON: %s           ", autstr);
-      con.print(0, 0, "imu: %f         ", imu.get_heading());
-    } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "error: %f           ", float(error));
-    } else if (time % 150 == 0){
-      con.print(2, 0, "time2: %f        ", float(time2)); 
-      // pros::lcd::print(1, "errorp:%f ", float(error));
-    } 
-    
-
+  
 		//chassis arcade drive
 		int power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
 		int RX = con.get_analog(ANALOG_RIGHT_X); //turn is defined as left (positive) or right (negative)
