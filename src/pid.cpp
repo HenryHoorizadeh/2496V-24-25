@@ -17,9 +17,11 @@ using namespace std;
 bool mogoValues = false;
 bool longValues = false;
 bool stallProtection = false;
-bool sreverse = false;
-
-int hspeed;
+bool stalled;
+int stallTime = 0;
+int direc;
+int hookpos;
+int prevhookpos;
 
 //constants used for calculating power/voltage
 double vKp;
@@ -172,21 +174,19 @@ double calcPID3(double target, double input, int integralKi, int maxIntegral, bo
 }
 
 void hooks(int speed){
-    hspeed = speed;
+    direc = speed;
 }
 
 void stall(){
-    int stallTime = 0;
-    bool stalled;
-    int direc;
+
 
     //direc = hspeed;
 
-    if(sreverse){
-        direc = -127;
-    } else {
-        direc = 127;
-    }
+    // if(sreverse){
+    //     direc = -127;
+    // } else {
+    //     direc = 127;
+    // }
 
     // if (reverse){
     //     direc = 127;
@@ -199,18 +199,21 @@ void stall(){
     // direc = HOOKS.get_voltage()/1000.0;
 
     if(stallProtection){
-        if(abs(HOOKS.get_actual_velocity() < 10)){
+        prehookpos = hookpos;
+        hookpos = HOOKS.get_position();
+
+        if((hookpos == prevhookpos)){
             stalled = true;
         }
 
         if (stalled){
-            HOOKS.move(direc);
+            HOOKS.move(-direc);
             stallTime += 10;
             if(stallTime >= 300){
                 stalled = false;
             }
         } else {
-            HOOKS.move(-direc);
+            HOOKS.move(direc);
             stallTime = 0;
         }
 
