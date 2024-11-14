@@ -85,10 +85,22 @@ float errorp;
  
 void competition_initialize() {
     while(true) {
+      // if(selec.get_value() == true) {
+      //   atn ++;  
+      //   delay(350);
+      // }
+
       if(selec.get_value() == true) {
-        atn ++;  
-        delay(350);
+        pressed ++;  
+      } else {
+        pressed = 0;
       }
+
+      if (pressed == 1){
+        atn++;
+      }
+
+
       //resetEncoders();
       
       if (atn == 0) {
