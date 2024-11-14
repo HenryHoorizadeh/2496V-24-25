@@ -531,17 +531,30 @@ LIFT.move(127);
 INTAKE.move(127);
 driveTurn2(175);
  HOOKS.move(-127);
-driveStraightC(300);
+driveStraightC(400);
 driveArcLF(45, 50, 2000); //41
-driveStraightC(700); //1000
-driveArcRF(45, 200, 1800);
-driveStraight2(600);
+driveStraightC(350); //1000
+driveArcRF(45, 180, 1800);
+driveStraightSlow(700,40);
+delay(200);
 HOOKS.move(127);
 LIFT.move(-127);
 driveTurn2(10);
-driveStraightC(500);
-driveArcRF(80, 100, 1800);
+driveStraightC(60);
+driveArcRF(70, 80, 2000);
+driveStraight2(30);
+LIFT.move(127);
+delay(100);
+HOOKS.move(127);
+driveStraight2(-450);
+driveTurn2(0);
+driveStraightSlow(1500,80);
+driveStraight2(500);
+driveTurn2(130);
 driveStraight2(300);
+driveTurn2(-135);
+driveStraight2(-300);
+mogoValues = false;
 
 // driveTurn2(90);
 // LIFT.move(-127);
