@@ -516,7 +516,6 @@ RingColor = 2;
 
   } else if(atn == 5) {
 // skills 
-
 LIFT.move_relative(-900, 125);
 delay(200);
 HOOKS.move(-127);
@@ -530,13 +529,13 @@ driveClampS(-825, 100, 55); //-875
 mogoValues = true;
 LIFT.move(127);
 INTAKE.move(127);
-driveTurn2(180);
-HOOKS.move(-127);
-driveStraightC(350);
+driveTurn2(175);
+ HOOKS.move(-127);
+driveStraightC(300);
 driveArcLF(45, 50, 2000); //41
-driveStraightC(1000); //1000
-driveArcRF(45, 300, 1800);
-driveStraight2(200);
+driveStraightC(700); //1000
+driveArcRF(45, 200, 1800);
+driveStraight2(600);
 HOOKS.move(127);
 LIFT.move(-127);
 driveTurn2(10);

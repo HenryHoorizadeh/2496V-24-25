@@ -26,6 +26,9 @@ extern void driveArcLF(double theta, double radius, int timeout);
 extern void driveArcR(double theta, double radius, int timeout);
 extern void driveArcRF(double theta, double radius, int timeout);
 extern void ColorSort(int color);
+extern void hooks(int speed);
+extern void stall();
+
 extern int time2; 
 extern float error;
 extern float error2;
@@ -34,6 +37,8 @@ extern int ColorCount;
 extern double totalError;
 extern bool longValues;
 extern bool mogoValues;
+extern bool stallProtection;
+extern bool sreverse;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);

@@ -335,6 +335,9 @@ void opcontrol() {
 			INTAKE.move(0);
       HOOKS.move(0);
 		}
+    // sreverse = false;
+    // stallProtection = true;
+    // stall();
 
 // INTAKE.move(127);
 // ColorSort(1);
@@ -419,7 +422,12 @@ void opcontrol() {
     // mogoValues = true;
     // driveTurn(175);
 
-    driveArcLF(90,300,1800);
+    // driveArcLF(90,300,1800);
+    driveStraightC(350);
+    driveArcLF(45, 50, 2000);
+    driveStraightC(1000);
+    driveArcRF(45, 300, 1800);
+    driveStraight2(200);
    // driveStraight2(100);
     
     // initializePath();
@@ -470,6 +478,18 @@ void opcontrol() {
   // } else {
   //    piston.set_value(false);
   // }
+
+      //printing stuff
+		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
+    if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
+      // con.print(0, 0, "AUTON: %s           ", autstr);
+      con.print(0, 0, "imu: %f         ", imu.get_heading());
+    } else if (time % 100 == 0 && time % 150 != 0){
+      con.print(1, 0, "error: %f           ", float(HOOKS.get_actual_velocity()));
+    } else if (time % 150 == 0){
+      con.print(2, 0, "time2: %f        ", float(time2)); 
+      // pros::lcd::print(1, "errorp:%f ", float(error));
+    } 
 
 	  	time += 1;
 		  delay(1);
