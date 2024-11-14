@@ -180,6 +180,8 @@ void opcontrol() {
   imu.tare_heading();
   LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
+  
+
 //TEST.move(127);
 //TEST2.move(127);
 //delay(3500);
@@ -332,24 +334,26 @@ void opcontrol() {
 
 //Double Press Logic
 
-    if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
-      //Double Press action
-      INTAKE.move(127);
-      HOOKS.move(-95);
-    // HOOKS.move(-127);
-    } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-			INTAKE.move(-127);
-      HOOKS.move(-127);
-		} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-			INTAKE.move(127);
-     HOOKS.move(127);
-		} else {
-			INTAKE.move(0);
-      HOOKS.move(0);
-		}
+    // if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
+    //   //Double Press action
+    //   INTAKE.move(127);
+    //   HOOKS.move(-95);
+    // // HOOKS.move(-127);
+    // } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+		// 	INTAKE.move(-127);
+    //   HOOKS.move(-127);
+		// } else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+		// 	INTAKE.move(127);
+    //  HOOKS.move(127);
+		// } else {
+		// 	INTAKE.move(0);
+    //   HOOKS.move(0);
+		// }
     // sreverse = false;
-    // stallProtection = true;
-    // stall();
+    stallProtection = true;
+    stall();
+    hooks(127);
+
 
 // INTAKE.move(127);
 // ColorSort(1);
@@ -497,7 +501,7 @@ void opcontrol() {
       // con.print(0, 0, "AUTON: %s           ", autstr);
       con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "error: %f           ", float(HOOKS.get_actual_velocity()));
+      con.print(1, 0, "error: %f           ",float(stallTime));
     } else if (time % 150 == 0){
       con.print(2, 0, "time2: %f        ", float(time2)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

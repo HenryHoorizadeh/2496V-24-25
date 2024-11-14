@@ -39,6 +39,9 @@ extern bool longValues;
 extern bool mogoValues;
 extern bool stallProtection;
 extern bool sreverse;
+extern bool stalled;
+extern float view;
+extern int stallTime;
 //hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
