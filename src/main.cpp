@@ -180,7 +180,7 @@ void opcontrol() {
   imu.tare_heading();
   LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
-  
+
 
 //TEST.move(127);
 //TEST2.move(127);
@@ -334,25 +334,25 @@ void opcontrol() {
 
 //Double Press Logic
 
-    // if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
-    //   //Double Press action
-    //   INTAKE.move(127);
-    //   HOOKS.move(-95);
-    // // HOOKS.move(-127);
-    // } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-		// 	INTAKE.move(-127);
-    //   HOOKS.move(-127);
-		// } else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-		// 	INTAKE.move(127);
-    //  HOOKS.move(127);
-		// } else {
-		// 	INTAKE.move(0);
-    //   HOOKS.move(0);
-		// }
+    if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
+      //Double Press action
+      INTAKE.move(127);
+      HOOKS.move(-95);
+    // HOOKS.move(-127);
+    } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+			INTAKE.move(-127);
+      HOOKS.move(-127);
+		} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+			INTAKE.move(127);
+     HOOKS.move(127);
+		} else {
+			INTAKE.move(0);
+      HOOKS.move(0);
+		}
     // sreverse = false;
-    stallProtection = true;
-    stall();
-    hooks(127);
+    // stallProtection = true;
+    // stall();
+    // hooks(127);
 
 
 // INTAKE.move(127);

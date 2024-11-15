@@ -92,18 +92,18 @@ void stall(){
         hookpos = HOOKS.get_position();
 
         if((hookpos == prevhookpos)){
-            stallC++;
+            stallC += 10;
         } else {
             stallC = 0;
         }
 
-        if(stallC>20){
+        if(stallC>100){
             stalled = true;
         }
 
         if (stalled){
             HOOKS.move(-direc);
-            stallTime += 1;
+            stallTime += 10;
             if(stallTime >= 300){
                 stalled = false;
                 stallTime = 0;
