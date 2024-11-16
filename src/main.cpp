@@ -163,8 +163,8 @@ void opcontrol() {
   bool NEWL2 = false;
   bool NEWR2 = false;
   bool NEWR1 = false;
-  bool arcToggle = false;
-  bool tankToggle = true;
+  bool arcToggle = true;
+  bool tankToggle = false;
   bool mogoToggle = true;
   bool intakeToggle = false;
   bool scrapperToggle = false;
@@ -501,7 +501,7 @@ void opcontrol() {
       con.print(0, 0, "AUTON: %s           ", autstr);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "error: %f           ",float(stallTime));
+      con.print(1, 0, "error: %f           ",float(chasstempC));
     } else if (time % 150 == 0){
       con.print(2, 0, "time2: %f        ", float(time2)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

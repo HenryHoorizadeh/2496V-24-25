@@ -27,6 +27,7 @@ extern void driveArcR(double theta, double radius, int timeout);
 extern void driveArcRF(double theta, double radius, int timeout);
 extern void ColorSort(int color);
 extern void hooks(int speed);
+extern void intake2(int speed);
 extern void stall();
 
 extern int time2; 

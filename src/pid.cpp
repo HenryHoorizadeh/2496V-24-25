@@ -20,6 +20,7 @@ bool stallProtection = false;
 bool stalled = false;
 int stallTime = 0;
 int direc;
+int direc2;
 int hookpos;
 int prevhookpos;
 float view;
@@ -66,6 +67,10 @@ void hooks(int speed){
     direc = speed;
 }
 
+void intake2(int speed){
+    direc2 = speed;
+}
+
 void stall(){
 
 
@@ -103,6 +108,7 @@ void stall(){
 
         if (stalled){
             HOOKS.move(-direc);
+            INTAKE.move(-direc2);
             stallTime += 10;
             if(stallTime >= 300){
                 stalled = false;
@@ -111,6 +117,7 @@ void stall(){
             view = 1;
         } else {
             HOOKS.move(direc);
+            INTAKE.move(direc2);
             stallTime = 0;
             view = 0;
         }
