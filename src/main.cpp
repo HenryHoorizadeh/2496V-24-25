@@ -498,8 +498,8 @@ void opcontrol() {
       //printing stuff
 		double chasstempC = ((RF.get_temperature() + RB.get_temperature() + LF.get_temperature() + LB.get_temperature())/4);
     if (time % 50 == 0 && time % 100 != 0 && time % 150 != 0){
-      // con.print(0, 0, "AUTON: %s           ", autstr);
-      con.print(0, 0, "imu: %f         ", imu.get_heading());
+      con.print(0, 0, "AUTON: %s           ", autstr);
+      //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       con.print(1, 0, "error: %f           ",float(stallTime));
     } else if (time % 150 == 0){
