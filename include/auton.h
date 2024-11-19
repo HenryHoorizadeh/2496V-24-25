@@ -5,6 +5,8 @@
 #ifndef AUTONH
 #define AUTONH
 
+extern void autonomous();
+
 
 #endif
 //cole was here. you better win this year!

@@ -102,10 +102,23 @@ RingColor = 2;
     driveTurn2(-130);
     driveStraight2(300);
     delay(500);
-    driveStraight2(-500);
+
     driveTurn2(-170);
     driveStraight2(-600);
-    driveTurn2(-60);
+    // driveTurn2(60);
+    LIFT.move_relative(-1150, 125);
+    driveTurn2(110);
+    driveStraight2(600);
+    // driveStraight2(-500);
+    // driveTurn2(-170);
+    // driveStraight2(-600);
+    // LIFT.move_relative(-1700, 125);
+    // driveTurn2(135);
+    // driveStraight2(1200);
+
+    // driveTurn2(-170);
+    // driveStraight2(-600);
+    // driveTurn2(-60);
 
 
 
@@ -484,7 +497,7 @@ RingColor = 2;
     HOOKS.move(127);
     driveStraight2(450);
     driveTurn2(-115);
-    driveStraight2(300);//550
+    driveStraight2(225);//550
     driveTurn2(148);//140
     driveStraight2(300);//325
     delay(500);
@@ -494,10 +507,10 @@ RingColor = 2;
     driveStraight2(-500);
     driveTurn2(170);
     driveStraight2(-600);
-    driveTurn2(60);
+    // driveTurn2(60);
     // LIFT.move_relative(-1150, 125);
-    // driveTurn2(-110);
-    // driveStraight2(600);
+    driveTurn2(-110);
+    driveStraight2(300);
 
 
         // driveArcLF(130, 600, 3000);
@@ -594,7 +607,7 @@ hooks(-115);
 driveArcRF(45, 50, 2000); //41
 driveStraightC(450); //1000 //250
 driveArcLF(45, 180, 1800);
-driveStraightSlow(700,70);
+driveStraightSlow(825,70);//700
 delay(200);
 //HOOKS.move(127);
 // stallProtection = true;
@@ -625,7 +638,7 @@ mogoValues = false;
 ///second half 
 
 driveStraight2(300);
-driveTurn2(135);
+driveTurn2(132);//135
 HOOKS.move(0);
 stallProtection = false;
 driveStraight2(2500);
@@ -645,32 +658,38 @@ driveTurn2(-50);
 driveClampS(-1400,150,55);
 mogoValues = true;
 HOOKS.move(127);
+stallProtection = true;
+hooks(127);
+intake2(127);
 driveTurn2(-62);
-driveStraight2(1800); //1800
-HOOKS.move(127);
-driveStraight2(-400);
+// driveStraight2(1800); //1800
+// HOOKS.move(127);
+// driveStraight2(-400);
+driveStraight2(1600);
 driveTurn2(-135);
 driveStraightC(200);
 driveArcLF(35,150,2000);
 driveStraight2(950);
 INTAKE.move(-5);
-driveTurn2(-55);
+driveTurn2(-55); //-55
 INTAKE.move(127);
 driveStraight2(300);
 delay(1000);
-driveTurn2(45);
+driveTurn2(55);//45
 
 mogo.set_value(false);
-HOOKS.move(-127);
+//HOOKS.move(-127);
+hooks(-127);
 // driveStraightC(-150);
 // mogo.set_value(false);
 // //delay(2000);
 // driveStraight2(-500);
 driveStraight2(-650);
 driveStraight2(900);
-driveTurn2(100);//100
+driveTurn2(110);//100
 driveStraight2(4000);
-INTAKE.move(-127);
+// INTAKE.move(-127);
+intake2(-127);
 driveStraight2(-400);
 driveTurn2(-35);
 hang.set_value(true);
