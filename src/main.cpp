@@ -182,9 +182,9 @@ void opcontrol() {
 
 
 
-//TEST.move(127);
+TEST.move(127);
 //TEST2.move(127);
-//delay(3500);
+delay(3500);
 
 	while (true) {
 
@@ -198,8 +198,8 @@ void opcontrol() {
     OpticalC.set_led_pwm(100);
 
     //TEST2.move_velocity(300);
-    if(RF.get_actual_velocity() > maxRPM){
-      maxRPM = RF.get_actual_velocity();
+    if(TEST.get_actual_velocity() > maxRPM){
+      maxRPM = TEST.get_actual_velocity();
     }
 
     
@@ -217,7 +217,7 @@ void opcontrol() {
 
     //int turn = int(RX); // Normal Rates
 		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
-    int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
+   int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
 		int left = power + turn;
 		int right = power - turn;
 
@@ -381,15 +381,16 @@ void opcontrol() {
     }
 
 //Non Double Press Logic
-    // if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-		// 	INTAKE.move(127);
-		// } 
-    // else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-		// 	INTAKE.move(-127);
-		// } 
-    // else {
-		// 	INTAKE.move(0);
-		// }
+    if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+			INTAKE.move(127);
+		} 
+    else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+			INTAKE.move(-127);
+		} 
+    else {
+			INTAKE.move(0);
+		}
+    
 
 
 
@@ -489,6 +490,8 @@ void opcontrol() {
   scrapper.set_value(scrapperToggle);
   //piston2.set_value(wingToggle);
 
+
+
   // if (con.get_digital(E_CONTROLLER_DIGITAL_DOWN)){
   //    piston.set_value(true);
   // } else {
@@ -501,9 +504,10 @@ void opcontrol() {
       con.print(0, 0, "AUTON: %s           ", autstr);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
-      con.print(1, 0, "error: %f           ",float(chasstempC));
+      //con.print(1, 0, "error: %f           ",float(chasstempC));
+      con.print(1, 0, "MAX: %f           ",float(maxRPM));
     } else if (time % 150 == 0){
-      con.print(2, 0, "time2: %f        ", float(time2)); 
+      con.print(2, 0, "AVG: %f        ", float(avgRPM)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
 

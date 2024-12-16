@@ -21,9 +21,9 @@
 #define HOOKS_PORT 10
 #define ROTO_PORT 6
 #define ODOMX_PORT 7
-#define ODOMY_PORT 3
-#define TEST_PORT 2
-#define TEST_PORT2 2
+#define ODOMY_PORT 2
+#define TEST_PORT 3
+#define TEST_PORT2 4
 #define LIFT_PORT 5
 #define OPTICAL_PORT 8
 

@@ -26,6 +26,17 @@ int prevhookpos;
 float view;
 int stallC = 0;
 
+double vKpl;
+double vKil;
+double vKdl;
+float errorl; //amount from target
+double prevErrorl; 
+//double h;
+int integrall; 
+int derivativel;
+int time2l;
+double powerl;
+
 //constants used for calculating power/voltage
 double vKp;
 double vKi;
@@ -238,6 +249,47 @@ double calcPID3(double target, double input, int integralKi, int maxIntegral, bo
 
     return power3;
 }
+
+double calcPIDlift(double target, double input, int integralKi, int maxIntegral, int bias) { //basically tuning i here
+    int integrall;
+    prevErrorl = errorl;
+    errorl = target - input;
+    
+    if(std::abs(errorl) < integralKi) {
+        integrall += errorl;
+    } else {
+        integrall = 0;
+    }
+
+    if(integrall >= 0) {
+        integrall = std::min(integrall, maxIntegral); //min means take whichever value is smaller btwn integral and maxI
+        //integral = integral until integral is greater than maxI (to keep integral limited to maxI)
+    } else {
+        integrall = std::max(integrall, -maxIntegral); //same thing but negative max
+    }
+    
+    derivativel = errorl - prevErrorl;
+
+    powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivativel);
+    
+    //multiply only on the way up  
+    // if(error < 0){
+    //     powerl = powerl*bias;
+    // }
+    //multiply on the way up divide on the way down
+    if(errorl < 0){
+        powerl =  powerl*bias;
+    } else {
+        powerl = powerl/bias;
+    }
+    // straight add voltage to all scenarios 
+    // powerl += bias;
+
+
+
+    return powerl;
+}
+
 
 
 
@@ -1423,7 +1475,6 @@ void driveArcL(double theta, double radius, int timeout){
             }
         } 
     
-
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
         if(voltageL > 127){ //set left limit
