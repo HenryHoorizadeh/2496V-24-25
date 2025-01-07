@@ -155,12 +155,12 @@ void resetEncoders() { //reset the chassis motors every time a target is reached
 
 
 //setting method for driving straight or turning (pos neg voltages change directions)
-void chasMove(int voltageLF, int voltageLB, int voltageLM, int voltageRF, int voltageRB, int voltageRM) { //voltage to each chassis motor
+void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int voltageRM, int voltageRB) { //voltage to each chassis motor
     LF.move(voltageLF);
-    LM.move(voltageLB);
+    LM.move(voltageLM);
     LB.move(voltageLB);
     RF.move(voltageRF);
-    RM.move(voltageRF);
+    RM.move(voltageRM);
     RB.move(voltageRB);
 }
 
