@@ -5,6 +5,8 @@
 #include "pros/adi.hpp"
 #include "pros/motors.h"
 
+
+
 #ifndef ROBOTH
 #define ROBOTH
 
@@ -33,6 +35,8 @@ extern pros::Motor LIFT;
 //intake
 extern pros::Motor INTAKE;
 extern pros::Motor HOOKS;
+
+
 
 //sensors
 // extern pros::ADIEncoder encLeft;

@@ -539,11 +539,16 @@ void driveStraight(int target) {
             position = imu.get_heading();
             }
         } 
+
+
+
         if(longValues){
             setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
         } else {
             setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
         }
+
+        
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
 
 
@@ -553,7 +558,7 @@ void driveStraight(int target) {
             voltage = -127;
         }
         errorp = abs(target - encoderAvg);
-        chasMove( (voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
+        chasMove((voltage + heading_error ), (voltage + heading_error), (voltage + heading_error), (voltage - heading_error), (voltage - heading_error), (voltage - heading_error));
         if (abs(target - encoderAvg) <= 3) count++;
         if (count >= 20 || time2 > timeout){
             break;
@@ -1203,7 +1208,7 @@ void driveTurn2(int target) { //target is inputted in autons
     position = imu.get_heading(); //this is where the units are set to be degrees
 
     if (position > 180){
-        position = ((360 - position) * -1 );
+        position = position - 360;
     }
 
     if((target < 0) && (position > 0)){
@@ -1215,7 +1220,6 @@ void driveTurn2(int target) { //target is inputted in autons
              turnv = (abs(position) + abs(target));
         }
     } else if ((target > 0) && (position < 0)){
-
         if((target - position) >= 180){
             position = imu.get_heading();
             turnv = abs(abs(position) - abs(target));

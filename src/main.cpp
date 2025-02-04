@@ -14,6 +14,7 @@ using namespace pros;
 using namespace std;
 
 
+
 // void resetEncoders() { //we can't add this to main.h because main.h doesn't
 // refer to robot.h (where LF, LB, etc. are located) 	LF.tare_position(); //or
 // set_zero_position(0) or set_zero_position(LF.get_position()); (sets current
@@ -100,6 +101,8 @@ void competition_initialize() {
         atn++;
       }
 
+ 
+
 
       //resetEncoders();
       
@@ -177,6 +180,8 @@ void opcontrol() {
   double rotoAngle = 0;
   float xvelo = 0;
 
+
+
   imu.tare_heading();
   LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
@@ -212,12 +217,16 @@ delay(3500);
 
   
 		//chassis arcade drive
-		int power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
+		power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
 		int RX = con.get_analog(ANALOG_RIGHT_X); //turn is defined as left (positive) or right (negative)
 
+
+
     //int turn = int(RX); // Normal Rates
-		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
-   int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
+
+		// int turn = int(abs(RX) * RX / 127); //X Squared Rates
+
+    //int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
 		int left = power + turn;
 		int right = power - turn;
 
@@ -245,6 +254,7 @@ delay(3500);
       RM.move(right);
       RB.move(right);
     }
+
 
 
 
@@ -390,7 +400,9 @@ delay(3500);
     else {
 			INTAKE.move(0);
 		}
-    
+
+
+ 
 
 
 

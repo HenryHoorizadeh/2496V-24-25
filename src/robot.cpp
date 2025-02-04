@@ -9,34 +9,37 @@
 
 
 
+
 // 2496v
-#define LF_PORT 20
-#define LM_PORT 19
-#define LB_PORT 16
-#define RF_PORT 18
-#define RM_PORT 17
-#define RB_PORT 13
-#define IMU_PORT 1
+#define LF_PORT 4
+#define LM_PORT 1
+#define LB_PORT 3
+#define RF_PORT 6
+#define RM_PORT 8
+#define RB_PORT 9
+#define IMU_PORT 20
 #define INTAKE_PORT 9
 #define HOOKS_PORT 10
-#define ROTO_PORT 6
+#define ROTO_PORT 16
 #define ODOMX_PORT 7
 #define ODOMY_PORT 2
-#define TEST_PORT 3
-#define TEST_PORT2 4
+#define TEST_PORT 2
+#define TEST_PORT2 14
 #define LIFT_PORT 5
 #define OPTICAL_PORT 8
 
-//rotation ssensor
+
+
+//rotation sensor
 pros::Rotation roto(ROTO_PORT);
 pros::Rotation ODOMX(ODOMX_PORT);
 pros::Rotation ODOMY(ODOMY_PORT);
 
 pros::Motor LF (LF_PORT, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor LM (LM_PORT, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor LM (LM_PORT, pros::E_MOTOR_GEARSET_06, false);
 pros::Motor LB (LB_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor RF (RF_PORT, pros::E_MOTOR_GEARSET_06, false);
-pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor RM (RM_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06, false);
 
 pros::Motor TEST (TEST_PORT, pros::E_MOTOR_GEARSET_06, true);
@@ -75,6 +78,7 @@ pros::Imu imu (IMU_PORT);
 
 //controller
 pros::Controller con (pros::E_CONTROLLER_MASTER);
+
 //optical sensor
 pros::Optical OpticalC (OPTICAL_PORT);
 
