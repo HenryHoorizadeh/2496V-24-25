@@ -43,7 +43,6 @@ extern bool sreverse;
 extern bool stalled;
 extern float view;
 extern int stallTime;
-//hello
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
 #define STRAIGHT_KP 1.65 // 1

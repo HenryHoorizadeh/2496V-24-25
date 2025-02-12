@@ -30,10 +30,9 @@ extern pros::Motor TEST;
 extern pros::Motor TEST2;
 
 //lift
-extern pros::Motor LIFT;
+extern pros::Motor LDB;
 
-//intake
-extern pros::Motor INTAKE;
+//hooks
 extern pros::Motor HOOKS;
 
 

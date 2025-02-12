@@ -50,6 +50,7 @@ int time2;
 double power; //voltage provided to motors at any given time to reach the target
 
 
+
 //calc2
 double vKp2;
 double vKi2;
@@ -118,8 +119,8 @@ void stall(){
         }
 
         if (stalled){
-            HOOKS.move(-direc);
-            INTAKE.move(-direc2);
+           // HOOKS.move(-direc);
+           // INTAKE.move(-direc2);
             stallTime += 10;
             if(stallTime >= 300){
                 stalled = false;
@@ -127,8 +128,8 @@ void stall(){
             }
             view = 1;
         } else {
-            HOOKS.move(direc);
-            INTAKE.move(direc2);
+           // HOOKS.move(direc);
+            //INTAKE.move(direc2);
             stallTime = 0;
             view = 0;
         }
@@ -154,6 +155,8 @@ void resetEncoders() { //reset the chassis motors every time a target is reached
 }
 
 
+
+
 //setting method for driving straight or turning (pos neg voltages change directions)
 void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int voltageRM, int voltageRB) { //voltage to each chassis motor
     LF.move(voltageLF);
@@ -164,6 +167,8 @@ void chasMove(int voltageLF, int voltageLM, int voltageLB, int voltageRF, int vo
     RB.move(voltageRB);
 }
 
+
+
 int slew = 3;
 double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
     odometry2();
@@ -173,6 +178,7 @@ double calcPID(double target, double input, int integralKi, int maxIntegral, boo
     prevError = error;
     error = target - input;
     
+
     if(abs(error) < integralKi) {
         integral += error;
     } else {
@@ -185,6 +191,12 @@ double calcPID(double target, double input, int integralKi, int maxIntegral, boo
     } else {
         integral = max(integral, -maxIntegral); //same thing but negative max
     }
+
+    // if(integral > maxIntegral){
+    //     integral = maxIntegral;
+    // } else if(integral < -maxIntegral){
+    //     integral = -maxIntegral;
+    // }
 
     derivative = error - prevError;
 
@@ -404,89 +416,89 @@ bool InitCorrect = false;
 int ColorCount;
 bool Backwards = false;
 void ColorSort(int color){
-    //blue color rejection
-    if (color == 0){
-        if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-            InitColor = true;
-        }
+    // //blue color rejection
+    // if (color == 0){
+    //     if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+    //         InitColor = true;
+    //     }
 
-        if (InitColor){
-            if(Backwards == false){
-                HOOKS.move(127);
-                if(HOOKS.get_position() > 500){
-                    Backwards = true; 
-                }
-            } else {
-                HOOKS.move(-127);
-                if(HOOKS.get_position() < 200){
-                    Backwards = false;
-                    InitColor = false;
-                }
-            }
-        } else {
-            HOOKS.move(127);
-            HOOKS.tare_position();
-        }
-
-
+    //     if (InitColor){
+    //         if(Backwards == false){
+    //             HOOKS.move(127);
+    //             if(HOOKS.get_position() > 500){
+    //                 Backwards = true; 
+    //             }
+    //         } else {
+    //             HOOKS.move(-127);
+    //             if(HOOKS.get_position() < 200){
+    //                 Backwards = false;
+    //                 InitColor = false;
+    //             }
+    //         }
+    //     } else {
+    //         HOOKS.move(127);
+    //         HOOKS.tare_position();
+    //     }
 
 
 
 
-    } else if (color == 1) { //red color rejectiom
-        if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
-            InitColor = true;
-        } 
-
-        if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-            InitCorrect = true;
-        }
-
-        if (InitColor){
-            if(Backwards == false){
-                HOOKS.move(-127);
-                if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-                    INTAKE.move(0);
-                } else {
-                    INTAKE.move(60);
-                }
-                if(HOOKS.get_position() < -3000){
-                    Backwards = true; 
-                }
-            } else {
-                INTAKE.move(127);
-                HOOKS.move(127);
-                Backwards = false;
-                InitColor = false;
-            }
-        } else if(InitCorrect){
-            if(Backwards == false){
-                HOOKS.move(127);
-                if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
-                    INTAKE.move(0);
-                } else {
-                    INTAKE.move(60);
-                }
-                if(HOOKS.get_position() > 4000){
-                    Backwards = true; 
-                }
-            } else {
-                INTAKE.move(127);
-                HOOKS.move(-127);
-                Backwards = false;
-                InitColor = false;
-            }
-
-        } else {
-
-            INTAKE.move(127);
-            HOOKS.move(127);
-            HOOKS.tare_position();
-        }
 
 
+    // } else if (color == 1) { //red color rejectiom
+    //     if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
+    //         InitColor = true;
+    //     } 
 
-}
+    //     if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+    //         InitCorrect = true;
+    //     }
+
+    //     if (InitColor){
+    //         if(Backwards == false){
+    //             HOOKS.move(-127);
+    //             if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+    //               //  INTAKE.move(0);
+    //             } else {
+    //                 INTAKE.move(60);
+    //             }
+    //             if(HOOKS.get_position() < -3000){
+    //                 Backwards = true; 
+    //             }
+    //         } else {
+    //             INTAKE.move(127);
+    //             HOOKS.move(127);
+    //             Backwards = false;
+    //             InitColor = false;
+    //         }
+    //     } else if(InitCorrect){
+    //         if(Backwards == false){
+    //             HOOKS.move(127);
+    //             if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
+    //                 INTAKE.move(0);
+    //             } else {
+    //                 INTAKE.move(60);
+    //             }
+    //             if(HOOKS.get_position() > 4000){
+    //                 Backwards = true; 
+    //             }
+    //         } else {
+    //             INTAKE.move(127);
+    //             HOOKS.move(-127);
+    //             Backwards = false;
+    //             InitColor = false;
+    //         }
+
+    //     } else {
+
+    //         INTAKE.move(127);
+    //         HOOKS.move(127);
+    //         HOOKS.tare_position();
+    //     }
+
+
+
+//}
 }
 
 
@@ -516,6 +528,7 @@ void driveStraight(int target) {
     resetEncoders();
     while(true) {
         ColorSort(RingColor);
+
         
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
@@ -571,6 +584,7 @@ void driveStraight(int target) {
         } else if (time2 % 150 == 0){
             con.print(2, 0, "Time: %f        ", float(time2));
         } 
+
 
         delay(10);
         time2 += 10;
@@ -1387,19 +1401,32 @@ void driveArcLF(double theta, double radius, int timeout){
         // } else if (voltageL < -70){
         //     voltageL = -70;
         // }
+        if(voltageL > 127){ //set left limit
+            voltageL = 127;
+        } else if (voltageL < -127){
+            voltageL = -127;
+        }
+
+
+        
         int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
         // if(voltageR > 100){ // set right limit
         //     voltageR = 100;
         // } else if (voltageR < -100){
         //     voltageR = -100;
         // }
+        if(voltageR > 127){ //set left limit
+            voltageR = 127;
+        } else if (voltageR < -127){
+            voltageR = -127;
+        }
     
 
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
         int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
 
 
-        chasMove( (voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
+        chasMove((voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
 
         // if (theta > 0){
         //     if ((encoderAvgL - ltargetFinal) > 0){
@@ -1435,6 +1462,7 @@ void driveArcLF(double theta, double radius, int timeout){
 
 void driveArcL(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+
 
     //int timeout = 30000;
 
@@ -1651,6 +1679,8 @@ void driveArcRF(double theta, double radius, int timeout){
         if (position > 180){
             position = position - 360;
         }
+        double encoderAvgR = (RB.get_position() +  RM.get_position()) / 2;
+        rightcorrect = (encoderAvgR * 360) / (2 * pi * radius);
 
         if(((init_heading + rightcorrect) < 0) && (position > 0)){
             if((position - (init_heading + rightcorrect)) >= 180){
@@ -1664,7 +1694,6 @@ void driveArcRF(double theta, double radius, int timeout){
         } 
 
         double encoderAvgL = LF.get_position();
-        double encoderAvgR = (RB.get_position() +  RM.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
         // if(voltageL > 100){ //set left limti
@@ -1679,12 +1708,11 @@ void driveArcRF(double theta, double radius, int timeout){
         //     voltageR = -70;
         // }
 
-        rightcorrect = (encoderAvgR * 360) / (2 * pi * radius);
+        
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
         int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
 
 
-    
 
         chasMove((voltageL + fix), (voltageL + fix), (voltageL + fix), (voltageR - fix), (voltageR - fix), (voltageR - fix));
 

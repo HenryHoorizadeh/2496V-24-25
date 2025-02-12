@@ -38,6 +38,9 @@ void on_center_button() {
   }
 }
 
+
+
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -99,6 +102,13 @@ void competition_initialize() {
 
       if (pressed == 1){
         atn++;
+      }
+
+      if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+        atn++;
+      }
+      if(atn>7){
+        atn = 0;
       }
 
  
@@ -179,11 +189,13 @@ void opcontrol() {
   double liftAngle = 0; 
   double rotoAngle = 0;
   float xvelo = 0;
+  int macro = 0;
+  bool macroControl = false;
 
 
 
   imu.tare_heading();
-  LIFT.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  LDB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
 
 
@@ -192,6 +204,43 @@ TEST.move(127);
 delay(3500);
 
 	while (true) {
+
+    if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
+      LDB.move(127);
+      macroControl = false;
+    } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+      LDB.move(-127);
+      macroControl = false;
+    } else if (macroControl == false){
+      LDB.move(0);
+    }
+
+    if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+      macro ++;
+      macroControl = true;
+    }
+
+    if(macroControl){
+      setConstants(0.5, 0, 0);
+      if(macro == 0){
+        LDB.move(calcPID(15000, roto.get_angle(), 0, 0, true));
+      } else if(macro == 1){
+        LDB.move(calcPID(20000, roto.get_angle(), 0, 0, true));
+      } else {
+        macro = 0;
+      }
+    }
+
+    
+
+
+
+
+
+  
+
+
+
 
   pros::c::imu_accel_s_t accel = imu.get_accel();
 
@@ -217,15 +266,13 @@ delay(3500);
 
   
 		//chassis arcade drive
-		power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
+		int power = con.get_analog(ANALOG_LEFT_Y); //power is defined as forward or backward
 		int RX = con.get_analog(ANALOG_RIGHT_X); //turn is defined as left (positive) or right (negative)
 
 
 
-    //int turn = int(RX); // Normal Rates
-
-		// int turn = int(abs(RX) * RX / 127); //X Squared Rates
-
+    int turn = int(RX); // Normal Rates
+		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
     //int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
 		int left = power + turn;
 		int right = power - turn;
@@ -344,21 +391,21 @@ delay(3500);
 
 //Double Press Logic
 
-    if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
-      //Double Press action
-      INTAKE.move(127);
-      HOOKS.move(-95);
-    // HOOKS.move(-127);
-    } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-			INTAKE.move(-127);
-      HOOKS.move(-127);
-		} else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-			INTAKE.move(127);
-     HOOKS.move(127);
-		} else {
-			INTAKE.move(0);
-      HOOKS.move(0);
-		}
+    // if (((con.get_digital(E_CONTROLLER_DIGITAL_R1) && NEWR2) || (NEWR1 && con.get_digital(E_CONTROLLER_DIGITAL_R2))) || ((NEWR1 && NEWR2) || (con.get_digital(E_CONTROLLER_DIGITAL_R1) && con.get_digital(E_CONTROLLER_DIGITAL_R2)))){
+    //   //Double Press action
+    //   INTAKE.move(127);
+    //   HOOKS.move(-95);
+    // // HOOKS.move(-127);
+    // } else if  (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+		// 	INTAKE.move(-127);
+    //   HOOKS.move(-127);
+		// } else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+		// 	INTAKE.move(127);
+    //  HOOKS.move(127);
+		// } else {
+		// 	INTAKE.move(0);
+    //   HOOKS.move(0);
+		// }
     // sreverse = false;
     // stallProtection = true;
     // stall();
@@ -368,38 +415,61 @@ delay(3500);
 // INTAKE.move(127);
 // ColorSort(1);
 //lift
-    if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
-      LIFT.move(127);
-      liftAngle = LIFT.get_position();
-      liftToggle = false;
-    }
-    else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-      LIFT.move(-127);
-      liftAngle = LIFT.get_position();
-      liftToggle = false;
-    } else if (liftToggle){
-      setConstants(LIFT_KP2,LIFT_KI2,LIFT_KD2);
-      if(roto.get_angle() < 15000){
-        rotoAngle = roto.get_angle() + 36000;
-      } else {
-        rotoAngle = roto.get_angle();
-      }
-      LIFT.move(calcPID(30200,(rotoAngle),0,0,true));
-    } else {
-      setConstants(LIFT_KP,LIFT_KI,LIFT_KD);
-      LIFT.move(calcPID(liftAngle,LIFT.get_position(),0,0,true));
-    }
+    // if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
+    //   LBD.move(127);
+    //   liftAngle = LIFT.get_position();
+    //   liftToggle = false;
+    // }
+    // else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+    //   LBD.move(-127);
+    //   liftAngle = LIFT.get_position();
+    //   liftToggle = false;
+    // } else if (liftToggle){
+    //   setConstants(LIFT_KP2,LIFT_KI2,LIFT_KD2);
+    //   if(roto.get_angle() < 15000){
+    //     rotoAngle = roto.get_angle() + 36000;
+    //   } else {
+    //     rotoAngle = roto.get_angle();
+    //   }
+    //   LBD.move(calcPID(30200,(rotoAngle),0,0,true));
+    // } else {
+    //   setConstants(LIFT_KP,LIFT_KI,LIFT_KD);
+    //   LBD.move(calcPID(liftAngle,LIFT.get_position(),0,0,true));
+    // }
 
-//Non Double Press Logic
-    if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-			INTAKE.move(127);
+
+
+
+    if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
+			LDB.move(127);
 		} 
-    else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-			INTAKE.move(-127);
+    else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+			LDB.move(-127);
 		} 
     else {
-			INTAKE.move(0);
+			LDB.move(0);
 		}
+
+    if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+			HOOKS.move(127);
+		} 
+    else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+	  HOOKS.move(-127);
+		} 
+    else {
+			HOOKS.move(0);
+		}
+
+//Non Double Press Logic
+    // if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+		// 	INTAKE.move(127);
+		// } 
+    // else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+		// 	INTAKE.move(-127);
+		// } 
+    // else {
+		// 	INTAKE.move(0);
+		// }
 
 
  
@@ -409,6 +479,7 @@ delay(3500);
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
+      driveStraight(1000);
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;

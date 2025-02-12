@@ -1,7 +1,7 @@
 //constructors for everything electrical
 
 #include "api.h"
-#include "auton.h"
+//#include "auton.h"
 #include "main.h"
 #include "robot.h"
 #include "pros/motors.h"
@@ -18,14 +18,13 @@
 #define RM_PORT 8
 #define RB_PORT 9
 #define IMU_PORT 20
-#define INTAKE_PORT 9
-#define HOOKS_PORT 10
+#define HOOKS_PORT 18
 #define ROTO_PORT 16
 #define ODOMX_PORT 7
 #define ODOMY_PORT 2
 #define TEST_PORT 2
 #define TEST_PORT2 14
-#define LIFT_PORT 5
+#define LDB_PORT 19
 #define OPTICAL_PORT 8
 
 
@@ -45,12 +44,11 @@ pros::Motor RB (RB_PORT, pros::E_MOTOR_GEARSET_06, false);
 pros::Motor TEST (TEST_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor TEST2 (TEST_PORT2, pros::E_MOTOR_GEARSET_06, false);
 
-//lift
-pros::Motor LIFT (LIFT_PORT, pros::E_MOTOR_GEARSET_06, true);
+//lady brown
+pros::Motor LDB (LDB_PORT, pros::E_MOTOR_GEARSET_06, false);
 
 
-//intake
-pros::Motor INTAKE (INTAKE_PORT, pros::E_MOTOR_GEARSET_06, true);
+//hooks
 pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
 
 //pneumatics
