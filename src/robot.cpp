@@ -11,20 +11,20 @@
 
 
 // 2496v
-#define LF_PORT 4
-#define LM_PORT 1
-#define LB_PORT 3
-#define RF_PORT 6
-#define RM_PORT 8
-#define RB_PORT 9
-#define IMU_PORT 20
-#define HOOKS_PORT 18
+#define LF_PORT 20
+#define LM_PORT 18
+#define LB_PORT 19
+#define RF_PORT 16
+#define RM_PORT 15
+#define RB_PORT 17
+#define IMU_PORT 3
+#define HOOKS_PORT 14
 #define ROTO_PORT 16
 #define ODOMX_PORT 7
 #define ODOMY_PORT 2
 #define TEST_PORT 2
 #define TEST_PORT2 14
-#define LDB_PORT 19
+#define LDB_PORT 13
 #define OPTICAL_PORT 8
 
 

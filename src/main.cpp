@@ -204,21 +204,22 @@ TEST.move(127);
 delay(3500);
 
 	while (true) {
+//MACROO!!!!!!!!!!!!!!!!!!!!!
+    // if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
+    //   LDB.move(127);
+    //   // macroControl = false;
+    // } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+    //   LDB.move(-127);
+    // }
+    //   // macroControl = false;
+    // // } else if (macroControl == false){
+    // //   LDB.move(0);
+    // // }
 
-    if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-      LDB.move(127);
-      macroControl = false;
-    } else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-      LDB.move(-127);
-      macroControl = false;
-    } else if (macroControl == false){
-      LDB.move(0);
-    }
-
-    if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
-      macro ++;
-      macroControl = true;
-    }
+    // if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+    //   macro ++;
+    //   macroControl = true;
+    // }
 
     if(macroControl){
       setConstants(0.5, 0, 0);
@@ -378,18 +379,18 @@ delay(3500);
     NEWR2 = false;
   }
 
-  if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_L2)){
-    NEWL2 = true;
-  } else {
-    NEWL2 = false;
-  }
+  // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_L2)){
+  //   NEWL2 = true;
+  // } else {
+  //   NEWL2 = false;
+  // }
 
   
-  if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_L1)){
-    NEWL1 = true;
-  } else {
-    NEWL1 = false;
-  }
+  // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_L1)){
+  //   NEWL1 = true;
+  // } else {
+  //   NEWL1 = false;
+  // }
 
 //Double Press Logic
 
