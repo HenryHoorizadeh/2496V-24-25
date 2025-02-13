@@ -226,6 +226,8 @@ delay(3500);
         LDB.move(calcPID(15000, roto.get_angle(), 0, 0, true));
       } else if(macro == 1){
         LDB.move(calcPID(20000, roto.get_angle(), 0, 0, true));
+      } else if(macro == 2){
+        LDB.move(calcPID(27000, roto.get_angle(), 0, 0, true));
       } else {
         macro = 0;
       }

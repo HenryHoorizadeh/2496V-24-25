@@ -1276,7 +1276,7 @@ void driveTurn2(int target) { //target is inputted in autons
 //    } 
 //     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
 
-//     setConstants(TURN_KP, TURN_KI, variKD); 
+    setConstants(TURN_KP, TURN_KI, TURN_KD); 
 
 
 
