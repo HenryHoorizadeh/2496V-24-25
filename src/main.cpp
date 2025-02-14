@@ -201,34 +201,33 @@ void opcontrol() {
 
 TEST.move(127);
 //TEST2.move(127);
-delay(3500);
+//delay(3500);
 
 	while (true) {
 //MACROO!!!!!!!!!!!!!!!!!!!!!
-    // if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-    //   LDB.move(127);
-    //   // macroControl = false;
-    // } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-    //   LDB.move(-127);
-    // }
-    //   // macroControl = false;
-    // // } else if (macroControl == false){
-    // //   LDB.move(0);
-    // // }
+    if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
+      LDB.move(127);
+     macroControl = false;
+    } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+      LDB.move(-127);
+      macroControl = false;
+    } else if (macroControl == false){
+      LDB.move(0);
+    }
 
-    // if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
-    //   macro ++;
-    //   macroControl = true;
-    // }
+    if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+      macro ++;
+      macroControl = true;
+    }
 
     if(macroControl){
-      setConstants(0.5, 0, 0);
+      setConstants(0.03, 0, 0);
       if(macro == 0){
-        LDB.move(calcPID(15000, roto.get_angle(), 0, 0, true));
+        LDB.move(-calcPID(4200, roto.get_angle(), 0, 0, true));
       } else if(macro == 1){
-        LDB.move(calcPID(20000, roto.get_angle(), 0, 0, true));
+        LDB.move(-calcPID(5800, roto.get_angle(), 0, 0, true));
       } else if(macro == 2){
-        LDB.move(calcPID(27000, roto.get_angle(), 0, 0, true));
+        LDB.move(-calcPID(10000, roto.get_angle(), 0, 0, true));
       } else {
         macro = 0;
       }
@@ -443,15 +442,15 @@ delay(3500);
 
 
 
-    if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
-			LDB.move(127);
-		} 
-    else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
-			LDB.move(-127);
-		} 
-    else {
-			LDB.move(0);
-		}
+    // if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
+		// 	LDB.move(127);
+		// } 
+    // else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+		// 	LDB.move(-127);
+		// } 
+    // else {
+		// 	LDB.move(0);
+		// }
 
     if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
 			HOOKS.move(127);
@@ -591,9 +590,9 @@ delay(3500);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "MAX: %f           ",float(maxRPM));
+      con.print(1, 0, "MAX: %f           ",float(calcPID(3800, roto.get_angle(), 0, 0, true)));
     } else if (time % 150 == 0){
-      con.print(2, 0, "AVG: %f        ", float(avgRPM)); 
+      con.print(2, 0, "AVG: %f        ", float(roto.get_angle())); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
 

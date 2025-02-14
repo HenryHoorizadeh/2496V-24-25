@@ -19,7 +19,7 @@
 #define RB_PORT 17
 #define IMU_PORT 3
 #define HOOKS_PORT 14
-#define ROTO_PORT 16
+#define ROTO_PORT 1
 #define ODOMX_PORT 7
 #define ODOMY_PORT 2
 #define TEST_PORT 2
