@@ -221,12 +221,13 @@ TEST.move(127);
     }
 
     if(macroControl){
-      setConstants(0.03, 0, 0);
+      setConstants(0.03, 0,500);
       if(macro == 0){
         LDB.move(-calcPID(4200, roto.get_angle(), 0, 0, true));
       } else if(macro == 1){
         LDB.move(-calcPID(5800, roto.get_angle(), 0, 0, true));
       } else if(macro == 2){
+        setConstants(0.03, 0,1000);
         LDB.move(-calcPID(10000, roto.get_angle(), 0, 0, true));
       } else {
         macro = 0;
