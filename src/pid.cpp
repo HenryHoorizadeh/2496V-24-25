@@ -262,7 +262,7 @@ double calcPID3(double target, double input, int integralKi, int maxIntegral, bo
     return power3;
 }
 
-double calcPIDlift(double target, double input, int integralKi, int maxIntegral, int bias) { //basically tuning i here
+double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias) { //basically tuning i here
     int integrall;
     prevErrorl = errorl;
     errorl = target - input;
@@ -297,6 +297,11 @@ double calcPIDlift(double target, double input, int integralKi, int maxIntegral,
     // straight add voltage to all scenarios 
     // powerl += bias;
 
+    // if(powerl > 40){
+    //     powerl = 40;
+    // } else if (powerl < -40){
+    //     powerl = -40;
+    // }
 
 
     return powerl;

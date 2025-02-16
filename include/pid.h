@@ -12,6 +12,7 @@ extern void resetEncoders();
 extern void setConstants(double kp, double ki, double kd);
 extern double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn);
+extern double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias);
 extern void driveStraight(int target);
 extern void driveStraight2(int target);
 extern void driveStraightSlow(int target, int speed);

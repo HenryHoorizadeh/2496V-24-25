@@ -191,6 +191,7 @@ void opcontrol() {
   float xvelo = 0;
   int macro = 0;
   bool macroControl = false;
+  bool hookControl = false;
 
 
 
@@ -218,18 +219,46 @@ TEST.move(127);
     if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
       macro ++;
       macroControl = true;
+      //hookControl = true;
+      if(macro == 1 || macro == 2){
+        hookControl = true;
+      }
     }
+
+    if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
+			HOOKS.move(127);
+      HOOKS.tare_position();
+      hookControl = false;
+		} 
+    else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+	    HOOKS.move(-127);
+      HOOKS.tare_position();
+      hookControl = false;
+		} 
+    else if(hookControl == false) {
+			HOOKS.move(0);
+      HOOKS.tare_position();
+		}
 
     if(macroControl){
       setConstants(0.03, 0, 0);
       if(macro == 0){
-        LDB.move(-calcPID(4200, roto.get_angle(), 0, 0, true));
+        setConstants(0.1, 0, 0);
+        LDB.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 0.1));
       } else if(macro == 1){
-        LDB.move(-calcPID(5800, roto.get_angle(), 0, 0, true));
+        LDB.move(-calcPIDlift(6400, roto.get_angle(), 0, 0, 3.0));
       } else if(macro == 2){
-        LDB.move(-calcPID(10000, roto.get_angle(), 0, 0, true));
+        LDB.move(-calcPIDlift(10000, roto.get_angle(), 0, 0, 0.5));
       } else {
         macro = 0;
+      }
+    }
+
+    if(hookControl){
+      setConstants(1, 0, 0);
+      HOOKS.move(calcPID2(90, HOOKS.get_position(), 0, 0, true));
+      if(abs(90 - HOOKS.get_position()) < 10){
+        hookControl = false;
       }
     }
 
@@ -452,15 +481,7 @@ TEST.move(127);
 		// 	LDB.move(0);
 		// }
 
-    if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
-			HOOKS.move(127);
-		} 
-    else if (con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-	  HOOKS.move(-127);
-		} 
-    else {
-			HOOKS.move(0);
-		}
+
 
 //Non Double Press Logic
     // if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
