@@ -241,7 +241,7 @@ TEST.move(127);
 		}
 
     if(macroControl){
-      setConstants(0.03, 0, 0);
+      setConstants(0.03, 0,500);
       if(macro == 0){
         setConstants(0.1, 0, 0);
         LDB.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 0.1));
