@@ -46,7 +46,7 @@ pros::Motor TEST (TEST_PORT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor TEST2 (TEST_PORT2, pros::E_MOTOR_GEARSET_06, false);
 
 //lady brown
-pros::Motor LDB (LDB_PORT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor LadyBrown (LDB_PORT, pros::E_MOTOR_GEARSET_06, false);
 
 
 

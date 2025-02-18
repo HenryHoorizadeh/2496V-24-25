@@ -30,7 +30,7 @@ extern pros::Motor TEST;
 extern pros::Motor TEST2;
 
 //lift
-extern pros::Motor LDB;
+extern pros::Motor LadyBrown;
 
 //hooks
 extern pros::Motor HOOKS;

@@ -504,15 +504,12 @@ void ColorSort(int color){
             if(Backwards == false){
                 HOOKS.move(-127);
                 if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-                  //  INTAKE.move(0);
                 } else {
-                    INTAKE.move(60);
                 }
                 if(HOOKS.get_position() < -3000){
                     Backwards = true; 
                 }
             } else {
-                INTAKE.move(127);
                 HOOKS.move(127);
                 Backwards = false;
                 InitColor = false;
@@ -521,23 +518,18 @@ void ColorSort(int color){
             if(Backwards == false){
                 HOOKS.move(127);
                 if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
-                    INTAKE.move(0);
                 } else {
-                    INTAKE.move(60);
                 }
                 if(HOOKS.get_position() > 4000){
                     Backwards = true; 
                 }
             } else {
-                INTAKE.move(127);
                 HOOKS.move(-127);
                 Backwards = false;
                 InitColor = false;
             }
 
         } else {
-
-            INTAKE.move(127);
             HOOKS.move(127);
             HOOKS.tare_position();
         }

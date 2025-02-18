@@ -198,7 +198,7 @@ void opcontrol() {
 
 
   imu.tare_heading();
-  LDB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+  LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
 
 
@@ -213,13 +213,13 @@ TEST.move(127);
 	while (true) {
 //MACROO!!!!!!!!!!!!!!!!!!!!!
     if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-      LDB.move(127);
+      LadyBrown.move(127);
      macroControl = false;
     } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-      LDB.move(-127);
+      LadyBrown.move(-127);
       macroControl = false;
     } else if (macroControl == false){
-      LDB.move(0);
+      LadyBrown.move(0);
     }
 
     if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
@@ -250,11 +250,11 @@ TEST.move(127);
       setConstants(0.03, 0,500);
       if(macro == 0){
         setConstants(0.1, 0, 0);
-        LDB.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 0.1));
+        LadyBrown.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 0.1));
       } else if(macro == 1){
-        LDB.move(-calcPIDlift(6400, roto.get_angle(), 0, 0, 3.0));
+        LadyBrown.move(-calcPIDlift(6400, roto.get_angle(), 0, 0, 3.0));
       } else if(macro == 2){
-        LDB.move(-calcPIDlift(10000, roto.get_angle(), 0, 0, 0.5));
+        LadyBrown.move(-calcPIDlift(10000, roto.get_angle(), 0, 0, 0.5));
       } else {
         macro = 0;
       }
@@ -479,13 +479,13 @@ TEST.move(127);
 
 
     // if (con.get_digital(E_CONTROLLER_DIGITAL_L1)) {
-		// 	LDB.move(127);
+		// 	LadyBrown.move(127);
 		// } 
     // else if (con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
-		// 	LDB.move(-127);
+		// 	LadyBrown.move(-127);
 		// } 
     // else {
-		// 	LDB.move(0);
+		// 	LadyBrown.move(0);
 		// }
 
 
