@@ -319,7 +319,7 @@ void boomerang(double xTarget, double yTarget){
       heading_correction = 0;
     }
 
-    chasMove((voltage + heading_correction), (voltage + heading_correction), (voltage + heading_correction), (voltage - heading_correction), (voltage - heading_correction), (voltage - heading_correction));
+    chasMove((voltage + heading_correction), (voltage - heading_correction));
     if(abs(hypot) < 1) count++;
     if((count > 20) || (btime > timeout)){
       break;
