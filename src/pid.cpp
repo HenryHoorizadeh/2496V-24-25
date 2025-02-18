@@ -75,6 +75,17 @@ int derivative3;
 int time23;
 double power3;
 
+double vKp4;
+double vKi4;
+double vKd4;
+float error4; //amount from target
+double prevError4; 
+double h4;
+int integral4;
+int derivative4;
+int time24;
+double power4;
+
 void hooks(int speed){
     direc = speed;
 }
@@ -145,6 +156,10 @@ void setConstants(double kp, double ki, double kd) {
     vKd = kd;
 } 
 
+
+
+
+
 void resetEncoders() { //reset the chassis motors every time a target is reached
     LF.tare_position(); //or set_zero_position(0) or set_zero_position(LF.get_position()); (sets current encoder position to 0)
     LB.tare_position();
@@ -192,11 +207,11 @@ double calcPID(double target, double input, int integralKi, int maxIntegral, boo
         integral = max(integral, -maxIntegral); //same thing but negative max
     }
 
-    // if(integral > maxIntegral){
-    //     integral = maxIntegral;
-    // } else if(integral < -maxIntegral){
-    //     integral = -maxIntegral;
-    // }
+    if(integral > maxIntegral){
+        integral = maxIntegral;
+    } else if(integral < -maxIntegral){
+        integral = -maxIntegral;
+    }
 
     derivative = error - prevError;
 
@@ -260,6 +275,37 @@ double calcPID3(double target, double input, int integralKi, int maxIntegral, bo
     power3 = (vKp * error3) + (vKi * integral3) + (vKd * derivative3);
 
     return power3;
+}
+
+double calcPIDT(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+    int integral4;
+    prevError4 = error4;
+    error4 = target - input;
+    
+    if(std::abs(error4) < integralKi) {
+        integral4 += error4;
+    } else {
+        integral4 = 0;
+    }
+
+    if(integral4 >= 0) {
+        integral4 = std::min(integral4, maxIntegral); //min means take whichever value is smaller btwn integral and maxI
+        //integral = integral until integral is greater than maxI (to keep integral limited to maxI)
+    } else {
+        integral4 = std::max(integral4, -maxIntegral); //same thing but negative max
+    }
+
+    if(error4 * prevError4 >= 0){
+        integral4 = 0;
+    }
+    
+    derivative4 = error4 - prevError4;
+
+    
+
+    power4 = (vKp * error4) + (vKi * integral4) + (vKd * derivative4);
+
+    return power4;
 }
 
 double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias) { //basically tuning i here
@@ -421,89 +467,84 @@ bool InitCorrect = false;
 int ColorCount;
 bool Backwards = false;
 void ColorSort(int color){
-    // //blue color rejection
-    // if (color == 0){
-    //     if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-    //         InitColor = true;
-    //     }
+    //blue color rejection
+    if (color == 0){
+        if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+            InitColor = true;
+        }
 
-    //     if (InitColor){
-    //         if(Backwards == false){
-    //             HOOKS.move(127);
-    //             if(HOOKS.get_position() > 500){
-    //                 Backwards = true; 
-    //             }
-    //         } else {
-    //             HOOKS.move(-127);
-    //             if(HOOKS.get_position() < 200){
-    //                 Backwards = false;
-    //                 InitColor = false;
-    //             }
-    //         }
-    //     } else {
-    //         HOOKS.move(127);
-    //         HOOKS.tare_position();
-    //     }
-
-
+        if (InitColor){
+            if(Backwards == false){
+                HOOKS.move(127);
+                if(HOOKS.get_position() > 500){
+                    Backwards = true; 
+                }
+            } else {
+                HOOKS.move(-127);
+                if(HOOKS.get_position() < 200){
+                    Backwards = false;
+                    InitColor = false;
+                }
+            }
+        } else {
+            HOOKS.move(127);
+            HOOKS.tare_position();
+        }
 
 
 
 
-    // } else if (color == 1) { //red color rejectiom
-    //     if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
-    //         InitColor = true;
-    //     } 
 
-    //     if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-    //         InitCorrect = true;
-    //     }
 
-    //     if (InitColor){
-    //         if(Backwards == false){
-    //             HOOKS.move(-127);
-    //             if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-    //               //  INTAKE.move(0);
-    //             } else {
-    //                 INTAKE.move(60);
-    //             }
-    //             if(HOOKS.get_position() < -3000){
-    //                 Backwards = true; 
-    //             }
-    //         } else {
-    //             INTAKE.move(127);
-    //             HOOKS.move(127);
-    //             Backwards = false;
-    //             InitColor = false;
-    //         }
-    //     } else if(InitCorrect){
-    //         if(Backwards == false){
-    //             HOOKS.move(127);
-    //             if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
-    //                 INTAKE.move(0);
-    //             } else {
-    //                 INTAKE.move(60);
-    //             }
-    //             if(HOOKS.get_position() > 4000){
-    //                 Backwards = true; 
-    //             }
-    //         } else {
-    //             INTAKE.move(127);
-    //             HOOKS.move(-127);
-    //             Backwards = false;
-    //             InitColor = false;
-    //         }
+    } else if (color == 1) { //red color rejectiom
+        if(OpticalC.get_hue() < 30 && OpticalC.get_hue()>330){
+            InitColor = true;
+        } 
+        if (InitColor){
+            if(Backwards == false){
+                HOOKS.move(-127);
+                if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+                  //  INTAKE.move(0);
+                } else {
+                    INTAKE.move(60);
+                }
+                if(HOOKS.get_position() < -3000){
+                    Backwards = true; 
+                }
+            } else {
+                INTAKE.move(127);
+                HOOKS.move(127);
+                Backwards = false;
+                InitColor = false;
+            }
+        } else if(InitCorrect){
+            if(Backwards == false){
+                HOOKS.move(127);
+                if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
+                    INTAKE.move(0);
+                } else {
+                    INTAKE.move(60);
+                }
+                if(HOOKS.get_position() > 4000){
+                    Backwards = true; 
+                }
+            } else {
+                INTAKE.move(127);
+                HOOKS.move(-127);
+                Backwards = false;
+                InitColor = false;
+            }
 
-    //     } else {
+        } else {
 
-    //         INTAKE.move(127);
-    //         HOOKS.move(127);
-    //         HOOKS.tare_position();
-    //     }
+            INTAKE.move(127);
+            HOOKS.move(127);
+            HOOKS.tare_position();
+        }
 
 
 
-//}
+}
 }
 
 
@@ -529,12 +570,12 @@ void driveStraight(int target) {
     x = double(abs(target));
 
     timeout = (0.00000000000014342 * pow(x,5)) + (-0.0000000010117 * pow(x, 4)) + (0.0000025601 * pow(x, 3)) + (-0.002955 * pow(x, 2)) + (2.15494 * x) + 361.746; //Tune with Desmos
-
+    
     resetEncoders();
     while(true) {
         ColorSort(RingColor);
 
-        
+
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
         voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
@@ -1173,6 +1214,8 @@ void driveTurn(int target) { //target is inputted in autons
     setConstants(5, TURN_KI, 90); 
     }
 
+    setConstants(variKP, TURN_KI, variKD);
+
     imu.tare_heading();
 
     while(true) {
@@ -1187,9 +1230,9 @@ void driveTurn(int target) { //target is inputted in autons
         
         chasMove(voltage, voltage, voltage, -voltage, -voltage, -voltage);
         //errorp = abs(target - position);
-        if (abs(target - position) <= 0.5) count++; 
+        if (fabs(target - position) <= 0.5) count++; 
         if (count >= 20 || time2 > timeout) {
-            errorp = error;
+            //errorp = error;
           break; 
         }
 
@@ -1319,7 +1362,134 @@ void driveTurn2(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
-            errorp=error;
+            //errorp=error;
+           break; 
+        }
+
+        if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
+            con.print(0, 0, "ERROR: %f           ", float(error));
+        } else if (time2 % 100 == 0 && time2 % 150 != 0){
+            con.print(1, 0, "IMU: %f           ", float(imu.get_heading()));
+        } else if (time2 % 150 == 0){
+            con.print(2, 0, "mogoValues: %f        ", float(mogoValues));
+        } 
+
+        time2 += 10;
+        delay(10);
+    }
+    LF.brake();
+    LM.brake();
+    LB.brake();
+    RF.brake();
+    RM.brake();
+    RB.brake();
+}
+
+//Turning BUT GLOBAL
+void driveTurnT(int target) { //target is inputted in autons
+    double voltage;
+    double position;
+    int count = 0;
+    time2 = 0;
+    int cycle = 0;
+    int turnv = 0;
+
+    position = imu.get_heading(); //this is where the units are set to be degrees
+
+    if (position > 180){
+        position = position - 360;
+    }
+
+    if((target < 0) && (position > 0)){
+        if((position - target) >= 180){
+            target = target + 360;
+            position = imu.get_heading();
+            turnv = (target - position); // target + position
+        } else {
+             turnv = (abs(position) + abs(target));
+        }
+    } else if ((target > 0) && (position < 0)){
+        if((target - position) >= 180){
+            position = imu.get_heading();
+            turnv = abs(abs(position) - abs(target));
+        } else {
+            turnv = (abs(position) + target);
+        }
+
+    } else {
+         turnv = abs(abs(position) - abs(target));
+    }
+
+    //fortnite - derrick
+
+    double variKP = 0;
+    double x = 0;
+    double variKD = 0;
+    int timeout = 2100;
+
+
+     x = double(abs(turnv));
+   // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+   variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 94.6899; // Use Desmos to tune
+   if(mogoValues){
+    //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
+    variKD =(0.00000000982635 * pow(x,5)) + (-0.00000354451 * pow(x, 4)) + (0.000379494 * pow(x, 3)) + (-0.00861751 * pow(x, 2)) + (-0.151957 * x) + 96.4185; // Use Desmos to tune
+   } 
+    timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
+    if(abs(turnv)>=25){
+    setConstants(TURN_KP, TURN_KI, variKD); 
+    } else if(mogoValues == false) {
+    setConstants(5, TURN_KI, 90); 
+    }
+
+//     x = double(abs(turnv));
+//    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+//      //variKD =( -0.0000000090021 * pow(x,5)) + (0.0000034017 * pow(x, 4)) + (-0.000428205 * pow(x, 3)) + (0.0214316 * pow(x, 2)) + (-0.351622 * x) + 128.6899;
+//      variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 97.7549; // Use Desmos to tune //94.6899
+//    if(mogoValues){
+//     variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 97.7549; // Use Desmos to tune
+//    } 
+//     timeout = (0.000000034029 * pow(x,5)) + (-0.0000208972 * pow(x, 4)) + (0.0042105 * pow(x, 3)) + (-0.334536 * pow(x, 2)) + (13.1348 * x) + 399.116; // Use Desmos to tune
+
+    setConstants(TURN_KP, TURN_KI, TURN_KD); 
+
+
+
+    while(true) {
+        ColorSort(RingColor);
+        position = imu.get_heading(); 
+
+        if (position > 180){
+            position = ((360 - position) * -1 );
+        }
+
+        if((target < 0) && (position > 0)){
+            if((position - target) >= 180){
+                target = target + 360;
+                position = imu.get_heading();
+                turnv = (target - position); 
+            } else {
+                turnv = (abs(position) + abs(target));
+            }
+        } else if ((target > 0) && (position < 0)){
+            if((target - position) >= 180){
+            position = imu.get_heading();
+                turnv = abs(abs(position) - abs(target));
+            } else {
+                turnv = (abs(position) + target);
+            }
+        } else {
+            turnv = abs(abs(position) - abs(target));
+        }
+
+        voltage = calcPIDT(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL, false);
+
+        
+        chasMove(voltage, voltage, voltage, -voltage, -voltage, -voltage);
+        
+        if (abs(target - position) <= 0.5) count++; //0.35
+        if (count >= 20 || time2 > timeout) {
+            //errorp=error;
            break; 
         }
 

@@ -195,9 +195,15 @@ void opcontrol() {
 
 
 
+
+
   imu.tare_heading();
   LDB.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
+
+
+
+  
 
 
 TEST.move(127);
@@ -305,11 +311,12 @@ TEST.move(127);
     int turn = int(RX); // Normal Rates
 		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
     //int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
+
 		int left = power + turn;
 		int right = power - turn;
 
     // //switch between arcade and tank
-    if (con.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)) {
       arcToggle = !arcToggle;
       tankToggle = !tankToggle;
     }
@@ -495,7 +502,7 @@ TEST.move(127);
 		// }
 
 
- 
+
 
 
 

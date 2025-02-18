@@ -29,6 +29,7 @@
 
 
 
+
 //rotation sensor
 pros::Rotation roto(ROTO_PORT);
 pros::Rotation ODOMX(ODOMX_PORT);
@@ -46,6 +47,8 @@ pros::Motor TEST2 (TEST_PORT2, pros::E_MOTOR_GEARSET_06, false);
 
 //lady brown
 pros::Motor LDB (LDB_PORT, pros::E_MOTOR_GEARSET_06, false);
+
+
 
 
 //hooks

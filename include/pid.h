@@ -21,6 +21,7 @@ extern void driveClampS(int target, int clampDistance, int speed);
 extern void driveStraightC(int target);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);
+extern void driveTurnT(int target);
 extern void chasMove(int voltageLF, int voltageLB, int voltageLM, int voltageRF, int voltageRB, int voltageRM);
 extern void driveArcL(double theta, double radius, int timeout);
 extern void driveArcLF(double theta, double radius, int timeout);
@@ -65,6 +66,14 @@ extern int stallTime;
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30
 #define TURN_MAX_INTEGRAL 25
+
+#define TURNT_KP 1 //
+#define TURNT_KI 0 //
+#define TURNT_KD 0 //
+
+//tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
+#define TURNT_INTEGRAL_KI 30
+#define TURNT_MAX_INTEGRAL 25
 
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
