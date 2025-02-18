@@ -565,8 +565,6 @@ void driveStraight(int target) {
     
     resetEncoders();
     while(true) {
-        ColorSort(RingColor);
-
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
@@ -661,7 +659,7 @@ void driveClamp(int target, int clampDistance, int speed) {
    
 
     while(true) {
-    ColorSort(RingColor);
+
 
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
@@ -777,7 +775,7 @@ void driveStraight2(int target, int speed) {
 
     while(true) {
 
-    ColorSort(RingColor);
+
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
     voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
@@ -885,7 +883,6 @@ void driveStraightC(int target) {
     resetEncoders();
 
     while(true) {
-        ColorSort(RingColor);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
@@ -994,7 +991,6 @@ void driveTurn(int target) { //target is inputted in autons
     imu.tare_heading();
 
     while(true) {
-        ColorSort(RingColor);
         position = imu.get_heading(); //this is where the units are set to be degrees
 
         if (position > 180) {
@@ -1093,7 +1089,6 @@ void driveTurn2(int target) { //target is inputted in autons
 
 
     while(true) {
-        ColorSort(RingColor);
         position = imu.get_heading(); 
 
         if (position > 180){
@@ -1210,7 +1205,6 @@ void driveTurnT(int target) { //target is inputted in autons
     setConstants(TURN_KP, TURN_KI, TURN_KD); 
 
     while(true) {
-        ColorSort(RingColor);
         position = imu.get_heading(); 
 
         if (position > 180){
@@ -1287,7 +1281,6 @@ void driveArcL(double theta, double radius, int timeout){
     rtarget = double((theta / 360) * 2 * pi * (radius + 390));
 
     while (true){
-        ColorSort(RingColor);
         double encoderAvgL = (LF.get_position() + LB.get_position()) / 2;
         double encoderAvgR = (RF.get_position() +  RB.get_position()) / 2;
         double leftcorrect = -(encoderAvgL * 360) / (2 * pi * radius);
@@ -1384,7 +1377,6 @@ void driveArcLF(double theta, double radius, int timeout){
     ltarget = double((theta / 360) * 2 * pi * radius); // * double(2) * pi * double(radius));
     rtarget = double((theta / 360) * 2 * pi * (radius + 390));
     while (true){
-        ColorSort(RingColor);
 
         double encoderAvgL = LF.get_position();
         double encoderAvgR = (RB.get_position() +  RM.get_position()) / 2;
@@ -1498,7 +1490,6 @@ void driveArcR(double theta, double radius, int timeout){
     ltarget = double((theta / 360) * 2 * pi * (radius + 390)); // * double(2) * pi * double(radius));
     rtarget = double((theta / 360) * 2 * pi * (radius));
     while (true){
-        ColorSort(RingColor);
         double encoderAvgL = (LF.get_position() + LB.get_position()) / 2;
         double encoderAvgR = (RB.get_position() +  RB.get_position()) / 2;
         double rightcorrect = (encoderAvgR * 360) / (2 * pi * radius);
@@ -1594,8 +1585,6 @@ void driveArcRF(double theta, double radius, int timeout){
     rtarget = double((theta / 360) * 2 * pi * (radius));
 
     while (true){
-    
-        ColorSort(RingColor);
         if(init_heading > 180){
             init_heading = init_heading - 360;
         }
