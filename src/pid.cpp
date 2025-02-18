@@ -184,8 +184,8 @@ void chasMove(int left, int right) { //voltage to each chassis motor
 
 
 
-int slew = 3;
-double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+
+double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     odometry2();
     stall();
     int integral;
@@ -222,7 +222,7 @@ double calcPID(double target, double input, int integralKi, int maxIntegral, boo
 
 
 
-double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     int integral2;
     prevError2 = error2;
     error2 = target - input;
@@ -250,7 +250,7 @@ double calcPID2(double target, double input, int integralKi, int maxIntegral, bo
 }
 
 
-double calcPID3(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+double calcPID3(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     int integral3;
     prevError3 = error3;
     error3 = target - input;
@@ -277,7 +277,7 @@ double calcPID3(double target, double input, int integralKi, int maxIntegral, bo
     return power3;
 }
 
-double calcPIDT(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+double calcPIDT(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     int integral4;
     prevError4 = error4;
     error4 = target - input;
@@ -570,7 +570,7 @@ void driveStraight(int target) {
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
-        voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
         
 
@@ -600,7 +600,7 @@ void driveStraight(int target) {
         }
 
         
-        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
 
 
         if(voltage > 127){
@@ -665,7 +665,7 @@ void driveClamp(int target, int clampDistance) {
 
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 
     double position = imu.get_heading(); //this is where the units are set to be degrees
@@ -705,7 +705,7 @@ void driveClamp(int target, int clampDistance) {
             setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
         }
 
-        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
    
         if(voltage > 127){
             voltage = 127;
@@ -774,7 +774,7 @@ void driveClampS(int target, int clampDistance, int speed) {
     ColorSort(RingColor);
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 
     double position = imu.get_heading(); //this is where the units are set to be degrees
@@ -814,7 +814,7 @@ void driveClampS(int target, int clampDistance, int speed) {
             setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
         }
 
-        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
    
         // if(voltage > 127){
         //     voltage = 127;
@@ -888,7 +888,7 @@ void driveStraight2(int target) {
     ColorSort(RingColor);
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 
     double position = imu.get_heading(); //this is where the units are set to be degrees
@@ -928,7 +928,7 @@ void driveStraight2(int target) {
             setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
         }
 
-        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
    
         if(voltage > 127){
             voltage = 127;
@@ -996,7 +996,7 @@ void driveStraightC(int target) {
         ColorSort(RingColor);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-        voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
     
         double position = imu.get_heading(); //this is where the units are set to be degrees
@@ -1029,7 +1029,7 @@ void driveStraightC(int target) {
         // }
 
         setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
-        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
 
         if(voltage > 127){
             voltage = 127;
@@ -1097,7 +1097,7 @@ void driveStraightSlow(int target, int speed) {
     ColorSort(RingColor);
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 
     double position = imu.get_heading(); //this is where the units are set to be degrees
@@ -1138,7 +1138,7 @@ void driveStraightSlow(int target, int speed) {
             setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
         }
         
-        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL, true);
+        heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
    
 
         if(voltage > 127 * double(speed)/100.0){
@@ -1218,7 +1218,7 @@ void driveTurn(int target) { //target is inputted in autons
             position = position - 360;
         }
 
-        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL, false);
+        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
         
         chasMove(voltage, -voltage);
         //errorp = abs(target - position);
@@ -1347,7 +1347,7 @@ void driveTurn2(int target) { //target is inputted in autons
             turnv = abs(abs(position) - abs(target));
         }
 
-        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL, false);
+        voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         
         chasMove(voltage, -voltage);
@@ -1474,7 +1474,7 @@ void driveTurnT(int target) { //target is inputted in autons
             turnv = abs(abs(position) - abs(target));
         }
 
-        voltage = calcPIDT(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL, false);
+        voltage = calcPIDT(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         
         chasMove(voltage, -voltage);
@@ -1562,7 +1562,7 @@ void driveArcLF(double theta, double radius, int timeout){
 
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         // if(voltageL > 70){ //set left limit
         //     voltageL = 70;
         // } else if (voltageL < -70){
@@ -1576,7 +1576,7 @@ void driveArcLF(double theta, double radius, int timeout){
 
 
         
-        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         // if(voltageR > 100){ // set right limit
         //     voltageR = 100;
         // } else if (voltageR < -100){
@@ -1590,7 +1590,7 @@ void driveArcLF(double theta, double radius, int timeout){
     
 
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-        int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
+        int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 
 
         chasMove((voltageL + fix), (voltageR - fix));
@@ -1675,14 +1675,14 @@ void driveArcL(double theta, double radius, int timeout){
         } 
     
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         if(voltageL > 127){ //set left limit
             voltageL = 127;
         } else if (voltageL < -127){
             voltageL = -127;
         }
 
-        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         if(voltageR > 127){ //set right limit
             voltageR = 127;
         } else if (voltageR < -127){
@@ -1692,7 +1692,7 @@ void driveArcL(double theta, double radius, int timeout){
   
 
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-        int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
+        int fix = calcPID3((init_heading + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
         totalError += error3;
     
         chasMove((voltageL + fix), (voltageR - fix));
@@ -1767,13 +1767,13 @@ void driveArcR(double theta, double radius, int timeout){
         } 
 
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         // if(voltageL > 100){ //set left limit
         //     voltageL = 100;
         // } else if (voltageL < -100){
         //     voltageL = -100;
         // }
-        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         // if(voltageR > 70){ //set right limit
         //     voltageR = 70;
         // } else if (voltageR < -70){
@@ -1782,7 +1782,7 @@ void driveArcR(double theta, double radius, int timeout){
 
 
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-        int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
+        int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 
         chasMove((voltageL + fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 4) && (abs(rtarget - encoderAvgR) <= 4)) count++;
@@ -1862,13 +1862,13 @@ void driveArcRF(double theta, double radius, int timeout){
 
         double encoderAvgL = LF.get_position();
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         // if(voltageL > 100){ //set left limti
         //     voltageL = 100;
         // } else if (voltageL < -100){
         //     voltageL = -100;
         // }
-        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL, true);
+        int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
         // if(voltageR > 70){ //set right limit
         //     voltageR = 70;
         // } else if (voltageR < -70){
@@ -1877,7 +1877,7 @@ void driveArcRF(double theta, double radius, int timeout){
 
         
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
-        int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL, true);
+        int fix = calcPID3((init_heading + rightcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 
 
 
