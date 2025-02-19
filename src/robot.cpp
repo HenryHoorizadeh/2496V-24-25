@@ -17,12 +17,12 @@
 #define RF_PORT 16
 #define RM_PORT 15
 #define RB_PORT 17
-#define IMU_PORT 3
+#define IMU_PORT 2
 #define HOOKS_PORT 14
 #define ROTO_PORT 1
 #define ODOMX_PORT 7
 #define ODOMY_PORT 2
-#define TEST_PORT 2
+#define TEST_PORT 3
 #define TEST_PORT2 14
 #define LDB_PORT 13
 #define OPTICAL_PORT 8

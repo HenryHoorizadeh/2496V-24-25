@@ -189,7 +189,7 @@ void opcontrol() {
   double liftAngle = 0; 
   double rotoAngle = 0;
   float xvelo = 0;
-  int macro = 0;
+  int macro = 2;
   bool macroControl = false;
   bool hookControl = false;
 
@@ -222,7 +222,7 @@ TEST.move(127);
       LadyBrown.move(0);
     }
 
-    if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
+    if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
       macro ++;
       macroControl = true;
       //hookControl = true;
@@ -247,14 +247,14 @@ TEST.move(127);
 		}
 
     if(macroControl){
-      setConstants(0.03, 0,500);
+      setConstants(0.04, 0, 500);
       if(macro == 0){
-        setConstants(0.1, 0, 0);
-        LadyBrown.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 0.1));
+       // setConstants(0.1, 0, 0);
+        LadyBrown.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 1.0));
       } else if(macro == 1){
-        LadyBrown.move(-calcPIDlift(6400, roto.get_angle(), 0, 0, 3.0));
+        LadyBrown.move(-calcPIDlift(5000, roto.get_angle(), 0, 0, 1.0));
       } else if(macro == 2){
-        LadyBrown.move(-calcPIDlift(10000, roto.get_angle(), 0, 0, 0.5));
+        LadyBrown.move(-calcPIDlift(10000, roto.get_angle(), 0, 0, 1.0));
       } else {
         macro = 0;
       }
@@ -509,7 +509,7 @@ TEST.move(127);
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      driveStraight(1000);
+      driveStraight(500);
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
@@ -553,11 +553,7 @@ TEST.move(127);
     // driveTurn(175);
 
     // driveArcLF(90,300,1800);
-    driveStraightC(350);
-    driveArcLF(45, 50, 2000);
-    driveStraightC(1000);
-    driveArcRF(45, 300, 1800);
-    driveStraight2(200);
+ 
    // driveStraight2(100);
     
     // initializePath();
@@ -618,7 +614,7 @@ TEST.move(127);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "MAX: %f           ",float(calcPID(3800, roto.get_angle(), 0, 0, true)));
+      con.print(1, 0, "IMU: %f           ",float(imu.get_heading()));
     } else if (time % 150 == 0){
       con.print(2, 0, "AVG: %f        ", float(roto.get_angle())); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

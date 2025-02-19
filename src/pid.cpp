@@ -567,8 +567,12 @@ void driveStraight(int target) {
     
     resetEncoders();
     while(true) {
+        if((target - encoderAvg)<25){
+            setConstants(4, 0, 0);
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }
 
-        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         encoderAvg = (LF.get_position() + RF.get_position()) / 2;
         voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
@@ -593,11 +597,12 @@ void driveStraight(int target) {
 
 
 
-        if(longValues){
-            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
-        } else {
-            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
-        }
+        // if(longValues){
+        //     setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        // } else {
+        //     setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        // }
+         setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
 
         
         heading_error = calcPID2(init_heading, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
@@ -612,7 +617,7 @@ void driveStraight(int target) {
         chasMove((voltage + heading_error ), (voltage - heading_error));
         if (abs(target - encoderAvg) <= 3) count++;
         if (count >= 20 || time2 > timeout){
-            break;
+            //break;
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
@@ -1473,7 +1478,7 @@ void driveArcLF(double theta, double radius, int timeout){
 
 void driveArcR(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    trueTarget += target;
+    trueTarget += theta;
     double ltarget = 0;
     double rtarget = 0;
     double pi =  3.14159265359;
@@ -1556,7 +1561,7 @@ void driveArcR(double theta, double radius, int timeout){
 
 void driveArcRF(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    trueTarget += target;
+    trueTarget += theta;
     bool over = false;
     int trueTheta = theta;
     double ltarget = 0;
