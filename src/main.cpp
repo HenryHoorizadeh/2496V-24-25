@@ -197,6 +197,7 @@ void opcontrol() {
 
 
 
+
   imu.tare_heading();
   LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
 
@@ -212,6 +213,10 @@ TEST.move(127);
 
 	while (true) {
 //MACROO!!!!!!!!!!!!!!!!!!!!!
+    liftAngle = roto.get_angle();
+    if(liftAngle > 30000){
+      liftAngle -= 36000;
+    }
     if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
       LadyBrown.move(127);
      macroControl = false;
@@ -250,11 +255,11 @@ TEST.move(127);
       setConstants(0.04, 0, 500);
       if(macro == 0){
        // setConstants(0.1, 0, 0);
-        LadyBrown.move(-calcPIDlift(3000, roto.get_angle(), 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));
       } else if(macro == 1){
-        LadyBrown.move(-calcPIDlift(5000, roto.get_angle(), 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(5000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
-        LadyBrown.move(-calcPIDlift(10000, roto.get_angle(), 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(10000, liftAngle, 0, 0, 1.0));
       } else {
         macro = 0;
       }
@@ -509,7 +514,8 @@ TEST.move(127);
 
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      driveStraight(500);
+      //driveStraight(1000);
+      driveTurnT(90);
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
@@ -616,7 +622,7 @@ TEST.move(127);
       //con.print(1, 0, "error: %f           ",float(chasstempC));
       con.print(1, 0, "IMU: %f           ",float(imu.get_heading()));
     } else if (time % 150 == 0){
-      con.print(2, 0, "AVG: %f        ", float(roto.get_angle())); 
+      con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
 

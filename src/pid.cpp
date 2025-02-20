@@ -567,8 +567,8 @@ void driveStraight(int target) {
     
     resetEncoders();
     while(true) {
-        if((target - encoderAvg)<25){
-            setConstants(4, 0, 0);
+        if(abs(target - encoderAvg)<25){
+            setConstants(2.5, 0, 0);
         } else {
             setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         }
@@ -615,15 +615,15 @@ void driveStraight(int target) {
         }
         errorp = abs(target - encoderAvg);
         chasMove((voltage + heading_error ), (voltage - heading_error));
-        if (abs(target - encoderAvg) <= 3) count++;
-        if (count >= 20 || time2 > timeout){
-            //break;
+        if (abs(target - encoderAvg) <= 2) count++;
+        if (count >= 8 || time2 > timeout){
+            break;
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
             con.print(0, 0, "ERROR: %f           ", float(error));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
-            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+            con.print(1, 0, "vkp: %f           ", float(vKp));
         } else if (time2 % 150 == 0){
             con.print(2, 0, "Time: %f        ", float(time2));
         } 
@@ -1209,7 +1209,7 @@ void driveTurnT(int target) { //target is inputted in autons
     // }
 
     //setConstants(variKP, TURN_KI, variKD);
-    setConstants(TURN_KP, TURN_KI, TURN_KD); 
+    setConstants(TURNT_KP, TURNT_KI, TURNT_KD); 
 
     while(true) {
         position = imu.get_heading(); 
@@ -1237,6 +1237,12 @@ void driveTurnT(int target) { //target is inputted in autons
             turnv = abs(abs(position) - abs(target));
         }
 
+        if(abs(error4)<= 1){
+            setConstants(20, 0, 0);
+        } else {
+            setConstants(TURNT_KP, TURNT_KI, TURNT_KD); 
+        }
+
         voltage = calcPIDT(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 
         
@@ -1244,12 +1250,11 @@ void driveTurnT(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
-            //errorp=error;
-           break; 
+           //break; 
         }
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
-            con.print(0, 0, "ERROR: %f           ", float(error));
+            con.print(0, 0, "ERROR: %f           ", float(error4));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
             con.print(1, 0, "IMU: %f           ", float(imu.get_heading()));
         } else if (time2 % 150 == 0){
