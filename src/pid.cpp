@@ -87,6 +87,8 @@ int integral4;
 int derivative4;
 int time24;
 double power4;
+int LBMacro = 0;
+double LBPos = 0;
 
 void hooks(int speed){
     direc = speed;
@@ -95,6 +97,8 @@ void hooks(int speed){
 void intake2(int speed){
     direc2 = speed;
 }
+
+
 
 void stall(){
 
@@ -184,12 +188,77 @@ void chasMove(int left, int right) { //voltage to each chassis motor
     RB.move(right);
 }
 
+double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias) { //basically tuning i here
+    int integrall;
+    prevErrorl = errorl;
+    errorl = target - input;
+    
+    if(std::abs(errorl) < integralKi) {
+        integrall += errorl;
+    } else {
+        integrall = 0;
+    }
+
+    if(integrall >= 0) {
+        integrall = std::min(integrall, maxIntegral); //min means take whichever value is smaller btwn integral and maxI
+        //integral = integral until integral is greater than maxI (to keep integral limited to maxI)
+    } else {
+        integrall = std::max(integrall, -maxIntegral); //same thing but negative max
+    }
+    
+    derivativel = errorl - prevErrorl;
+
+    powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivativel);
+    
+    //multiply only on the way up  
+    // if(error < 0){
+    //     powerl = powerl*bias;
+    // }
+    //multiply on the way up divide on the way down
+    if(errorl < 0){
+        powerl =  powerl*bias;
+    } else {
+        powerl = powerl/bias;
+    }
+    // straight add voltage to all scenarios 
+    // powerl += bias;
+
+    // if(powerl > 40){
+    //     powerl = 40;
+    // } else if (powerl < -40){
+    //     powerl = -40;
+    // }
+
+
+    return powerl;
+}
+
+
+void LadyBrownMacro(){
+    LBPos = roto.get_angle();
+    if(LBPos > 30000){
+        LBPos -= 36000;
+    }
+
+    if(LBMacro == 1){
+        setConstants(1, 0, 0);
+        LadyBrown.move(calcPIDlift(1500, LBPos, 0, 0, 1));
+    } else if(LBMacro == 2){
+        setConstants(1, 0, 0);
+        LadyBrown.move(calcPIDlift(3000, LBPos, 0, 0, 1));
+    } else if (LBMacro == 3){
+        setConstants(1, 0, 0);
+        LadyBrown.move(calcPIDlift(15000, LBPos, 0, 0, 1));
+    }
+}
+
 
 
 
 double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     odometry2();
     stall();
+    LadyBrownMacro();
     int integral;
     
     prevError = error;
@@ -310,50 +379,7 @@ double calcPIDT(double target, double input, int integralKi, int maxIntegral, bo
     return power4;
 }
 
-double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias) { //basically tuning i here
-    int integrall;
-    prevErrorl = errorl;
-    errorl = target - input;
-    
-    if(std::abs(errorl) < integralKi) {
-        integrall += errorl;
-    } else {
-        integrall = 0;
-    }
 
-    if(integrall >= 0) {
-        integrall = std::min(integrall, maxIntegral); //min means take whichever value is smaller btwn integral and maxI
-        //integral = integral until integral is greater than maxI (to keep integral limited to maxI)
-    } else {
-        integrall = std::max(integrall, -maxIntegral); //same thing but negative max
-    }
-    
-    derivativel = errorl - prevErrorl;
-
-    powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivativel);
-    
-    //multiply only on the way up  
-    // if(error < 0){
-    //     powerl = powerl*bias;
-    // }
-    //multiply on the way up divide on the way down
-    if(errorl < 0){
-        powerl =  powerl*bias;
-    } else {
-        powerl = powerl/bias;
-    }
-    // straight add voltage to all scenarios 
-    // powerl += bias;
-
-    // if(powerl > 40){
-    //     powerl = 40;
-    // } else if (powerl < -40){
-    //     powerl = -40;
-    // }
-
-
-    return powerl;
-}
 
 
 

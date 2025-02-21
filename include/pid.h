@@ -44,6 +44,8 @@ extern bool stalled;
 extern float view;
 extern int stallTime;
 
+extern int LBMacro;
+
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
 #define STRAIGHT_KP 0.4 // 1 //0.7
 #define STRAIGHT_KI 0.01 // 0.001 //0.1
