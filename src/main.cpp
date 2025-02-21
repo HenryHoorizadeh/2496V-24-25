@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 1;
+int atn = 0;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
@@ -511,17 +511,21 @@ TEST.move(127);
 
 
 
-
+//hello
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
-      //driveStraight(1000);
-      driveTurnT(90);
+     // driveStraight2(1000);
+      //
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
     //   chasMove(40,40,40,40,40,40);
     //  hang.set_value(true);
     //   delay(2000);
+
+    //driveTurn2(-90);
+      // driveArcRF(90, 450, 5000);
+      // driveStraight2(600);
 
       
       //driveArcLF(130, 600, 3000);

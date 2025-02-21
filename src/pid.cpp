@@ -782,7 +782,12 @@ void driveStraight2(int target, int speed) {
 
 
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
-    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    if(abs(target - encoderAvg)<25){
+        setConstants(2.5, 0, 0);
+    } else {
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    }
+
     voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
 
@@ -1001,6 +1006,12 @@ void driveTurn(int target) { //target is inputted in autons
             position = position - 360;
         }
 
+        if(abs(error)<= 2){
+            setConstants(9.5, 0, 0);
+        } else {
+            setConstants(TURN_KP, TURN_KI, TURN_KD); 
+        }
+
         voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
         
         chasMove(voltage, -voltage);
@@ -1073,7 +1084,7 @@ void driveTurn2(int target) { //target is inputted in autons
     double variKP = 0;
     double x = 0;
     double variKD = 0;
-    int timeout = 2100;
+    int timeout = 5000;
 
     x = double(abs(target));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
@@ -1082,7 +1093,7 @@ void driveTurn2(int target) { //target is inputted in autons
     //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
     variKD =(0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
    } 
-    timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
     // if(abs(target>=25)){
     // setConstants(TURN_KP, TURN_KI, variKD); 
     // } else if(mogoValues == false) {
@@ -1118,6 +1129,12 @@ void driveTurn2(int target) { //target is inputted in autons
             }
         } else {
             turnv = abs(abs(position) - abs(target));
+        }
+
+        if(abs(error)<= 2){
+            setConstants(9.5, 0, 0);
+        } else {
+            setConstants(TURN_KP, TURN_KI, TURN_KD); 
         }
 
         voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
@@ -1191,7 +1208,7 @@ void driveTurnT(int target) { //target is inputted in autons
     double variKP = 0;
     double x = 0;
     double variKD = 0;
-    int timeout = 2100;
+    int timeout = 5000;
 
 
     x = double(abs(target));
@@ -1201,7 +1218,7 @@ void driveTurnT(int target) { //target is inputted in autons
     //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
     variKD =(0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
    } 
-    timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+    //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
     // if(abs(target>=25)){
     // setConstants(TURN_KP, TURN_KI, variKD); 
     // } else if(mogoValues == false) {
@@ -1237,8 +1254,8 @@ void driveTurnT(int target) { //target is inputted in autons
             turnv = abs(abs(position) - abs(target));
         }
 
-        if(abs(error4)<= 1){
-            setConstants(20, 0, 0);
+        if(abs(error4)<= 2){
+            setConstants(9.5, 0, 0);
         } else {
             setConstants(TURNT_KP, TURNT_KI, TURNT_KD); 
         }
@@ -1250,7 +1267,7 @@ void driveTurnT(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
-           //break; 
+           break; 
         }
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
@@ -1274,7 +1291,7 @@ void driveTurnT(int target) { //target is inputted in autons
 
 void driveArcL(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    trueTarget -= theta;
+    
 
     //int timeout = 30000;
 
@@ -1289,7 +1306,7 @@ void driveArcL(double theta, double radius, int timeout){
     con.clear();
     //int timeout = 5000;
     ltarget = double((theta / 360) * 2 * pi * radius); 
-    rtarget = double((theta / 360) * 2 * pi * (radius + 390));
+    rtarget = double((theta / 360) * 2 * pi * (radius + 455));
 
     while (true){
         double encoderAvgL = (LF.get_position() + LB.get_position()) / 2;
@@ -1341,7 +1358,8 @@ void driveArcL(double theta, double radius, int timeout){
         chasMove((voltageL + fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 4) && (abs(rtarget - encoderAvgR) <= 4)) count++;
         if (count >= 20 || time2 > timeout){
-          //  break;
+            trueTarget -= theta;
+            break;
         } 
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
@@ -1349,7 +1367,7 @@ void driveArcL(double theta, double radius, int timeout){
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
             con.print(1, 0, "fix: %f           ", float(fix));
         } else if (time2 % 150 == 0){
-            con.print(2, 0, "Time: %f        ", float(time2));
+            con.print(2, 0, "truetar: %f        ", float(trueTarget));
         } 
 
         time2 += 10;
@@ -1464,6 +1482,7 @@ void driveArcLF(double theta, double radius, int timeout){
         }
 
         if (over || time > timeout){
+            trueTarget -= trueTheta;
             break;
         } 
 
@@ -1483,7 +1502,6 @@ void driveArcLF(double theta, double radius, int timeout){
 
 void driveArcR(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    trueTarget += theta;
     double ltarget = 0;
     double rtarget = 0;
     double pi =  3.14159265359;
@@ -1546,6 +1564,7 @@ void driveArcR(double theta, double radius, int timeout){
         chasMove((voltageL + fix), (voltageR - fix));
         if ((abs(ltarget - encoderAvgL) <= 4) && (abs(rtarget - encoderAvgR) <= 4)) count++;
         if (count >= 20 || time > timeout){
+            trueTarget += theta;
             break;
         } 
 
@@ -1566,7 +1585,6 @@ void driveArcR(double theta, double radius, int timeout){
 
 void driveArcRF(double theta, double radius, int timeout){
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
-    trueTarget += theta;
     bool over = false;
     int trueTheta = theta;
     double ltarget = 0;
@@ -1655,6 +1673,7 @@ void driveArcRF(double theta, double radius, int timeout){
         }
 
         if (over || time > timeout){
+            trueTarget += trueTheta;
             break;
         } 
 

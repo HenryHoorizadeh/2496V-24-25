@@ -36,6 +36,15 @@ void autonomous() {
 
 
   if (atn == 0) {
+    // LadyBrown.move(-127);
+    // delay(500);
+    // driveClamp(-500, 100);
+    HOOKS.move(-127);
+    delay(500);
+    HOOKS.move(127);
+    driveStraight2(250);
+    driveTurn2(-90);
+    driveClamp(-800, 100);
 
   } else if (atn == 1) {
 
