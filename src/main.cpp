@@ -178,7 +178,7 @@ void opcontrol() {
   bool NEWR1 = false;
   bool arcToggle = false;
   bool tankToggle = true;
-  bool mogoToggle = true;
+  bool mogoToggle = false;
   bool intakeToggle = false;
   bool scrapperToggle = false;
   bool hangToggle = false;
@@ -232,9 +232,18 @@ TEST.move(127);
       macro ++;
       macroControl = true;
       //hookControl = true;
-      if(macro == 1 || macro == 2){
+      if(macro == 2 || macro == 3){
         hookControl = true;
       }
+    }
+
+    if(con.get_digital(E_CONTROLLER_DIGITAL_Y)){
+      macroControl = true;
+      macro = 0;
+    }
+    if(con.get_digital(E_CONTROLLER_DIGITAL_X)){
+      macroControl = true;
+      macro = 1;
     }
 
     if (con.get_digital(E_CONTROLLER_DIGITAL_R1)) {
@@ -253,22 +262,29 @@ TEST.move(127);
 		}
 
     if(macroControl){
-      setConstants(0.02, 0, 500);
+      
       if(macro == 0){
-       // setConstants(0.1, 0, 0);
-        LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
+        setConstants(0.7, 0, 0);
+        LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 1){
+        setConstants(0.03, 0, 0);
+        LadyBrown.move(-calcPIDlift(16000, liftAngle, 0, 0, 1.0));
+      } else if(macro == 2){
+        setConstants(0.02, 0, 500);
+        LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
+      } else if(macro == 3){
+        setConstants(0.02, 0, 500);
         LadyBrown.move(-calcPIDlift(5200, liftAngle, 0, 0, 1.0));
       } else {
-        macro = 0;
+        macro = 2;
       }
     }
 
 
     if(hookControl){
       setConstants(1, 0, 0);
-      HOOKS.move(calcPID2(90, HOOKS.get_position(), 0, 0, true));
-      if(abs(90 - HOOKS.get_position()) < 10){
+      HOOKS.move(calcPID2(120, HOOKS.get_position(), 0, 0, true));
+      if(abs(120 - HOOKS.get_position()) < 10){
         hookControl = false;
       }
     }
@@ -321,7 +337,7 @@ TEST.move(127);
 		int right = power - turn;
 
     // //switch between arcade and tank
-    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_Y)) {
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_LEFT)) {
       arcToggle = !arcToggle;
       tankToggle = !tankToggle;
     }
@@ -329,12 +345,12 @@ TEST.move(127);
 
    
     if (tankToggle) {
-      LF.move(con.get_analog(ANALOG_LEFT_Y));
-      LM.move(con.get_analog(ANALOG_LEFT_Y));
-      LB.move(con.get_analog(ANALOG_LEFT_Y));
-      RF.move(con.get_analog(ANALOG_RIGHT_Y));
-      RM.move(con.get_analog(ANALOG_RIGHT_Y));
-      RB.move(con.get_analog(ANALOG_RIGHT_Y));
+      LF.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
+      LM.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
+      LB.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
+      RF.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
+      RM.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
+      RB.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
     }
     if (arcToggle) {
       LF.move(left);
@@ -513,9 +529,9 @@ TEST.move(127);
 
 //hello
     //pid tester
-    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)) {
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
      // driveStraight2(1000);
-      //
+      driveTurn2(132);
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
@@ -624,7 +640,7 @@ TEST.move(127);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "rotp: %f           ",float(liftAngle));
+      con.print(1, 0, "imu: %f           ",float(imu.get_heading()));
     } else if (time % 150 == 0){
       con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

@@ -10,7 +10,7 @@
 extern void setPosition(float xcoord, float ycoord, float heading);
 extern void resetEncoders();
 extern void setConstants(double kp, double ki, double kd);
-extern double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn = false);
+extern double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias);
 extern void driveStraight(int target);
@@ -61,15 +61,15 @@ extern int LBMacro;
 //tune turn constans here: setConstants(TURN_KP, TURN_KI, TURN_KD);
 #define TURN_KP 5//5.25//8.75
 #define TURN_KI 0 //0.125//0.115
-#define TURN_KD 52 //38 //105 //70
+#define TURN_KD 58 //38 //105 //70
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURN_INTEGRAL_KI 30
 #define TURN_MAX_INTEGRAL 25
 
-#define TURNT_KP 5 //3
+#define TURNT_KP 10 //3
 #define TURNT_KI 0 //
-#define TURNT_KD 52 //30
+#define TURNT_KD 70 //30
 
 //tune turn integral-specific here: voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
 #define TURNT_INTEGRAL_KI 30

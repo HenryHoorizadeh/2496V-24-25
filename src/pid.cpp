@@ -162,6 +162,12 @@ void setConstants(double kp, double ki, double kd) {
     vKd = kd;
 } 
 
+void setConstants2(double kp, double ki, double kd) {
+    vKp2 = kp;
+    vKi2 = ki;
+    vKd2 = kd;
+} 
+
 
 
 
@@ -208,7 +214,7 @@ double calcPIDlift(double target, double input, int integralKi, int maxIntegral,
     
     derivativel = errorl - prevErrorl;
 
-    powerl = (vKp * errorl) + (vKi * integrall) + (vKd * derivativel);
+    powerl = (vKp2 * errorl) + (vKi2 * integrall) + (vKd2 * derivativel);
     
     //multiply only on the way up  
     // if(error < 0){
@@ -239,23 +245,18 @@ void LadyBrownMacro(){
     if(LBPos > 30000){
         LBPos -= 36000;
     }
-
+    setConstants2(0.02, 0, 500);
     if(LBMacro == 1){
-        setConstants(1, 0, 0);
-        LadyBrown.move(calcPIDlift(1500, LBPos, 0, 0, 1));
+        LadyBrown.move(calcPIDlift(2000, LBPos, 0, 0, 1.0));
     } else if(LBMacro == 2){
-        setConstants(1, 0, 0);
-        LadyBrown.move(calcPIDlift(3000, LBPos, 0, 0, 1));
-    } else if (LBMacro == 3){
-        setConstants(1, 0, 0);
-        LadyBrown.move(calcPIDlift(15000, LBPos, 0, 0, 1));
-    }
+        LadyBrown.move(calcPIDlift(5200, LBPos, 0, 0, 1.0));
+    } 
 }
 
 
 
 
-double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
+double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     odometry2();
     stall();
     LadyBrownMacro();
@@ -366,7 +367,7 @@ double calcPIDT(double target, double input, int integralKi, int maxIntegral, bo
         integral4 = std::max(integral4, -maxIntegral); //same thing but negative max
     }
 
-    if(error4 * prevError4 >= 0){
+    if(error4 * prevError4 <= 0){
         integral4 = 0;
     }
     
@@ -1033,7 +1034,7 @@ void driveTurn(int target) { //target is inputted in autons
         }
 
         if(abs(error)<= 2){
-            setConstants(9.5, 0, 0);
+            setConstants(11, 0, 0);
         } else {
             setConstants(TURN_KP, TURN_KI, TURN_KD); 
         }
@@ -1043,7 +1044,7 @@ void driveTurn(int target) { //target is inputted in autons
         chasMove(voltage, -voltage);
         if (fabs(target - position) <= 0.5) count++; 
         if (count >= 20 || time2 > timeout) {
-          break; 
+          //break; 
         }
 
         
@@ -1114,11 +1115,11 @@ void driveTurn2(int target) { //target is inputted in autons
 
     x = double(abs(target));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-   variKD = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-   if(mogoValues){
+   //variKD = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
+   //if(mogoValues){
     //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
-    variKD =(0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
-   } 
+    variKD =(0.0000000033996 * pow(x,5)) + (−0.00000144663 * pow(x, 4)) + (0.000207591 * pow(x, 3)) + (−0.0111654 * pow(x, 2)) + (0.209467 * x) + 51.04069; // Use Desmos to tune
+   //} 
     //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
     // if(abs(target>=25)){
     // setConstants(TURN_KP, TURN_KI, variKD); 
@@ -1127,7 +1128,7 @@ void driveTurn2(int target) { //target is inputted in autons
     // }
 
     //setConstants(variKP, TURN_KI, variKD);
-    setConstants(TURN_KP, TURN_KI, TURN_KD); 
+    setConstants(TURNT_KP, TURN_KI, variKD); 
 
 
 
@@ -1157,10 +1158,12 @@ void driveTurn2(int target) { //target is inputted in autons
             turnv = abs(abs(position) - abs(target));
         }
 
-        if(abs(error)<= 2){
-            setConstants(9.5, 0, 0);
+        if(abs(error)<= 1){
+            setConstants(15, 0, 0);
+        } else if(abs(error)<=2){
+            setConstants(11, 0, 0);
         } else {
-            setConstants(TURN_KP, TURN_KI, TURN_KD); 
+            setConstants(TURN_KP, TURN_KI, variKD); 
         }
 
         voltage = calcPID(target, position, TURN_INTEGRAL_KI, TURN_MAX_INTEGRAL);
@@ -1171,7 +1174,7 @@ void driveTurn2(int target) { //target is inputted in autons
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
             //errorp=error;
-           break; 
+           //break; 
         }
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
@@ -1179,7 +1182,7 @@ void driveTurn2(int target) { //target is inputted in autons
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
             con.print(1, 0, "IMU: %f           ", float(imu.get_heading()));
         } else if (time2 % 150 == 0){
-            con.print(2, 0, "mogoValues: %f        ", float(mogoValues));
+            con.print(2, 0, "voltage %f        ", float(voltage));
         } 
 
         time2 += 10;
