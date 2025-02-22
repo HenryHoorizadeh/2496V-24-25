@@ -255,7 +255,7 @@ void LadyBrownMacro(){
 
 
 
-double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
+double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn) { //basically tuning i here
     odometry2();
     stall();
     LadyBrownMacro();

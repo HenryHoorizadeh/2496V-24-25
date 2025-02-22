@@ -213,7 +213,8 @@ TEST.move(127);
 
 	while (true) {
 //MACROO!!!!!!!!!!!!!!!!!!!!!
-    liftAngle = roto.get_angle();
+    liftAngle = 36000-roto.get_angle();
+    
     if(liftAngle > 30000){
       liftAngle -= 36000;
     }
@@ -252,14 +253,12 @@ TEST.move(127);
 		}
 
     if(macroControl){
-      setConstants(0.04, 0, 500);
+      setConstants(0.02, 0, 500);
       if(macro == 0){
        // setConstants(0.1, 0, 0);
-        LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
       } else if(macro == 1){
-        LadyBrown.move(-calcPIDlift(5000, liftAngle, 0, 0, 1.0));
-      } else if(macro == 2){
-        LadyBrown.move(-calcPIDlift(10000, liftAngle, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(5200, liftAngle, 0, 0, 1.0));
       } else {
         macro = 0;
       }
@@ -624,7 +623,7 @@ TEST.move(127);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "IMU: %f           ",float(imu.get_heading()));
+      con.print(1, 0, "rotp: %f           ",float(liftAngle));
     } else if (time % 150 == 0){
       con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

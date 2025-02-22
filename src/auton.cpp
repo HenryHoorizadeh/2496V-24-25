@@ -48,6 +48,24 @@ void autonomous() {
 
   } else if (atn == 1) {
 
+
+
+    // ramp.move(-127);
+    // driveStraight2(500);
+    // driveTurn2(-90);
+    // driveClamp(-500, 100);
+    // driveTurn2(0);
+    // driveStraight2(100);
+    // driveTurn2(-90);
+    // driveStraight2(125);
+    // driveTurn2(35);
+    // driveStraight2(350);
+    // driveTurn2(180);
+    // driveTurn2(-90);
+    // driveStraight2(45);
+    // driveStraight2()
+
+
   } else if (atn == 3) { 
     
   } else if (atn == 4) { 
