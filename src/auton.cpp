@@ -40,8 +40,8 @@ void autonomous() {
     // delay(500);
     // driveClamp(-500, 100);
 
-
-    LadyBrown.move(127);
+    LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    LadyBrown.move(40);
     HOOKS.move(-127);
     delay(500);
     HOOKS.move(127);
@@ -62,13 +62,20 @@ void autonomous() {
     LBMacro = 2;
     //HOOKS.move(40);
     hookControl2 = true;
-    driveStraightC(900);
+    driveStraightC(850);
+    driveArcLF(90, 200, 2000);
     hookControl2 = false;
     HOOKS.move(-127);
-    driveArcLF(90, 200, 2000);
     driveStraight2(100);
+    LBMacro = 0;
+    LadyBrown.move(0);
+    //driveTurn2(90);
+    delay(1500);
+    chasMove(70, 70);
+    delay(400);
     HOOKS.move(127);
-    LadyBrown.move(127);
+    LadyBrown.move(-127);
+    //driveStraight2(200);
     delay(800);
     driveStraight2(-500);
     
