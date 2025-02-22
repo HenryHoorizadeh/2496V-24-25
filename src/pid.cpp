@@ -1044,7 +1044,7 @@ void driveTurn(int target) { //target is inputted in autons
         chasMove(voltage, -voltage);
         if (fabs(target - position) <= 0.5) count++; 
         if (count >= 20 || time2 > timeout) {
-          //break; 
+          break; 
         }
 
         
@@ -1174,7 +1174,7 @@ void driveTurn2(int target) { //target is inputted in autons
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
             //errorp=error;
-           //break; 
+           break; 
         }
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
