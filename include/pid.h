@@ -10,6 +10,7 @@
 extern void setPosition(float xcoord, float ycoord, float heading);
 extern void resetEncoders();
 extern void setConstants(double kp, double ki, double kd);
+extern void setConstants2(double kp, double ki, double kd);
 extern double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern double calcPID2(double target, double input, int integralKi, int maxIntegral, bool slewOn);
 extern double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias);
@@ -43,7 +44,7 @@ extern bool sreverse;
 extern bool stalled;
 extern float view;
 extern int stallTime;
-
+extern bool hookControl2;
 extern int LBMacro;
 
 //tune straight constants here: setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
@@ -54,6 +55,10 @@ extern int LBMacro;
 //tune straight integral-specific here: voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 #define STRAIGHT_INTEGRAL_KI 40
 #define STRAIGHT_MAX_INTEGRAL 14.5
+
+#define STRAIGHT_KPM 0.5 // 1 //0.7
+#define STRAIGHT_KIM 0.01 // 0.001 //0.1
+#define STRAIGHT_KDM 7 // 1 //8
 
 //tune to make heading correction more or less senstive 
 #define HEADING_CORRECTION_KP 0

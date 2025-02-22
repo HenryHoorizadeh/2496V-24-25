@@ -264,16 +264,16 @@ TEST.move(127);
     if(macroControl){
       
       if(macro == 0){
-        setConstants(0.7, 0, 0);
+        setConstants2(0.7, 0, 0);
         LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 1){
-        setConstants(0.03, 0, 0);
+        setConstants2(0.03, 0, 0);
         LadyBrown.move(-calcPIDlift(16000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
-        setConstants(0.02, 0, 500);
+        setConstants2(0.02, 0, 500);
         LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
       } else if(macro == 3){
-        setConstants(0.02, 0, 500);
+        setConstants2(0.02, 0, 500);
         LadyBrown.move(-calcPIDlift(5200, liftAngle, 0, 0, 1.0));
       } else {
         macro = 2;
@@ -287,7 +287,7 @@ TEST.move(127);
       if(abs(120 - HOOKS.get_position()) < 10){
         hookControl = false;
       }
-    }
+    } 
 
     
 
@@ -640,7 +640,7 @@ TEST.move(127);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "imu: %f           ",float(imu.get_heading()));
+      con.print(1, 0, "imu: %f           ",float(-calcPIDlift(2000, liftAngle, 0, 0, 1.0)));
     } else if (time % 150 == 0){
       con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

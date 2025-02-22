@@ -39,12 +39,40 @@ void autonomous() {
     // LadyBrown.move(-127);
     // delay(500);
     // driveClamp(-500, 100);
+
+
+    LadyBrown.move(127);
     HOOKS.move(-127);
     delay(500);
     HOOKS.move(127);
-    driveStraight2(250);
+    driveStraight2(500);
+    HOOKS.move(-127);
     driveTurn2(-90);
-    driveClamp(-800, 100);
+    mogoValues = true;
+    driveClamp(-900, 100, 40);
+    driveTurn2(0);
+    driveStraightC(300);
+    driveArcRF(45, 800, 2000);
+    driveStraightC(425);
+    driveArcLF(45, 500, 2000);
+    driveStraight2(800);
+    LBMacro = 1;
+    driveStraight2(500, 80);
+    driveTurn2(180);
+    LBMacro = 2;
+    //HOOKS.move(40);
+    hookControl2 = true;
+    driveStraightC(900);
+    hookControl2 = false;
+    HOOKS.move(-127);
+    driveArcLF(90, 200, 2000);
+    driveStraight2(100);
+    HOOKS.move(127);
+    LadyBrown.move(127);
+    delay(800);
+    driveStraight2(-500);
+    
+    
 
   } else if (atn == 1) {
 

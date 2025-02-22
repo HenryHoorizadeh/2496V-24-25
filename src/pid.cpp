@@ -90,6 +90,20 @@ double power4;
 int LBMacro = 0;
 double LBPos = 0;
 
+double vKp5;
+double vKi5;
+double vKd5;
+float error5; //amount from target
+double prevError5; 
+double h5;
+int integral5;
+int derivative5;
+int time25;
+double power5;
+
+bool hookControl2;
+
+
 void hooks(int speed){
     direc = speed;
 }
@@ -239,17 +253,53 @@ double calcPIDlift(double target, double input, int integralKi, int maxIntegral,
     return powerl;
 }
 
+double calcPIDH(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
+    int integral4;
+    prevError4 = error4;
+    error4 = target - input;
+    
+    if(std::abs(error4) < integralKi) {
+        integral4 += error4;
+    } else {
+        integral4 = 0;
+    }
+
+    if(integral4 >= 0) {
+        integral4 = std::min(integral4, maxIntegral); //min means take whichever value is smaller btwn integral and maxI
+        //integral = integral until integral is greater than maxI (to keep integral limited to maxI)
+    } else {
+        integral4 = std::max(integral4, -maxIntegral); //same thing but negative max
+    }
+    
+    derivative4 = error4 - prevError4;
+
+    
+
+    power4 = (vKp2 * error4) + (vKi2 * integral4) + (vKd2 * derivative4);
+
+    return power4;
+}
+
 
 void LadyBrownMacro(){
-    LBPos = roto.get_angle();
+    LBPos = 36000-roto.get_angle();
     if(LBPos > 30000){
         LBPos -= 36000;
     }
-    setConstants2(0.02, 0, 500);
+    if(hookControl2){
+        setConstants2(1, 0, 0);
+        HOOKS.move(calcPIDH(180, HOOKS.get_position(), 0, 0, true));
+        if(abs(180 - HOOKS.get_position()) < 10){
+          //hookControl2 = false;
+        }
+    } else {
+        HOOKS.tare_position();
+    }
+    setConstants2(0.05, 0, 500);
     if(LBMacro == 1){
-        LadyBrown.move(calcPIDlift(2000, LBPos, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(2500, LBPos, 0, 0, 1.0));
     } else if(LBMacro == 2){
-        LadyBrown.move(calcPIDlift(5200, LBPos, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(7000, LBPos, 0, 0, 1.0));
     } 
 }
 
@@ -801,7 +851,13 @@ void driveStraight2(int target, int speed) {
         trueTarget = trueTarget - 360;
     }
 
-    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    if(mogoValues == true){
+        setConstants(STRAIGHT_KPM, STRAIGHT_KIM, STRAIGHT_KDM);
+    } else {
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    }
+
+    
     resetEncoders();
    
 
@@ -1118,7 +1174,7 @@ void driveTurn2(int target) { //target is inputted in autons
    //variKD = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
    //if(mogoValues){
     //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
-    variKD =(0.0000000033996 * pow(x,5)) + (−0.00000144663 * pow(x, 4)) + (0.000207591 * pow(x, 3)) + (−0.0111654 * pow(x, 2)) + (0.209467 * x) + 51.04069; // Use Desmos to tune
+    variKD =(0.0000000033996 * pow(x,5)) + (-0.00000144663 * pow(x, 4)) + (0.000207591 * pow(x, 3)) + (-0.0111654 * pow(x, 2)) + (0.209467 * x) + 53.04069; // Use Desmos to tune
    //} 
     //timeout = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
     // if(abs(target>=25)){
@@ -1161,7 +1217,7 @@ void driveTurn2(int target) { //target is inputted in autons
         if(abs(error)<= 1){
             setConstants(15, 0, 0);
         } else if(abs(error)<=2){
-            setConstants(11, 0, 0);
+            setConstants(9, 0, 0);
         } else {
             setConstants(TURN_KP, TURN_KI, variKD); 
         }
