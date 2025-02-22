@@ -251,7 +251,6 @@ TEST.move(127);
 			HOOKS.move(0);
       HOOKS.tare_position();
 		}
-    //hello
 
     if(macroControl){
       setConstants(0.02, 0, 500);
@@ -264,6 +263,7 @@ TEST.move(127);
         macro = 0;
       }
     }
+
 
     if(hookControl){
       setConstants(1, 0, 0);
