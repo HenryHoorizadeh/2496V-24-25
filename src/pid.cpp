@@ -288,21 +288,22 @@ void LadyBrownMacro(){
     }
     if(hookControl2){
         setConstants2(1, 0, 0);
-        HOOKS.move(calcPIDH(100, HOOKS.get_position(), 0, 0, true));
-        if(abs(100 - HOOKS.get_position()) < 10){
+        HOOKS.move(calcPIDH(150, HOOKS.get_position(), 0, 0, true));
+        if(abs(150 - HOOKS.get_position()) < 10){
           //hookControl2 = false;
         }
     } else {
         HOOKS.tare_position();
     }
-    setConstants2(0.03, 0, 500);
+    setConstants2(0.02, 0, 200);
     if(LBMacro == 1){
-        LadyBrown.move(-calcPIDlift(2600, LBPos, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(2700, LBPos, 0, 0, 1.0));
     } else if(LBMacro == 2){
-        LadyBrown.move(-calcPIDlift(5700, LBPos, 0, 0, 1.0));
+        setConstants2(0.03, 0, 200);
+        LadyBrown.move(-calcPIDlift(6800, LBPos, 0, 0, 1.0));
     } else if(LBMacro == 3){
         setConstants2(0.03, 0, 0);
-        LadyBrown.move(-calcPIDlift(16000, LBPos, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(20000, LBPos, 0, 0, 1.0));
     }
 }
 
