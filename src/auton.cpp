@@ -62,11 +62,11 @@ void autonomous() {
     LBMacro = 2;
     //HOOKS.move(40);
     hookControl2 = true;
-    driveStraightC(850);
+    driveStraightC(800);
     driveArcLF(90, 200, 2000);
+    driveStraight2(100);
     hookControl2 = false;
     HOOKS.move(-127);
-    driveStraight2(100);
     LBMacro = 0;
     LadyBrown.move(0);
     //driveTurn2(90);
@@ -78,6 +78,7 @@ void autonomous() {
     //driveStraight2(200);
     delay(800);
     driveStraight2(-500);
+    driveTurn2(180);
     
     
 
