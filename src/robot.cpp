@@ -14,8 +14,8 @@
 #define LF_PORT 20
 #define LM_PORT 18
 #define LB_PORT 19
-#define RF_PORT 16
-#define RM_PORT 15
+#define RF_PORT 15
+#define RM_PORT 16
 #define RB_PORT 17
 #define IMU_PORT 2
 #define HOOKS_PORT 14
@@ -58,11 +58,11 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
     //Mogo
     pros::ADIDigitalOut mogo ('A', false);
 
-    //scrapper
-    pros::ADIDigitalOut scrapper ('C', false);
+    //doinker
+    pros::ADIDigitalOut doinker ('H', false);
 
     //pistoned intake
-    pros:: ADIDigitalOut intake ('B', false);
+    pros:: ADIDigitalOut intake ('G', false);
 
     //auton selector
     pros::ADIDigitalIn selec ('E');

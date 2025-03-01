@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 0;
+int atn = 2;
 int RingColor = 2;
 int pressed = 0;
 string autstr;
@@ -176,11 +176,11 @@ void opcontrol() {
   bool NEWL2 = false;
   bool NEWR2 = false;
   bool NEWR1 = false;
-  bool arcToggle = false;
-  bool tankToggle = true;
+  bool arcToggle = true;
+  bool tankToggle = false;
   bool mogoToggle = false;
   bool intakeToggle = false;
-  bool scrapperToggle = false;
+  bool doinkerToggle = false;
   bool hangToggle = false;
   bool liftToggle = false;
   double maxRPM = 0;
@@ -189,7 +189,7 @@ void opcontrol() {
   double liftAngle = 0; 
   double rotoAngle = 0;
   float xvelo = 0;
-  int macro = 2;
+  int macro = 1;
   bool macroControl = false;
   bool hookControl = false;
 
@@ -219,10 +219,15 @@ TEST.move(127);
       liftAngle -= 36000;
     }
     if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-      LadyBrown.move(127);
-     macroControl = false;
-    } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+      if(liftAngle < 15500){
       LadyBrown.move(-127);
+      macroControl = false;
+      } else {
+        macroControl = true;
+        macro = 1;
+      }
+    } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
+      LadyBrown.move(127);
       macroControl = false;
     } else if (macroControl == false){
       LadyBrown.move(0);
@@ -237,11 +242,11 @@ TEST.move(127);
       }
     }
 
+    // if(con.get_digital(E_CONTROLLER_DIGITAL_Y)){
+    //   macroControl = true;
+    //   macro = 0;
+    // }
     if(con.get_digital(E_CONTROLLER_DIGITAL_Y)){
-      macroControl = true;
-      macro = 0;
-    }
-    if(con.get_digital(E_CONTROLLER_DIGITAL_X)){
       macroControl = true;
       macro = 1;
     }
@@ -267,13 +272,13 @@ TEST.move(127);
         setConstants2(0.7, 0, 0);
         LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 1){
-        setConstants2(0.03, 0, 0);
+        setConstants2(0.05, 0, 0);
         LadyBrown.move(-calcPIDlift(16000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
-        setConstants2(0.02, 0, 500);
-        LadyBrown.move(-calcPIDlift(2000, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
+        setConstants2(0.05, 0, 500);
+        LadyBrown.move(-calcPIDlift(2700, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
       } else if(macro == 3){
-        setConstants2(0.02, 0, 500);
+        setConstants2(0.05, 0, 500);
         LadyBrown.move(-calcPIDlift(5200, liftAngle, 0, 0, 1.0));
       } else {
         macro = 2;
@@ -329,8 +334,8 @@ TEST.move(127);
 
 
 
-    int turn = int(RX); // Normal Rates
-		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
+    //int turn = int(RX); // Normal Rates
+		int turn = int(abs(RX) * RX / 127); //X Squared Rates
     //int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
 
 		int left = power + turn;
@@ -345,12 +350,18 @@ TEST.move(127);
 
    
     if (tankToggle) {
-      LF.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
-      LM.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
-      LB.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
-      RF.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
-      RM.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
-      RB.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
+      // LF.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
+      // LM.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
+      // LB.move(int(abs(con.get_analog(ANALOG_LEFT_Y)) * con.get_analog(ANALOG_LEFT_Y) / 127));
+      // RF.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
+      // RM.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
+      // RB.move(int(abs(con.get_analog(ANALOG_RIGHT_Y)) * con.get_analog(ANALOG_RIGHT_Y) / 127));
+      LF.move(con.get_analog(ANALOG_LEFT_Y));
+      LM.move(con.get_analog(ANALOG_LEFT_Y));
+      LB.move(con.get_analog(ANALOG_LEFT_Y));
+      RF.move(con.get_analog(ANALOG_RIGHT_Y));
+      RM.move(con.get_analog(ANALOG_RIGHT_Y));
+      RB.move(con.get_analog(ANALOG_RIGHT_Y));
     }
     if (arcToggle) {
       LF.move(left);
@@ -530,8 +541,9 @@ TEST.move(127);
 //hello
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
-     // driveStraight2(1000);
-      driveTurn2(132);
+      driveStraight2(1000);
+     //driveTurn2(175);
+      //driveTurn2(132);
       // longValues = true;
       // driveClampS(-2500, 400, 70);
       // longValues = false;
@@ -596,7 +608,7 @@ TEST.move(127);
 
     odometry2();
 
-    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_RIGHT)){
         intakeToggle = !intakeToggle;
     }
 
@@ -618,11 +630,11 @@ TEST.move(127);
 
   mogo.set_value(mogoToggle);
 
-      if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){
-        scrapperToggle = !scrapperToggle;
+      if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_X)){
+        doinkerToggle = !doinkerToggle;
     }
 
-  scrapper.set_value(scrapperToggle);
+  doinker.set_value(doinkerToggle);
   //piston2.set_value(wingToggle);
 
 
@@ -640,7 +652,7 @@ TEST.move(127);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "imu: %f           ",float(-calcPIDlift(2000, liftAngle, 0, 0, 1.0)));
+      con.print(1, 0, "time: %f           ",float(time2));
     } else if (time % 150 == 0){
       con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

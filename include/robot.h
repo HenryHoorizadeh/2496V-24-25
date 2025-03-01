@@ -47,7 +47,7 @@ extern pros::Imu imu;
 
 //pneumatics
 extern pros::ADIDigitalOut mogo;
-extern pros::ADIDigitalOut scrapper;
+extern pros::ADIDigitalOut doinker;
 extern pros::ADIDigitalOut intake;
 extern pros::ADIDigitalOut hang;
 //gps
