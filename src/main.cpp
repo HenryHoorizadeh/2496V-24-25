@@ -81,6 +81,7 @@ void disabled() {}
 
 int atn = 2;
 int RingColor = 2;
+int color = 0;
 int pressed = 0;
 string autstr;
 float errorp;
@@ -88,6 +89,8 @@ float errorp;
 
  
 void competition_initialize() {
+
+  
     while(true) {
       // if(selec.get_value() == true) {
       //   atn ++;  
@@ -121,27 +124,27 @@ void competition_initialize() {
         con.print(0, 0, "Aut 0: %s", autstr);
       }
       else if (atn == 1) {
-        autstr = "BLUE RIGHT";
+        autstr = " RED LEFT RING";
         con.print(0, 0, "Aut 1: %s", autstr);
       }
       else if (atn == 2) {
-        autstr = "BLUE LEFT";
+        autstr = "RED RIGHT GOAL";
         con.print(0, 0, "Aut 2: %s", autstr);
       }
       else if (atn == 3) {
-       autstr = "RED RIGHT";
+       autstr = "BLUE LEFT MOGO";
         con.print(0, 0, "Aut 3: %s", autstr);
       }
       else if (atn == 4) {
-       autstr = "RED LEFT";
+       autstr = "BLUE RIGHT RING";
         con.print(0, 0, "Aut 4: %s", autstr);
       }
       else if (atn == 5) {
-       autstr = "SKILLS";
+       autstr = "BLUE RIGHT RING RUSH";
         con.print(0, 0, "Aut 5: %s", autstr);
       }
       else if (atn == 6) {
-       autstr = "DISRUPT";
+       autstr = "RED RIGHT RING RUSH";
         con.print(0, 0, "Aut 6: %s", autstr);
       } 
       else if (atn == 7) {
@@ -178,7 +181,7 @@ void opcontrol() {
   bool NEWR1 = false;
   bool arcToggle = true;
   bool tankToggle = false;
-  bool mogoToggle = false;
+  bool mogoToggle = true;
   bool intakeToggle = false;
   bool doinkerToggle = false;
   bool hangToggle = false;
@@ -212,6 +215,10 @@ TEST.move(127);
 //delay(3500);
 
 	while (true) {
+
+    color = 0;
+    //ColorSort();
+    colorSorter.set_value(true);
 //MACROO!!!!!!!!!!!!!!!!!!!!!
     liftAngle = 36000-roto.get_angle();
     
@@ -219,15 +226,19 @@ TEST.move(127);
       liftAngle -= 36000;
     }
     if(con.get_digital(E_CONTROLLER_DIGITAL_L1)){
-      if(liftAngle < 15500){
-      LadyBrown.move(-127);
-      macroControl = false;
-      } else {
-        macroControl = true;
-        macro = 1;
-      }
+      // if(liftAngle < 15500){
+      // LadyBrown.move(-127);
+      // macroControl = false;
+      // } else {
+      //   macroControl = true;
+      //   macro = 1;
+      // }
+
+        LadyBrown.move(127);
+        macroControl = false;
+
     } else if(con.get_digital(E_CONTROLLER_DIGITAL_L2)){
-      LadyBrown.move(127);
+      LadyBrown.move(-127);
       macroControl = false;
     } else if (macroControl == false){
       LadyBrown.move(0);
@@ -273,7 +284,7 @@ TEST.move(127);
         LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 1){
         setConstants2(0.05, 0, 0);
-        LadyBrown.move(-calcPIDlift(16000, liftAngle, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
         setConstants2(0.05, 0, 500);
         LadyBrown.move(-calcPIDlift(2700, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
@@ -335,8 +346,8 @@ TEST.move(127);
 
 
     //int turn = int(RX); // Normal Rates
-		int turn = int(abs(RX) * RX / 127); //X Squared Rates
-    //int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
+		//int turn = int(abs(RX) * RX / 127); //X Squared Rates
+    int turn = int(pow(RX, 3) / pow(127, 2)); //X Cubed Rates
 
 		int left = power + turn;
 		int right = power - turn;
@@ -410,25 +421,25 @@ TEST.move(127);
     // }
     
     if (atn == 0) {
-      autstr = "NONE";
+      autstr = "SKILLS";
     }
     if (atn == 1) {
-      autstr = "BLUE RIGHT";
+      autstr = "RED LEFT RING";
     }
     else if (atn == 2) {
-      autstr = "BLUE LEFT";
+      autstr = "RED RIGHT GOAL";
     }
     else if (atn == 3) {
-      autstr = "RED RIGHT";
+      autstr = "BLUE LEFT MOGO";
     }
     else if (atn == 4) {
-      autstr = "RED LEFT";
+      autstr = "BLUE RIGHT RING";
     }
     else if (atn == 5) {
-      autstr = "SKILLS";
+      autstr = "BLUE RIGHT RING RUSH";
     } 
     else if (atn == 6) {
-      autstr = "Auton 6";
+      autstr = "RED RIGHT RING RUSH";
     }
     else if (atn == 7) {
       atn = 0;
@@ -541,7 +552,7 @@ TEST.move(127);
 //hello
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
-      driveStraight2(1000);
+      // driveStraight2(1000);
      //driveTurn2(175);
       //driveTurn2(132);
       // longValues = true;

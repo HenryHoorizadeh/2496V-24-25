@@ -50,6 +50,7 @@ extern pros::ADIDigitalOut mogo;
 extern pros::ADIDigitalOut doinker;
 extern pros::ADIDigitalOut intake;
 extern pros::ADIDigitalOut hang;
+extern pros::ADIDigitalOut colorSorter;
 //gps
 // extern pros::Gps gps1;
 // extern pros::c::gps_status_s_t gpsData;

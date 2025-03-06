@@ -70,6 +70,9 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
     //hang
     pros::ADIDigitalOut hang ('D', false);
 
+    pros::ADIDigitalOut colorSorter('E', false);
+
+
 //sensors
 // pros::ADIEncoder encLeft ({{1, 1, 2}, false});
 // pros::ADIEncoder encRight ({{1, 3, 4}, false});

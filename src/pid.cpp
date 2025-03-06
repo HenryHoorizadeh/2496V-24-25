@@ -311,13 +311,45 @@ void LadyBrownMacro(){
     }
 }
 
+bool InitColor = false;
+//bool InitCorrect = false;
+int ColorCount;
+
+void ColorSort(){
+    if(color == 0){ //sort out blue
+        if(OpticalC.get_hue()<270 && OpticalC.get_hue()>180){
+            InitColor = true;
+        }
+
+        if(InitColor && ColorCount < 400){
+            colorSorter.set_value(true);
+            ColorCount += 1;
+        } else {
+            ColorCount = 0;
+            InitColor = false;
+        }
+    } else if (color == 1){ //sort out red
+        if(OpticalC.get_hue()<30 || OpticalC.get_hue()>330){
+            InitColor = true;
+        }
+
+        if(InitColor && ColorCount < 400){
+            colorSorter.set_value(true);
+            ColorCount += 1;
+        } else {
+            ColorCount = 0;
+            InitColor = false;
+        }
+    }
+}
 
 
 
 double calcPID(double target, double input, int integralKi, int maxIntegral, bool slewOn = false) { //basically tuning i here
     odometry2();
-    stall();
+    //stall();
     LadyBrownMacro();
+    ColorSort();
     int integral;
     
     prevError = error;
@@ -337,11 +369,7 @@ double calcPID(double target, double input, int integralKi, int maxIntegral, boo
         integral = max(integral, -maxIntegral); //same thing but negative max
     }
 
-    if(integral > maxIntegral){
-        integral = maxIntegral;
-    } else if(integral < -maxIntegral){
-        integral = -maxIntegral;
-    }
+
 
     derivative = error - prevError;
 
@@ -549,82 +577,79 @@ double calcPIDT(double target, double input, int integralKi, int maxIntegral, bo
 // }
 // }
 
-bool InitColor = false;
-bool InitCorrect = false;
-int ColorCount;
-bool Backwards = false;
-void ColorSort(int color){
-    //blue color rejection
-    if (color == 0){
-        if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-            InitColor = true;
-        }
+// bool Backwards = false;
+// void ColorSort(int color){
+//     //blue color rejection
+//     if (color == 0){
+//         if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+//             InitColor = true;
+//         }
 
-        if (InitColor){
-            if(Backwards == false){
-                HOOKS.move(127);
-                if(HOOKS.get_position() > 500){
-                    Backwards = true; 
-                }
-            } else {
-                HOOKS.move(-127);
-                if(HOOKS.get_position() < 200){
-                    Backwards = false;
-                    InitColor = false;
-                }
-            }
-        } else {
-            HOOKS.move(127);
-            HOOKS.tare_position();
-        }
+//         if (InitColor){
+//             if(Backwards == false){
+//                 HOOKS.move(127);
+//                 if(HOOKS.get_position() > 500){
+//                     Backwards = true; 
+//                 }
+//             } else {
+//                 HOOKS.move(-127);
+//                 if(HOOKS.get_position() < 200){
+//                     Backwards = false;
+//                     InitColor = false;
+//                 }
+//             }
+//         } else {
+//             HOOKS.move(127);
+//             HOOKS.tare_position();
+//         }
 
 
 
 
 
 
-    } else if (color == 1) { //red color rejectiom
-        if(OpticalC.get_hue() < 30 && OpticalC.get_hue()>330){
-            InitColor = true;
-        } 
-        if (InitColor){
-            if(Backwards == false){
-                HOOKS.move(-127);
-                if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
-                } else {
-                }
-                if(HOOKS.get_position() < -3000){
-                    Backwards = true; 
-                }
-            } else {
-                HOOKS.move(127);
-                Backwards = false;
-                InitColor = false;
-            }
-        } else if(InitCorrect){
-            if(Backwards == false){
-                HOOKS.move(127);
-                if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
-                } else {
-                }
-                if(HOOKS.get_position() > 4000){
-                    Backwards = true; 
-                }
-            } else {
-                HOOKS.move(-127);
-                Backwards = false;
-                InitColor = false;
-            }
+//     } else if (color == 1) { //red color rejectiom
+//         if(OpticalC.get_hue() < 30 && OpticalC.get_hue()>330){
+//             InitColor = true;
+//         } 
+//         if (InitColor){
+//             if(Backwards == false){
+//                 HOOKS.move(-127);
+//                 if(OpticalC.get_hue()<240 && OpticalC.get_hue()>180){
+//                 } else {
+//                 }
+//                 if(HOOKS.get_position() < -3000){
+//                     Backwards = true; 
+//                 }
+//             } else {
+//                 HOOKS.move(127);
+//                 Backwards = false;
+//                 InitColor = false;
+//             }
+//         } else if(InitCorrect){
+//             if(Backwards == false){
+//                 HOOKS.move(127);
+//                 if(OpticalC.get_hue()>0 && OpticalC.get_hue()<30){
+//                 } else {
+//                 }
+//                 if(HOOKS.get_position() > 4000){
+//                     Backwards = true; 
+//                 }
+//             } else {
+//                 HOOKS.move(-127);
+//                 Backwards = false;
+//                 InitColor = false;
+//             }
 
-        } else {
-            HOOKS.move(127);
-            HOOKS.tare_position();
-        }
+//         } else {
+//             HOOKS.move(127);
+//             HOOKS.tare_position();
+//         }
 
 
 
-}
-}
+// }
+// }
 
 
 
@@ -874,7 +899,6 @@ void driveStraight2(int target, int speed) {
 
 
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
-
     
     if(abs(target - encoderAvg)<25){
         setConstants(2.5, 0, 0);
@@ -923,7 +947,8 @@ void driveStraight2(int target, int speed) {
         }
 
         heading_error = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
-   
+        
+
         if(voltage > 127 * double(speed)/100.0){
             voltage = 127 * double(speed)/100.0;
         } else if (voltage < -127 * double(speed)/100.0){
@@ -1147,6 +1172,8 @@ void driveTurn2(int target) { //target is inputted in autons
     int cycle = 0;
     int turnv = 0;
 
+
+
     position = imu.get_heading(); //this is where the units are set to be degrees
 
     if (position > 180){
@@ -1168,7 +1195,6 @@ void driveTurn2(int target) { //target is inputted in autons
         } else {
             turnv = (abs(position) + target);
         }
-
     } else {
          turnv = abs(abs(position) - abs(target));
     }
@@ -1243,7 +1269,6 @@ void driveTurn2(int target) { //target is inputted in autons
         
         if (abs(target - position) <= 0.5) count++; //0.35
         if (count >= 20 || time2 > timeout) {
-            //errorp=error;
            break; 
         }
 
