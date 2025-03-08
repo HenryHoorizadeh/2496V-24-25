@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 2;
+int atn = 0;
 int RingColor = 2;
 int color = 0;
 int pressed = 0;
@@ -206,13 +206,22 @@ void opcontrol() {
 
 
 
-
+// while (true){
+//   LF.move(con.get_analog(ANALOG_LEFT_Y));
+//   LM.move(con.get_analog(ANALOG_LEFT_Y));
+//   LB.move(con.get_analog(ANALOG_LEFT_Y));
+//   RF.move(con.get_analog(ANALOG_RIGHT_Y));
+//   RM.move(con.get_analog(ANALOG_RIGHT_Y));
+//   RB.move(con.get_analog(ANALOG_RIGHT_Y));
+// }
   
 
 
 TEST.move(127);
 //TEST2.move(127);
 //delay(3500);
+
+
 
 	while (true) {
 
@@ -672,4 +681,5 @@ TEST.move(127);
 	  	time += 1;
 		  delay(1);
 	  }
+    
   }

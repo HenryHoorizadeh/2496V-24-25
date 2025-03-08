@@ -65,7 +65,7 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
     pros:: ADIDigitalOut intake ('G', false);
 
     //auton selector
-    pros::ADIDigitalIn selec ('E');
+    pros::ADIDigitalIn selec ('F');
 
     //hang
     pros::ADIDigitalOut hang ('D', false);

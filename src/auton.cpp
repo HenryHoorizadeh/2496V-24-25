@@ -50,7 +50,7 @@ void autonomous() {
     mogoValues = true;
     driveClamp(-900, 100, 40);
     driveTurn2(0);
-    driveStraightC(500);
+    driveStraightC(700); //500
     driveArcRF(26, 800, 2000);
     driveStraight2(2200);
     delay(150); //450
