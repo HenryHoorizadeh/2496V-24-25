@@ -25,7 +25,7 @@
 #define TEST_PORT 3
 #define TEST_PORT2 14
 #define LDB_PORT 13
-#define OPTICAL_PORT 8
+#define OPTICAL_PORT 3
 
 
 
@@ -60,6 +60,8 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
 
     //doinker
     pros::ADIDigitalOut doinker ('H', false);
+    
+    pros::ADIDigitalOut doinkerClamp('E', false);
 
     //pistoned intake
     pros:: ADIDigitalOut intake ('G', false);
@@ -70,7 +72,8 @@ pros::Motor HOOKS (HOOKS_PORT, pros::E_MOTOR_GEARSET_06, false);
     //hang
     pros::ADIDigitalOut hang ('D', false);
 
-    pros::ADIDigitalOut colorSorter('E', false);
+    pros::ADIDigitalOut colorSorter('C', false);
+
 
 
 //sensors

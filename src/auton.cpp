@@ -481,6 +481,17 @@ void autonomous() {
   } else if (atn == 2) { 
 
     //red right rush mogo
+
+    doinker.set_value(true);
+    driveClampD(1600, 200);
+    driveStraight2(-900);
+    doinkerClamp.set_value(false);
+    driveTurn2(180);
+    doinker.set_value(false);
+
+
+
+    /*
     LBMacro = 4;
     driveStraightC(-875);
     driveArcLF(-30, 200, 2000);
@@ -593,6 +604,8 @@ void autonomous() {
     // delay(800);
     // driveStraight2(-500);
     // driveTurn2(180);
+
+    */
     
   } else if (atn == 3) { 
 

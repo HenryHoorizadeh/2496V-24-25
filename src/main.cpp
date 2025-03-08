@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 0;
+int atn = 2;
 int RingColor = 2;
 int color = 0;
 int pressed = 0;
@@ -184,7 +184,7 @@ void opcontrol() {
   bool mogoToggle = true;
   bool intakeToggle = false;
   bool doinkerToggle = false;
-  bool hangToggle = false;
+  bool doinkerClampToggle = false;
   bool liftToggle = false;
   double maxRPM = 0;
   double motorTotal = 0;
@@ -227,7 +227,7 @@ TEST.move(127);
 
     color = 0;
     //ColorSort();
-    colorSorter.set_value(true);
+    //ColorSorter.set_value(true);
 //MACROO!!!!!!!!!!!!!!!!!!!!!
     liftAngle = 36000-roto.get_angle();
     
@@ -268,6 +268,7 @@ TEST.move(127);
     // }
     if(con.get_digital(E_CONTROLLER_DIGITAL_Y)){
       macroControl = true;
+      hookControl = true;
       macro = 1;
     }
 
@@ -638,10 +639,10 @@ TEST.move(127);
 
   intake.set_value(intakeToggle);
       if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
-        hangToggle = !hangToggle;
+        doinkerClampToggle = !doinkerClampToggle;
     }
 
-  hang.set_value(hangToggle);
+  doinkerClamp.set_value(doinkerClampToggle);
 
 
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){

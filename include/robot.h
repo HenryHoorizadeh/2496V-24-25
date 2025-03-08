@@ -48,6 +48,7 @@ extern pros::Imu imu;
 //pneumatics
 extern pros::ADIDigitalOut mogo;
 extern pros::ADIDigitalOut doinker;
+extern pros::ADIDigitalOut doinkerClamp;
 extern pros::ADIDigitalOut intake;
 extern pros::ADIDigitalOut hang;
 extern pros::ADIDigitalOut colorSorter;

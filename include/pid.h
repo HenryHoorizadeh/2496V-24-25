@@ -17,6 +17,7 @@ extern double calcPIDlift(double target, double input, int integralKi, int maxIn
 extern void driveStraight(int target);
 extern void driveStraight2(int target, int speed = 100);
 extern void driveClamp(int target, int clampDistance, int speed = 100);
+extern void driveClampD(int target, int clampDistance, int speed = 100);
 extern void driveStraightC(int target);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);

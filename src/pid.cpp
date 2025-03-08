@@ -153,7 +153,7 @@ void stall(){
            // HOOKS.move(-direc);
            // INTAKE.move(-direc2);
             stallTime += 10;
-            if(stallTime >= 300){
+            if(stallTime >= 600){
                 stalled = false;
                 stallTime = 0;
             }
@@ -316,6 +316,7 @@ bool InitColor = false;
 int ColorCount;
 
 void ColorSort(){
+    OpticalC.set_led_pwm(100);
     if(color == 0){ //sort out blue
         if(OpticalC.get_hue()<270 && OpticalC.get_hue()>180){
             InitColor = true;
@@ -327,6 +328,7 @@ void ColorSort(){
         } else {
             ColorCount = 0;
             InitColor = false;
+            colorSorter.set_value(false);
         }
     } else if (color == 1){ //sort out red
         if(OpticalC.get_hue()<30 || OpticalC.get_hue()>330){
@@ -339,6 +341,7 @@ void ColorSort(){
         } else {
             ColorCount = 0;
             InitColor = false;
+            colorSorter.set_value(false);
         }
     }
 }
@@ -776,6 +779,12 @@ void driveClamp(int target, int clampDistance, int speed) {
 
     while(true) {
 
+        if(abs(target - encoderAvg)<25){
+            setConstants(2.5, 0, 0);
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }
+
 
     encoderAvg = (LF.get_position() + RF.get_position()) / 2;
     setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
@@ -865,6 +874,127 @@ void driveClamp(int target, int clampDistance, int speed) {
     RM.brake();
     RB.brake();
 }
+
+void driveClampD(int target, int clampDistance, int speed) {
+    int timeout = 30000;
+    double x = 0;
+    x = double(abs(target));
+    timeout = ( 0.00000000000012321 * pow(x,5)) + (-0.000000000953264 * pow(x, 4)) + (0.00000271528 * pow(x, 3)) + (-0.00339918 * pow(x, 2)) + (2.12469 * x) + 9.43588; //Tune with Desmos
+
+    bool over = false;
+    double voltage;
+    double encoderAvg;
+    int count = 0;
+    double heading_error = 0;
+    int cycle = 0; // Controller Display Cycle
+    time2 = 0;
+
+    if(trueTarget > 180){
+        trueTarget = trueTarget - 360;
+    }
+
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    resetEncoders();
+   
+
+    while(true) {
+
+        if(abs(target - encoderAvg)<25){
+            setConstants(2.5, 0, 0);
+        } else {
+            setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+        }
+
+
+    encoderAvg = (LF.get_position() + RF.get_position()) / 2;
+    setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+
+
+    double position = imu.get_heading(); //this is where the units are set to be degrees
+
+    if (position > 180){
+        position = position - 360;
+    }
+
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget) >= 180){
+            trueTarget = trueTarget + 360;
+            position = imu.get_heading();
+        } 
+    } else if ((trueTarget > 0) && (position < 0)){
+        if((trueTarget - position) >= 180){
+           position = imu.get_heading();
+        }
+    } 
+
+
+        // if(trueTarget > 180) {
+        //     trueTarget = (360 - trueTarget);
+        // }
+
+        // if(imu.get_heading() < 180) {
+        //     heading_error = trueTarget - imu.get_heading();
+        // }
+        // else {
+        //     heading_error = ((360 - imu.get_heading()) - trueTarget);
+        // }
+
+        // heading_error = heading_error * HEADING_CORRECTION_KP;
+
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
+
+        heading_error = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+   
+        if(voltage > 127){
+            voltage = 127;
+        } else if (voltage < -127){
+            voltage = -127;
+        }
+
+        if(abs(error) < clampDistance){
+            doinkerClamp.set_value(true);
+        }
+
+        if(voltage > 127 * double(speed)/100.0){
+            voltage = 127 * double(speed)/100.0;
+        } else if (voltage < -127 * double(speed)/100.0){
+            voltage = -127 * double(speed)/100.0;
+        }
+
+
+
+        chasMove( (voltage + heading_error ), (voltage - heading_error));
+        if (abs(target - encoderAvg) <= 4) count++;
+        if (count >= 20 || time2 > timeout){
+            break;
+        } 
+
+
+        if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
+            con.print(0, 0, "ERROR: %f           ", float(error));
+        } else if (time2 % 100 == 0 && time2 % 150 != 0){
+            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+        } else if (time2 % 150 == 0){
+            con.print(2, 0, "Time: %f        ", float(time2));
+        } 
+
+        delay(10);
+        time2 += 10;
+        //hi
+    }
+    LF.brake();
+    LM.brake();
+    LB.brake();
+    RF.brake();
+    RM.brake();
+    RB.brake();
+}
+
 
 void driveStraight2(int target, int speed) {
     int timeout = 5000;
