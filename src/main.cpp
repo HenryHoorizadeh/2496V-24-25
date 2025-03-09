@@ -296,7 +296,7 @@ TEST.move(127);
         setConstants2(0.05, 0, 0);
         LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
-        setConstants2(0.05, 0, 500);
+        setConstants2(0.02, 0, 500);
         LadyBrown.move(-calcPIDlift(2700, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
       } else if(macro == 3){
         setConstants2(0.05, 0, 500);

@@ -483,15 +483,27 @@ void autonomous() {
     //red right rush mogo
     // HOOKS.move(-127);
     // driveClampD(1600, 200);
-    HOOKS.move(-127);
+    color = 2;
+    LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    LBMacro = 4;
     doinker.set_value(true);
-    driveClampD(1600, 200);
+    driveClampD(1600, 200, 1000);
+    HOOKS.move(-5);
     driveStraight(-900);
     doinkerClamp.set_value(false);
     driveStraight2(-100);
     doinker.set_value(false);
     driveTurn2(-170);
     driveClamp(-800, 150, 60);
+    HOOKS.move(-127);
+    driveTurn2(-155);
+    driveArcRF(30, 3200, 9000);
+    driveStraight2(500);
+    intake.set_value(true);
+    driveStraight2(3500);
+    intake.set_value(false);
+    driveStraight2(-300);
+   
 
 
     // doinker.set_value(true);
