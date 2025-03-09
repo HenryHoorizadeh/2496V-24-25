@@ -481,14 +481,28 @@ void autonomous() {
   } else if (atn == 2) { 
 
     //red right rush mogo
-
+    // HOOKS.move(-127);
+    // driveClampD(1600, 200);
+    HOOKS.move(-127);
     doinker.set_value(true);
     driveClampD(1600, 200);
-    driveStraight2(-900);
+    driveStraight(-900);
     doinkerClamp.set_value(false);
-    driveTurn2(180);
+    driveStraight2(-100);
     doinker.set_value(false);
+    driveTurn2(-170);
+    driveClamp(-800, 150, 60);
 
+
+    // doinker.set_value(true);
+    // driveClampD(1600, 200);
+    // driveStraight(-900);
+    // doinkerClamp.set_value(false);
+    // driveStraight2(-100);
+    // doinker.set_value(false);
+    // driveTurn2(-170);
+    // driveClamp(-800, 150, 60);
+    // HOOKS.move(-127);
 
 
     /*
