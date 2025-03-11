@@ -39,23 +39,32 @@ void autonomous() {
 
 
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-    //LadyBrown.move(40);
+    LadyBrown.move(40);
     HOOKS.move(-127);
     delay(500);
     HOOKS.move(127);
-    LBMacro = 4;
+    //LBMacro = 4;
     driveStraight2(500);
     HOOKS.move(-127);
     driveTurn2(-90);
-    mogoValues = true;
+    //mogoValues = true;
     driveClamp(-900, 100, 40);
+    mogoValues = true;
     driveTurn2(0);
-    driveStraightC(700); //500
-    driveArcRF(26, 800, 2000);
+    driveStraightC(500); //500
+    driveArcRF(22, 800, 2000); //26
     driveStraight2(2200);
+    // for(int i = 0; i <= 5000; i++){
+    //  if (i % 150 == 0){
+    //     con.print(2, 0, "imu: %f        ", float(imu.get_heading()));
+    //   } 
+    //   delay(1);
+    // }
+
     delay(150); //450
     LBMacro = 1;
-    driveStraight2(500, 80);
+    driveStraight2(475, 80);//500
+    //LBMacro = 1;
     driveTurn2(20);//25
     driveStraight2(-1700); //-1800
     delay(150);
@@ -65,9 +74,9 @@ void autonomous() {
     driveTurn2(90);
     hookControl2 = false;
     HOOKS.move(-127);
-    LBMacro = 0;
-    LadyBrown.move(0);
-    driveStraight2(500);
+    // LBMacro = 0;
+    // LadyBrown.move(0);
+    driveStraight2(600); //500
     driveTurn2(90);
     //old hook control spot
     delay(500); //1200
@@ -77,7 +86,7 @@ void autonomous() {
     delay(200); //400
 
 
-    chasMove(70, 70);
+    chasMove(100, 100);
     delay(400); 
     hookControl2 = true;
     for(int i = 0; i <= 800; i++){
@@ -88,8 +97,11 @@ void autonomous() {
     hookControl2 = false;
     // LadyBrown.move(-127);
     // delay(800);
-    driveStraight2(-650);
-    LBMacro = 4;
+    driveStraight2(-550); //-650
+    LBMacro = 0;
+    LadyBrown.move(127);
+    //LBMacro = 4;
+
     //LadyBrown.move(127);
     // second part
     HOOKS.move(-127);
@@ -106,15 +118,97 @@ void autonomous() {
     mogo.set_value(false);
     mogoValues = false;
     HOOKS.move(127);
-    driveStraight2(550);
-    driveTurn2(90);
-    driveClamp(-3000, 100, 50);
+    driveTurn2(-45);
+    driveStraight2(150);
+    driveTurn2(91);
+    longValues = true;
+    driveClamp(-3225, 100, 50);
+    longValues = false;
+    mogoValues = true;
     HOOKS.move(-127);
-    driveStraight2(225);
-    driveTurn2(0);
+    driveStraight2(125);
+    // driveTurn2(0);
 
     //////////////////////////////////////////////////////////////
 
+    mogoValues = true;
+    driveTurn2(0);
+    driveStraightC(500); //500
+    driveArcLF(22, 800, 2000); //26
+    driveStraight2(2200);
+
+    // for(int i = 0; i <= 5000; i++){
+    //   if (i % 150 == 0){
+    //      con.print(2, 0, "imu: %f        ", float(imu.get_heading()));
+    //    } 
+    //    delay(1);
+    //  }
+
+
+    delay(150); //450
+    LBMacro = 1;
+    driveStraight2(475, 80);//500
+    //LBMacro = 1;
+    driveTurn2(-20);//25
+    driveStraight2(-1700); //-1800
+    delay(150);
+    LBMacro = 2;
+    //HOOKS.move(40);
+    hookControl2 = true;
+    driveTurn2(-90);
+    hookControl2 = false;
+    HOOKS.move(-127);
+    // LBMacro = 0;
+    // LadyBrown.move(0);
+    driveStraight2(600); //500
+    driveTurn2(-90);
+    //old hook control spot
+    delay(500); //1200
+    HOOKS.move(0);
+    delay(100);
+    HOOKS.move(-127);
+    delay(200); //400
+
+
+    chasMove(100, 100);
+    delay(400); 
+    hookControl2 = true;
+    for(int i = 0; i <= 800; i++){
+      LBMacro = 3;
+      LadyBrownMacro();
+      delay(1);
+    }
+    hookControl2 = false;
+    // LadyBrown.move(-127);
+    // delay(800);
+    driveStraight2(-550); //-650
+    LBMacro = 0;
+    LadyBrown.move(127);
+    //LBMacro = 4;
+
+    //LadyBrown.move(127);
+    // second part
+    HOOKS.move(-127);
+    // mogo.set_value(true);
+    // delay(200);
+    //second part
+    driveTurn2(180);
+    driveStraight2(2100, 40);
+    LadyBrown.move(40);
+    driveTurn2(-60);
+    driveStraight2(450);//650
+    driveTurn2(45);
+    driveStraight2(-300);
+    mogo.set_value(false);
+    mogoValues = false;
+    HOOKS.move(127);
+    driveTurn2(45);
+
+
+
+
+
+    /*
     driveStraightC(300);
     driveArcLF(15, 800, 2000);
     driveStraight2(2200);
@@ -170,6 +264,8 @@ void autonomous() {
     mogo.set_value(false);
     mogoValues = false;
     HOOKS.move(127);
+
+    */
 
 
 

@@ -16,6 +16,7 @@ extern double calcPID2(double target, double input, int integralKi, int maxInteg
 extern double calcPIDlift(double target, double input, int integralKi, int maxIntegral, double bias);
 extern void driveStraight(int target);
 extern void driveStraight2(int target, int speed = 100);
+extern void driveStraightR(int target, int speed = 100);
 extern void driveClamp(int target, int clampDistance, int speed = 100);
 extern void driveClampD(int target, int clampDistance, int intakeDistance = 0, int speed = 100);
 extern void driveStraightC(int target);
@@ -85,13 +86,13 @@ extern int LBMacro;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 5 //5.25//8.75 //15/////////15
+#define HEADING_KP 10 //5.25//8.75 //15/////////15
 #define HEADING_KI 0 //0.125//0.115
-#define HEADING_KD 100 //38 //105 //70 //100 //180///////////////400
+#define HEADING_KD 8000 //38 //105 //70 //100 //180///////////////400
 
-#define HEADING_KP2 20 //5.25//8.75 //15
+#define HEADING_KP2 7 //5.25//8.75 //15
 #define HEADING_KI2 0 //0.125//0.115
-#define HEADING_KD2 500 //38 //105 //70 //100 //180
+#define HEADING_KD2 8000 //38 //105 //70 //100 //180
 
 #define HEADING_INTEGRAL_KI 0
 #define HEADING_MAX_INTEGRAL 0

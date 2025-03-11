@@ -301,7 +301,7 @@ void LadyBrownMacro(){
         LadyBrown.move(-calcPIDlift(2800, LBPos, 0, 0, 1.0));
     } else if(LBMacro == 2){
         //setConstants2(0.05, 0, 500);
-        LadyBrown.move(-calcPIDlift(5400, LBPos, 0, 0, 1.0)); //5200
+        LadyBrown.move(-calcPIDlift(4900, LBPos, 0, 0, 1.0)); //5200
     } else if(LBMacro == 3){
         //setConstants2(0.03, 0, 0);
         LadyBrown.move(-calcPIDlift(18000, LBPos, 0, 0, 1.0));
@@ -829,12 +829,7 @@ void driveClamp(int target, int clampDistance, int speed) {
         }
 
         heading_error = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
-   
-        if(voltage > 127){
-            voltage = 127;
-        } else if (voltage < -127){
-            voltage = -127;
-        }
+
 
         if(abs(error) < clampDistance){
             mogo.set_value(true);
@@ -858,7 +853,7 @@ void driveClamp(int target, int clampDistance, int speed) {
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
             con.print(0, 0, "ERROR: %f           ", float(error));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
-            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+            con.print(1, 0, "IMU: %f           ", float(imu.get_heading()));
         } else if (time2 % 150 == 0){
             con.print(2, 0, "Time: %f        ", float(time2));
         } 
@@ -1035,6 +1030,130 @@ void driveStraight2(int target, int speed) {
         setConstants(2.5, 0, 0);
     } else {
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    }
+  
+
+    encoderAvg = (LF.get_position() + RF.get_position()) / 2;
+    
+
+
+    voltage = calcPID(target, encoderAvg, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
+
+
+    double position = imu.get_heading(); //this is where the units are set to be degrees
+
+    if (position > 180){
+        position = position - 360;
+    }
+
+    if((trueTarget < 0) && (position > 0)){
+        if((position - trueTarget) >= 180){
+            trueTarget = trueTarget + 360;
+            position = imu.get_heading();
+        } 
+    } else if ((trueTarget > 0) && (position < 0)){
+        if((trueTarget - position) >= 180){
+           position = imu.get_heading();
+        }
+    } 
+
+
+        // if(trueTarget > 180) {
+        //     trueTarget = (360 - trueTarget);
+        // }
+
+        // if(imu.get_heading() < 180) {
+        //     heading_error = trueTarget - imu.get_heading();
+        // }
+        // else {
+        //     heading_error = ((360 - imu.get_heading()) - trueTarget);
+        // }
+
+        // heading_error = heading_error * HEADING_CORRECTION_KP;
+
+        if(longValues){
+            setConstants(HEADING_KP2, HEADING_KI2, HEADING_KD2);
+        } else {
+            setConstants(HEADING_KP, HEADING_KI, HEADING_KD);
+        }
+
+        heading_error = calcPID2(trueTarget, position, HEADING_INTEGRAL_KI, HEADING_MAX_INTEGRAL);
+        
+
+        if(voltage > 127 * double(speed)/100.0){
+            voltage = 127 * double(speed)/100.0;
+        } else if (voltage < -127 * double(speed)/100.0){
+            voltage = -127 * double(speed)/100.0;
+        }
+
+        chasMove( (voltage + heading_error ), (voltage - heading_error));
+        if (abs(target - encoderAvg) <= 4) count++;
+        if (count >= 8 || time2 > timeout){
+            break;
+        } 
+
+
+        if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
+            con.print(0, 0, "ERROR: %f           ", float(error));
+        } else if (time2 % 100 == 0 && time2 % 150 != 0){
+            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+        } else if (time2 % 150 == 0){
+            con.print(2, 0, "Time: %f        ", float(time2));
+        } 
+
+        delay(10);
+        time2 += 10;
+        //hi
+    }
+    LF.brake();
+    LM.brake();
+    LB.brake();
+    RF.brake();
+    RM.brake();
+    RB.brake();
+}
+
+void driveStraightR(int target, int speed) {
+    int timeout = 5000;
+    double x = 0;
+    x = double(abs(target));
+    timeout = ( 0.00000000000012321 * pow(x,5)) + (-0.000000000953264 * pow(x, 4)) + (0.00000271528 * pow(x, 3)) + (-0.00339918 * pow(x, 2)) + (2.12469 * x) + 209.43588; //Tune with Desmos
+
+    bool over = false;
+    double voltage;
+    double encoderAvg;
+    int count = 0;
+    double heading_error = 0;
+    int cycle = 0; // Controller Display Cycle
+    time2 = 0;
+
+    if(trueTarget > 180){
+        trueTarget = trueTarget - 360;
+    }
+
+    if(mogoValues == true){
+        setConstants(STRAIGHT_KPM, STRAIGHT_KIM, STRAIGHT_KDM);
+    } else {
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    }
+
+    timeout = timeout * (2.0 - double(speed)/100.0);
+    
+    resetEncoders();
+   
+
+    while(true) {
+
+    if(abs(target - encoderAvg)<25){
+        setConstants(2.5, 0, 0);
+    } else {
+        setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
+    }
+
+    if(OpticalC.get_hue()<30 || OpticalC.get_hue()>350){
+        HOOKS.move(0);
+    } else {
+        HOOKS.move(-127);
     }
   
 
@@ -1342,7 +1461,7 @@ void driveTurn2(int target) { //target is inputted in autons
     double variKD = 0;
     int timeout = 5000;
 
-    x = double(abs(target));
+    x = double(abs(turnv));
    // variKP = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
    //variKD = (0 * pow(x,5)) + (0 * pow(x, 4)) + (0 * pow(x, 3)) + (0 * pow(x, 2)) + (0 * x) + 0; // Use Desmos to tune
    //if(mogoValues){
@@ -1409,11 +1528,11 @@ void driveTurn2(int target) { //target is inputted in autons
         }
 
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
-            con.print(0, 0, "ERROR: %f           ", float(error));
+            con.print(0, 0, "turnv: %f           ", float(turnv));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
             con.print(1, 0, "IMU: %f           ", float(imu.get_heading()));
         } else if (time2 % 150 == 0){
-            con.print(2, 0, "voltage %f        ", float(voltage));
+         con.print(2, 0, "vari %f        ", float(variKD));
         } 
 
         time2 += 10;

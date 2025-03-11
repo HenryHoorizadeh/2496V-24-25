@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 2;
+int atn = 0;
 int RingColor = 2;
 int color = 0;
 int pressed = 0;
@@ -296,7 +296,7 @@ TEST.move(127);
         setConstants2(0.05, 0, 0);
         LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
-        setConstants2(0.02, 0, 500);
+        setConstants2(0.03, 0, 500);
         LadyBrown.move(-calcPIDlift(2700, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
       } else if(macro == 3){
         setConstants2(0.05, 0, 500);
@@ -562,10 +562,12 @@ TEST.move(127);
 //hello
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
+      driveStraightR(2000);
       // driveStraight2(1000);
-     //driveTurn2(175);
-      //driveTurn2(132);
+      // driveTurn2(180);
+      // driveTurn2(-60);
       // longValues = true;
+      
       // driveClampS(-2500, 400, 70);
       // longValues = false;
     //   chasMove(40,40,40,40,40,40);
