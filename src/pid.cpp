@@ -318,7 +318,7 @@ int ColorCount;
 void ColorSort(){
     OpticalC.set_led_pwm(100);
     if(color == 1){ //sort out blue
-        if(OpticalC.get_hue()<270 && OpticalC.get_hue()>180){
+        if(OpticalC.get_hue()<270 && OpticalC.get_hue()>170){
             InitColor = true;
         }
 
@@ -1150,7 +1150,7 @@ void driveStraightR(int target, int speed) {
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
     }
 
-    if(OpticalC.get_hue()<30 || OpticalC.get_hue()>350){
+    if(OpticalC.get_hue()<16 || OpticalC.get_hue()>350){
         HOOKS.move(0);
     } else {
         HOOKS.move(-127);

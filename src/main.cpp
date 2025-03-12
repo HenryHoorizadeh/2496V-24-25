@@ -225,8 +225,8 @@ TEST.move(127);
 
 	while (true) {
 
-    color = 0;
-    //ColorSort();
+    // color = 1;
+    // ColorSort();
     //ColorSorter.set_value(true);
 //MACROO!!!!!!!!!!!!!!!!!!!!!
     liftAngle = 36000-roto.get_angle();
@@ -291,10 +291,10 @@ TEST.move(127);
       
       if(macro == 0){
         setConstants2(0.7, 0, 0);
-        LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(16000, liftAngle, 0, 0, 1.0));
       } else if(macro == 1){
         setConstants2(0.05, 0, 0);
-        LadyBrown.move(-calcPIDlift(18000, liftAngle, 0, 0, 1.0));
+        LadyBrown.move(-calcPIDlift(16000, liftAngle, 0, 0, 1.0));
       } else if(macro == 2){
         setConstants2(0.03, 0, 500);
         LadyBrown.move(-calcPIDlift(2700, liftAngle, 0, 0, 1.0));// clamp(-calcPIDlift(2000, liftAngle, 0, 0, 1.0), -80.0, 80.0)
@@ -561,8 +561,8 @@ TEST.move(127);
 
 //hello
     //pid tester
-    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
-      driveStraightR(2000);
+   // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
+      //driveStraightR(2000);
       // driveStraight2(1000);
       // driveTurn2(180);
       // driveTurn2(-60);
@@ -627,7 +627,7 @@ TEST.move(127);
       // odometry2();
       // delay(5);
       // }
-    }
+   // }
 
     odometry2();
 

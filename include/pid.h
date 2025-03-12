@@ -86,9 +86,9 @@ extern int LBMacro;
 //tune to make headding correction in arcturns more or less sensitive 
 #define ARC_CORRECTION_KP 10
 
-#define HEADING_KP 10 //5.25//8.75 //15/////////15
+#define HEADING_KP 8 //5.25//8.75 //15/////////15
 #define HEADING_KI 0 //0.125//0.115
-#define HEADING_KD 8000 //38 //105 //70 //100 //180///////////////400
+#define HEADING_KD 9000 //38 //105 //70 //100 //180///////////////400
 
 #define HEADING_KP2 7 //5.25//8.75 //15
 #define HEADING_KI2 0 //0.125//0.115

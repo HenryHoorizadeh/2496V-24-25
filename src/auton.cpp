@@ -37,9 +37,9 @@ void autonomous() {
 
   if (atn == 0) {
 
-
+    
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-    LadyBrown.move(40);
+    LadyBrown.move(10);
     HOOKS.move(-127);
     delay(500);
     HOOKS.move(127);
@@ -52,7 +52,7 @@ void autonomous() {
     mogoValues = true;
     driveTurn2(0);
     driveStraightC(500); //500
-    driveArcRF(22, 800, 2000); //26
+    driveArcRF(26, 800, 2000); //26
     driveStraight2(2200);
     // for(int i = 0; i <= 5000; i++){
     //  if (i % 150 == 0){
@@ -132,9 +132,16 @@ void autonomous() {
     //////////////////////////////////////////////////////////////
 
     mogoValues = true;
+    
+
+
+
+
+
+    ////////////////old 2nd half
     driveTurn2(0);
     driveStraightC(500); //500
-    driveArcLF(22, 800, 2000); //26
+    driveArcLF(26, 800, 2000); //26
     driveStraight2(2200);
 
     // for(int i = 0; i <= 5000; i++){
@@ -200,9 +207,14 @@ void autonomous() {
     driveTurn2(45);
     driveStraight2(-300);
     mogo.set_value(false);
+//////////////old 2nd half
+
+
+
     mogoValues = false;
     HOOKS.move(127);
-    driveTurn2(45);
+    driveTurn2(46);
+    driveStraightR(3000);
 
 
 
@@ -267,25 +279,77 @@ void autonomous() {
 
     */
 
+    
+
 
 
     
     ///// third part
+    color = 1;
     LBMacro = 0;
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
-    LadyBrown.move(127);
-    driveTurn2(45);
-    LadyBrown.move(40);
+    LadyBrown.move(30);
+    // driveTurn2(45);
+    HOOKS.move_relative(200, 600);
+    driveStraight2(1300);
+    HOOKS.move_relative(-450, 400);
+    driveStraight2(400);
+    driveTurn2(115);
+    driveClamp(-1500, 150, 50);
+    HOOKS.move(-127);
+    driveTurn2(-140);
+    driveStraight2(1300);
+    driveTurn2(-40);
+    driveStraightC(600);
+    driveArcRF(40, 300, 1800);
+    doinker.set_value(true);
+    driveStraight2(250, 70);
+    driveTurn2(-60);
+    driveStraight2(550);
+    delay(400);
+   // driveTurn2(-170);
+    driveTurn2(135); //120
+    doinker.set_value(false);
+    driveStraight2(-400);
+    mogo.set_value(false);
+    HOOKS.move(127);
+    driveTurn2(135);
+    driveStraightC(700);
+    HOOKS.move(-127);
+    driveArcLF(90, 300, 2000);
+    driveStraightC(700);
+    driveArcRF(30, 300, 2000);
     HOOKS.move(0);
-    driveStraightC(3200);
-    driveArcLF(115, 250, 1800);
-    driveStraightC(1000);
-    driveArcRF(30, 250, 1900);
-    driveArcLF(30, 250, 1900);
-    driveStraight2(900);
-    driveStraight2(-1600);
-    driveTurn2(65);
-    driveStraight2(2400);
+    driveStraight2(2500);
+    driveTurn2(40);
+    LBMacro = 3;
+    driveStraight2(-2700, 60);
+    LBMacro = 0;
+    LadyBrown.move(127);
+
+
+
+    
+
+
+
+
+
+    // LBMacro = 0;
+    // LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
+    // LadyBrown.move(127);
+    // driveTurn2(45);
+    // LadyBrown.move(40);
+    // HOOKS.move(0);
+    // driveStraightC(3200);
+    // driveArcLF(115, 250, 1800);
+    // driveStraightC(1000);
+    // driveArcRF(30, 250, 1900);
+    // driveArcLF(30, 250, 1900);
+    // driveStraight2(900);
+    // driveStraight2(-1600);
+    // driveTurn2(65);
+    // driveStraight2(2400);
 
 
 
