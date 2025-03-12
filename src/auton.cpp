@@ -143,14 +143,12 @@ void autonomous() {
     driveStraightC(500); //500
     driveArcLF(26, 800, 2000); //26
     driveStraight2(2200);
-
     // for(int i = 0; i <= 5000; i++){
-    //   if (i % 150 == 0){
-    //      con.print(2, 0, "imu: %f        ", float(imu.get_heading()));
-    //    } 
-    //    delay(1);
-    //  }
-
+    //  if (i % 150 == 0){
+    //     con.print(2, 0, "imu: %f        ", float(imu.get_heading()));
+    //   } 
+    //   delay(1);
+    // }
 
     delay(150); //450
     LBMacro = 1;
@@ -207,6 +205,7 @@ void autonomous() {
     driveTurn2(45);
     driveStraight2(-300);
     mogo.set_value(false);
+    mogoValues = false;
 //////////////old 2nd half
 
 
@@ -290,7 +289,7 @@ void autonomous() {
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
     LadyBrown.move(30);
     // driveTurn2(45);
-    HOOKS.move_relative(200, 600);
+    HOOKS.move_relative(300, 600);
     driveStraight2(1300);
     HOOKS.move_relative(-450, 400);
     driveStraight2(400);
