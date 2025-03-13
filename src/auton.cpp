@@ -36,8 +36,7 @@ void autonomous() {
 
 
   if (atn == 0) {
-
-    
+    HOOKS.tare_position();    
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
     LadyBrown.move(10);
     HOOKS.move(-127);
@@ -79,15 +78,16 @@ void autonomous() {
     driveStraight2(600); //500
     driveTurn2(90);
     //old hook control spot
-    delay(500); //1200
+    delay(400); //500
     HOOKS.move(0);
-    delay(100);
+    delay(50); //100
     HOOKS.move(-127);
-    delay(200); //400
+    delay(100); //200
 
 
     chasMove(100, 100);
-    delay(400); 
+    delay(400); //400
+    HOOKS.tare_position();   
     hookControl2 = true;
     for(int i = 0; i <= 800; i++){
       LBMacro = 3;
@@ -168,15 +168,15 @@ void autonomous() {
     driveStraight2(600); //500
     driveTurn2(-90);
     //old hook control spot
-    delay(500); //1200
+    delay(400); //500
     HOOKS.move(0);
-    delay(100);
+    delay(50); //100
     HOOKS.move(-127);
-    delay(200); //400
-
-
+    delay(100); //200
+    
+    HOOKS.move(40);
     chasMove(100, 100);
-    delay(400); 
+    delay(400); //400
     hookControl2 = true;
     for(int i = 0; i <= 800; i++){
       LBMacro = 3;
@@ -213,7 +213,7 @@ void autonomous() {
     mogoValues = false;
     HOOKS.move(127);
     driveTurn2(46);
-    driveStraightR(3000);
+    driveStraightR(3000, 70);
 
 
 

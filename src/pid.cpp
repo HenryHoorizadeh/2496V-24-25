@@ -288,7 +288,7 @@ void LadyBrownMacro(){
     }
     if(hookControl2){
         setConstants2(1, 0, 0);
-        HOOKS.move(calcPIDH(150, HOOKS.get_position(), 0, 0, true));
+        HOOKS.move(calcPIDH(175, HOOKS.get_position(), 0, 0, true));
         if(abs(150 - HOOKS.get_position()) < 10){
           //hookControl2 = false;
         }
@@ -324,7 +324,7 @@ void ColorSort(){
 
         if(InitColor && ColorCount < 400){
             colorSorter.set_value(true);
-            ColorCount += 1;
+            ColorCount += 10;
         } else {
             ColorCount = 0;
             InitColor = false;
@@ -337,7 +337,7 @@ void ColorSort(){
 
         if(InitColor && ColorCount < 400){
             colorSorter.set_value(true);
-            ColorCount += 1;
+            ColorCount += 10;
         } else {
             ColorCount = 0;
             InitColor = false;
@@ -999,7 +999,7 @@ void driveStraight2(int target, int speed) {
     int timeout = 5000;
     double x = 0;
     x = double(abs(target));
-    timeout = ( 0.00000000000012321 * pow(x,5)) + (-0.000000000953264 * pow(x, 4)) + (0.00000271528 * pow(x, 3)) + (-0.00339918 * pow(x, 2)) + (2.12469 * x) + 209.43588; //Tune with Desmos
+    timeout = ( 0.00000000000012321 * pow(x,5)) + (-0.000000000953264 * pow(x, 4)) + (0.00000271528 * pow(x, 3)) + (-0.00339918 * pow(x, 2)) + (2.12469 * x) + 309.43588; //Tune with Desmos
 
     bool over = false;
     double voltage;
@@ -1468,7 +1468,7 @@ void driveTurn2(int target) { //target is inputted in autons
     //variKD =(-0.0000000042528 * pow(x,5)) + (0.00000209186 * pow(x, 4)) + (-0.000381218 * pow(x, 3)) + (0.0314888 * pow(x, 2)) + (-0.951821 * x) + 87.7549; // Use Desmos to tune
     variKD =(0.0000000033996 * pow(x,5)) + (-0.00000144663 * pow(x, 4)) + (0.000207591 * pow(x, 3)) + (-0.0111654 * pow(x, 2)) + (0.209467 * x) + 53.04069; // Use Desmos to tune
    //} 
-    timeout = (0.00000000392961 * pow(x,5)) + (0.0000057915 * pow(x, 4)) + (-0.00321553 * pow(x, 3)) + (0.502982 * pow(x, 2)) + (-22.36692 * x) + 966.53481; // Use Desmos to tune
+    timeout = (0.00000000392961 * pow(x,5)) + (0.0000057915 * pow(x, 4)) + (-0.00321553 * pow(x, 3)) + (0.502982 * pow(x, 2)) + (-22.36692 * x) + 466.53481; // Use Desmos to tune
     // if(abs(target>=25)){
     // setConstants(TURN_KP, TURN_KI, variKD); 
     // } else if(mogoValues == false) {
