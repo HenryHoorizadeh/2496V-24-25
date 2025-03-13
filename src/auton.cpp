@@ -642,27 +642,40 @@ void autonomous() {
     //red right rush mogo
     // HOOKS.move(-127);
     // driveClampD(1600, 200);
-    color = 2;
+    color = 0;
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
     LBMacro = 4;
     doinker.set_value(true);
-    driveClampD(1600, 200, 1000);
+    driveClampD(1600, 250, 1000);
     HOOKS.move(-5);
     driveStraight(-900);
     doinkerClamp.set_value(false);
     driveStraight2(-100);
     doinker.set_value(false);
-    driveTurn2(-170);
+    driveTurn2(-160);
     driveClamp(-800, 150, 60);
     HOOKS.move(-127);
     driveTurn2(-155);
-    driveArcRF(30, 3200, 9000);
-    driveStraight2(500);
     intake.set_value(true);
-    driveStraight2(3500);
+    driveArcLF(35, 2000, 9000);
+    // driveStraight2(500);
+    
+    driveStraight2(2500);
     intake.set_value(false);
-    driveStraight2(-300);
-   
+    driveStraight2(-1500);
+    driveTurn2(-117);
+    mogo.set_value(false);
+    mogoValues = false;
+    driveStraight2(1675);// why is this wiggly..
+    LBMacro = 3;
+    delay(2000);
+  driveStraight2(-350);
+  driveTurn2(-50);
+  intake.set_value(true);
+  HOOKS.move(-20);
+  driveStraight2(400);
+  intake.set_value(false);//i try to arc at the end but didnt work
+  
 
 
     // doinker.set_value(true);
