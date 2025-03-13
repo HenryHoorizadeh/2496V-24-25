@@ -666,7 +666,9 @@ void autonomous() {
     driveTurn2(-117);
     mogo.set_value(false);
     mogoValues = false;
+    longValues = true;
     driveStraight2(1675);// why is this wiggly..
+    longValues = false;
     LBMacro = 3;
     delay(2000);
   driveStraight2(-350);
