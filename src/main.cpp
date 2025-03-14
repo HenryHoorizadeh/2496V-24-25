@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 1;
+int atn = 3;
 int RingColor = 2;
 int color = 0;
 int pressed = 0;
@@ -562,9 +562,8 @@ TEST.move(127);
 //hello
     //pid tester
     if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
-      driveArcLF(39, 700, 2500, 40);
-      driveStraight2(125, 60);
-      driveArcLF(-39, 700, 2500);
+      driveTurn2(-135);
+      driveArcRF(35, 3300, 2000);
 
     }
       //driveStraightR(2000);
@@ -680,7 +679,7 @@ TEST.move(127);
       //con.print(0, 0, "imu: %f         ", imu.get_heading());
     } else if (time % 100 == 0 && time % 150 != 0){
       //con.print(1, 0, "error: %f           ",float(chasstempC));
-      con.print(1, 0, "time: %f           ",float(time2));
+      con.print(1, 0, "prox: %f           ",float( OpticalC.get_proximity()));
     } else if (time % 150 == 0){
       con.print(2, 0, "C:%i H:%i LB:%i        ", int(chasstempC), int(HOOKS.get_temperature()), int(LadyBrown.get_temperature())); 
       // pros::lcd::print(1, "errorp:%f ", float(error));

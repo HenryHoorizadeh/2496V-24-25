@@ -320,11 +320,11 @@ int ColorCount;
 void ColorSort(){
     OpticalC.set_led_pwm(100);
     if(color == 1){ //sort out blue
-        if(OpticalC.get_hue()<270 && OpticalC.get_hue()>170){
+        if((OpticalC.get_hue()<270 && OpticalC.get_hue()>170) && OpticalC.get_proximity() > 40){
             InitColor = true;
         }
 
-        if(InitColor && ColorCount < 400){
+        if(InitColor && ColorCount < 600){
             colorSorter.set_value(true);
             ColorCount += 10;
         } else {
@@ -333,11 +333,11 @@ void ColorSort(){
             colorSorter.set_value(false);
         }
     } else if (color == 2){ //sort out red
-        if(OpticalC.get_hue()<30 || OpticalC.get_hue()>350){
+        if((OpticalC.get_hue()<30 || OpticalC.get_hue()>350) && OpticalC.get_proximity() > 90){
             InitColor = true;
         }
 
-        if(InitColor && ColorCount < 400){
+        if(InitColor && ColorCount < 600){
             colorSorter.set_value(true);
             ColorCount += 10;
         } else {
