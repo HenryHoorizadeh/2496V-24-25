@@ -85,6 +85,7 @@ int color = 0;
 int pressed = 0;
 string autstr;
 float errorp;
+bool mogoToggle = false;
 
 
  
@@ -181,7 +182,6 @@ void opcontrol() {
   bool NEWR1 = false;
   bool arcToggle = false;
   bool tankToggle = true;
-  bool mogoToggle = true;
   bool intakeToggle = false;
   bool doinkerToggle = false;
   bool doinkerClampToggle = false;
@@ -561,7 +561,12 @@ TEST.move(127);
 
 //hello
     //pid tester
-   // if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
+    if (con.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)) {
+      driveArcLF(39, 700, 2500, 40);
+      driveStraight2(125, 60);
+      driveArcLF(-39, 700, 2500);
+
+    }
       //driveStraightR(2000);
       // driveStraight2(1000);
       // driveTurn2(180);

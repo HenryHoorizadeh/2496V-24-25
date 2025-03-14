@@ -595,17 +595,20 @@ void autonomous() {
   color = 1;
   LadyBrown.move(-127);
   driveStraight2(250);
-  delay(700);
+  delay(300);
   LBMacro = 4;
   driveClamp(-1600, 150, 60);//1550
   HOOKS.move(-127);
   driveTurn2(160);
   stallProtection = true;
   driveStraightC(225); //275
-  driveArcLF(39, 700, 2500, 5);
-  driveStraight2(225, 5);
-  driveStraight2(-800);
+  driveArcLF(39, 700, 2500, 40);
+  driveStraight2(125, 60);
+  driveArcLF(-39, 700, 2500);
+  driveStraight2(-125);
   driveTurn2(70);
+
+  mogoToggle = true;
 
   /*
   driveArcLF(35, 250, 2500);
@@ -712,6 +715,7 @@ void autonomous() {
   driveTurn2(0);
   LBMacro = 3;
   driveStraight2(600);
+  mogoToggle = true;
 
 
   
@@ -880,6 +884,7 @@ void autonomous() {
     delay(1000);
     HOOKS.move(0);
     driveStraight2(400);
+    mogoToggle = true;
 
   } else if(atn == 4) {
     //blue right ring
@@ -905,6 +910,7 @@ void autonomous() {
     driveStraight2(-300);
     driveTurn2(110);
     driveStraight2(900);
+    mogoToggle = true;
 
 
 
@@ -930,6 +936,7 @@ void autonomous() {
     driveStraight2(-300);
     driveTurn2(-110);
     driveStraight2(500);
+    mogoToggle = true;
     
   } else if (atn == 6){
 
@@ -941,7 +948,7 @@ void autonomous() {
     driveStraightC(225); //275
     driveArcRF(39, 700, 2500);
     driveStraight2(300);
-    driveStraight2(-600);
+    driveStraight2(-600); 
     driveArcRF(35, 250, 2500);
     driveTurn2(0);
     driveStraight2(300);
@@ -953,6 +960,7 @@ void autonomous() {
     driveStraight2(-300);
     driveTurn2(110);
     driveStraight2(500);
+    mogoToggle = true;
 
   }
 }

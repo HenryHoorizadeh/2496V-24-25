@@ -1098,7 +1098,7 @@ void driveStraight2(int target, int speed) {
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
             con.print(0, 0, "ERROR: %f           ", float(error));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
-            con.print(1, 0, "EncoderAvg: %f           ", float(encoderAvg));
+            con.print(1, 0, "true: %f           ", float(trueTarget));
         } else if (time2 % 150 == 0){
             con.print(2, 0, "Time: %f        ", float(time2));
         } 
@@ -1967,10 +1967,10 @@ void driveArcLF(double theta, double radius, int timeout, int speed){
 
         int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
 
-        if(voltageL > 127 * double(speed)/100.0){
-            voltageL = 127 * double(speed)/100.0;
-        } else if (voltageL < -127 * double(speed)/100.0){
-            voltageL = -127 * double(speed)/100.0;
+        if(voltageR > 127 * double(speed)/100.0){
+            voltageR = 127 * double(speed)/100.0;
+        } else if (voltageR < -127 * double(speed)/100.0){
+            voltageR = -127 * double(speed)/100.0;
         }
 
 
@@ -1983,7 +1983,6 @@ void driveArcLF(double theta, double radius, int timeout, int speed){
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
         int fix = calcPID3((trueTarget + leftcorrect), position, ARC_HEADING_INTEGRAL_KI, ARC_HEADING_MAX_INTEGRAL);
 
-
         chasMove((voltageL + fix), (voltageR - fix));
 
         // if (theta > 0){
@@ -1995,9 +1994,14 @@ void driveArcLF(double theta, double radius, int timeout, int speed){
         //         over = true;
         //     }
         // }
-
-        if(abs((trueTarget - position)) > trueTheta){
-            over = true;
+        if(theta>0){
+            if(abs((trueTarget - position)) > trueTheta){
+                over = true;
+            }
+        } else {
+            if(abs((position-trueTarget)) > -trueTheta){
+                over = true;
+            }
         }
 
         if (over || time > timeout){
@@ -2008,9 +2012,9 @@ void driveArcLF(double theta, double radius, int timeout, int speed){
         if (time2 % 50 == 0 && time2 % 100 != 0 && time2 % 150 != 0){
             con.print(0, 0, "ERROR: %f           ", float(error));
         } else if (time2 % 100 == 0 && time2 % 150 != 0){
-            con.print(1, 0, "EncoderL: %f           ", float(encoderAvgL));
+            con.print(1, 0, "spped: %f           ", float(speed));
         } else if (time2 % 150 == 0){
-            con.print(2, 0, "Theta: %f        ", float(abs((trueTarget + leftcorrect) - position)));
+            con.print(2, 0, "l: %f        ", float( ltarget));
         } 
 
         time += 10;
@@ -2171,17 +2175,19 @@ void driveArcRF(double theta, double radius, int timeout, int speed){
         double encoderAvgL = LF.get_position();
         setConstants(STRAIGHT_KP, STRAIGHT_KI, STRAIGHT_KD);
         int voltageL = calcPID(ltarget, encoderAvgL, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
-        if(voltageL > 127){ //set left limti
-            voltageL = 127;
-        } else if (voltageL < -127){
-            voltageL = -127;
+        if(voltageL > 127 * double(speed)/100.0){
+            voltageL = 127 * double(speed)/100.0;
+        } else if (voltageL < -127 * double(speed)/100.0){
+            voltageL = -127 * double(speed)/100.0;
         }
+
         int voltageR = calcPID2(rtarget, encoderAvgR, STRAIGHT_INTEGRAL_KI, STRAIGHT_MAX_INTEGRAL);
-        if(voltageR > 127){ //set right limit
-            voltageR = 127;
-        } else if (voltageR < -127){
-            voltageR = -127;
+        if(voltageR > 127 * double(speed)/100.0){
+            voltageR = 127 * double(speed)/100.0;
+        } else if (voltageR < -127 * double(speed)/100.0){
+            voltageR = -127 * double(speed)/100.0;
         }
+
 
         
         setConstants(ARC_HEADING_KP, ARC_HEADING_KI, ARC_HEADING_KD);
@@ -2201,9 +2207,16 @@ void driveArcRF(double theta, double radius, int timeout, int speed){
         //     }
         // }
 
-        if(abs((trueTarget - position)) > trueTheta){
-            over = true;
+        if(theta>0){
+            if(abs((trueTarget - position)) > trueTheta){
+                over = true;
+            }
+        } else {
+            if(abs((position-trueTarget)) > -trueTheta){
+                over = true;
+            }
         }
+
 
         if (over || time > timeout){
             trueTarget += trueTheta;
