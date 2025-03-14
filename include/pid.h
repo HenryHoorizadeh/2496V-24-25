@@ -22,12 +22,13 @@ extern void driveClampD(int target, int clampDistance, int intakeDistance = 0, i
 extern void driveStraightC(int target);
 extern void driveTurn(int target);
 extern void driveTurn2(int target);
+extern void driveTurnD(int target);
 extern void driveTurnT(int target);
 extern void chasMove(int left, int right);
-extern void driveArcL(double theta, double radius, int timeout);
-extern void driveArcLF(double theta, double radius, int timeout);
-extern void driveArcR(double theta, double radius, int timeout);
-extern void driveArcRF(double theta, double radius, int timeout);
+extern void driveArcL(double theta, double radius, int timeout, int speed = 100);
+extern void driveArcLF(double theta, double radius, int timeout, int speed = 100);
+extern void driveArcR(double theta, double radius, int timeout, int speed = 100);
+extern void driveArcRF(double theta, double radius, int timeout, int speed = 100);
 extern void ColorSort();
 extern void hooks(int speed);
 extern void intake2(int speed);
@@ -90,7 +91,7 @@ extern int LBMacro;
 #define HEADING_KI 0 //0.125//0.115
 #define HEADING_KD 9000 //38 //105 //70 //100 //180///////////////400
 
-#define HEADING_KP2 7 //5.25//8.75 //15
+#define HEADING_KP2 6 //5.25//8.75 //15
 #define HEADING_KI2 0 //0.125//0.115
 #define HEADING_KD2 8000 //38 //105 //70 //100 //180
 

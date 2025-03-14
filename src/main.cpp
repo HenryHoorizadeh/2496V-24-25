@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 2;
+int atn = 1;
 int RingColor = 2;
 int color = 0;
 int pressed = 0;
@@ -677,7 +677,7 @@ TEST.move(127);
       //con.print(1, 0, "error: %f           ",float(chasstempC));
       con.print(1, 0, "time: %f           ",float(time2));
     } else if (time % 150 == 0){
-      con.print(2, 0, "Temp: %f        ", float(chasstempC)); 
+      con.print(2, 0, "C:%i H:%i LB:%i        ", int(chasstempC), int(HOOKS.get_temperature()), int(LadyBrown.get_temperature())); 
       // pros::lcd::print(1, "errorp:%f ", float(error));
     } 
 

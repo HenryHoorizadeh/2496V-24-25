@@ -43,14 +43,16 @@ void autonomous() {
     delay(500);
     HOOKS.move(127);
     //LBMacro = 4;
-    driveStraight2(500);
     HOOKS.move(-127);
+    driveStraight2(500);
+  
+    stallProtection = true;
     driveTurn2(-90);
     //mogoValues = true;
     driveClamp(-900, 100, 40);
     mogoValues = true;
     driveTurn2(0);
-    driveStraightC(500); //500
+    driveStraightC(450); //500
     driveArcRF(26, 800, 2000); //26
     driveStraight2(2200);
     // for(int i = 0; i <= 5000; i++){
@@ -62,10 +64,13 @@ void autonomous() {
 
     delay(150); //450
     LBMacro = 1;
+    stallProtection = false;
+    HOOKS.move(-127);
+  
     driveStraight2(475, 80);//500
     //LBMacro = 1;
     driveTurn2(20);//25
-    driveStraight2(-1700); //-1800
+    driveStraight2(-1750); //-1800
     delay(150);
     LBMacro = 2;
     //HOOKS.move(40);
@@ -105,6 +110,7 @@ void autonomous() {
     //LadyBrown.move(127);
     // second part
     HOOKS.move(-127);
+    stallProtection = true;
     // mogo.set_value(true);
     // delay(200);
     //second part
@@ -117,6 +123,7 @@ void autonomous() {
     driveStraight2(-300);
     mogo.set_value(false);
     mogoValues = false;
+    stallProtection = false;
     HOOKS.move(127);
     driveTurn2(-45);
     driveStraight2(150);
@@ -126,6 +133,7 @@ void autonomous() {
     longValues = false;
     mogoValues = true;
     HOOKS.move(-127);
+    stallProtection = true;
     driveStraight2(125);
     // driveTurn2(0);
 
@@ -140,7 +148,7 @@ void autonomous() {
 
     ////////////////old 2nd half
     driveTurn2(0);
-    driveStraightC(500); //500
+    driveStraightC(450); //500
     driveArcLF(26, 800, 2000); //26
     driveStraight2(2200);
     // for(int i = 0; i <= 5000; i++){
@@ -149,13 +157,15 @@ void autonomous() {
     //   } 
     //   delay(1);
     // }
+    stallProtection = false;
+    HOOKS.move(-127);
 
     delay(150); //450
     LBMacro = 1;
     driveStraight2(475, 80);//500
     //LBMacro = 1;
     driveTurn2(-20);//25
-    driveStraight2(-1700); //-1800
+    driveStraight2(-1750); //-1800
     delay(150);
     LBMacro = 2;
     //HOOKS.move(40);
@@ -194,6 +204,7 @@ void autonomous() {
     //LadyBrown.move(127);
     // second part
     HOOKS.move(-127);
+    stallProtection = true;
     // mogo.set_value(true);
     // delay(200);
     //second part
@@ -213,7 +224,8 @@ void autonomous() {
     mogoValues = false;
     HOOKS.move(127);
     driveTurn2(46);
-    driveStraightR(3000, 70);
+    stallProtection = false;
+    driveStraightR(2850, 70); //3000
 
 
 
@@ -284,18 +296,20 @@ void autonomous() {
 
     
     ///// third part
-    color = 1;
+    
     LBMacro = 0;
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
     LadyBrown.move(30);
     // driveTurn2(45);
-    HOOKS.move_relative(300, 600);
+    HOOKS.move_relative(350, 600);
     driveStraight2(1300);
-    HOOKS.move_relative(-450, 400);
+    HOOKS.move_relative(-500, 300);
     driveStraight2(400);
     driveTurn2(115);
     driveClamp(-1500, 150, 50);
+    color = 1;
     HOOKS.move(-127);
+    stallProtection = true;
     driveTurn2(-140);
     driveStraight2(1300);
     driveTurn2(-40);
@@ -311,6 +325,7 @@ void autonomous() {
     doinker.set_value(false);
     driveStraight2(-400);
     mogo.set_value(false);
+    stallProtection = false;
     HOOKS.move(127);
     driveTurn2(135);
     driveStraightC(700);
@@ -320,9 +335,11 @@ void autonomous() {
     driveArcRF(30, 300, 2000);
     HOOKS.move(0);
     driveStraight2(2500);
+    intake.set_value(true);
     driveTurn2(40);
     LBMacro = 3;
-    driveStraight2(-2700, 60);
+    color = 0;
+    driveStraight2(-2700, 65);
     LBMacro = 0;
     LadyBrown.move(127);
 
@@ -575,28 +592,35 @@ void autonomous() {
 
   } else if (atn == 1) {
   ////Red Left Ring
+  color = 1;
   LadyBrown.move(-127);
   driveStraight2(250);
   delay(700);
   LBMacro = 4;
-  driveClamp(-1600, 150, 80);//1550
+  driveClamp(-1600, 150, 60);//1550
   HOOKS.move(-127);
   driveTurn2(160);
+  stallProtection = true;
   driveStraightC(225); //275
-  driveArcLF(39, 700, 2500);
-  driveStraight2(300);
-  driveStraight2(-600);
+  driveArcLF(39, 700, 2500, 5);
+  driveStraight2(225, 5);
+  driveStraight2(-800);
+  driveTurn2(70);
+
+  /*
   driveArcLF(35, 250, 2500);
   driveTurn2(0);
   driveStraight2(300);
-  driveTurn2(-34);
-  intake.set_value(true);
-  driveStraight2(1550, 60);
-  intake.set_value(false);
-  delay(300);
-  driveStraight2(-300);
-  driveTurn2(-110);
-  driveStraight2(500);
+  driveTurn2(15);
+  */
+
+  // intake.set_value(true);
+  // driveStraight2(1950, 60);
+  // intake.set_value(false);
+  // delay(300);
+  // driveStraight2(-300);
+  // driveTurn2(-110);
+  // driveStraight2(500);
 
 
     /*wallstake
@@ -642,41 +666,64 @@ void autonomous() {
     //red right rush mogo
     // HOOKS.move(-127);
     // driveClampD(1600, 200);
-    color = 0;
+    color = 1;
     LadyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_BRAKE);
     LBMacro = 4;
     doinker.set_value(true);
-    driveClampD(1600, 250, 1000);
-    HOOKS.move(-5);
-    driveStraight(-900);
+    driveClampD(1675, 450, 1000);
+    HOOKS.move(-20);
+    driveStraight2(-900);
     doinkerClamp.set_value(false);
     driveStraight2(-100);
+    driveTurnD(-160);
     doinker.set_value(false);
-    driveTurn2(-160);
     driveClamp(-800, 150, 60);
     HOOKS.move(-127);
     driveTurn2(-155);
     intake.set_value(true);
-    driveArcLF(35, 2000, 9000);
+    driveArcLF(35, 3300, 2000);
     // driveStraight2(500);
     
-    driveStraight2(2500);
+    driveStraight2(400);
     intake.set_value(false);
     driveStraight2(-1500);
-    driveTurn2(-117);
+    driveTurn2(-115); //-117
     mogo.set_value(false);
     mogoValues = false;
     longValues = true;
-    driveStraight2(1675);// why is this wiggly..
+    driveStraight2(1600);// why is this wiggly..//1675
     longValues = false;
-    LBMacro = 3;
-    delay(2000);
+    for(int i = 0; i <= 800; i++){
+      LBMacro = 5;
+      LadyBrownMacro();
+      delay(1);
+    }
+    LBMacro = 4;
   driveStraight2(-350);
-  driveTurn2(-50);
+  driveTurn2(-143); //150
+  driveClamp(-1100, 150, 70);
+  driveTurn2(-120);
   intake.set_value(true);
-  HOOKS.move(-20);
-  driveStraight2(400);
-  intake.set_value(false);//i try to arc at the end but didnt work
+  HOOKS.move(127);
+  driveStraight2(900);
+  HOOKS.move(-127);
+  intake.set_value(false);
+  delay(200);
+  driveTurn2(0);
+  LBMacro = 3;
+  driveStraight2(600);
+
+
+  
+
+  // intake.set_value(true);
+  // HOOKS.move(-127);
+  // driveStraight2(400);
+  // intake.set_value(false);//i try to arc at the end but didnt work
+  // delay(200);
+  // driveStraight2(-400);
+  // driveArcLF(-35, 200, 9000);
+  // driveClamp(400, 150);
   
 
 
