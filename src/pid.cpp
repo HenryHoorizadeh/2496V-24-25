@@ -310,6 +310,8 @@ void LadyBrownMacro(){
         LadyBrown.move(-calcPIDlift(10000, LBPos, 0, 0, 1.0));
     } else if(LBMacro == 5){
         LadyBrown.move(-calcPIDlift(22000, LBPos, 0, 0, 1.0));
+    } else if (LBMacro == 6){
+        LadyBrown.move(-calcPIDlift(14000, LBPos, 0, 0, 1.0));
     }
 }
 

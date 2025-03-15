@@ -79,7 +79,7 @@ void disabled() {}
 
  
 
-int atn = 3;
+int atn = 8;
 int RingColor = 2;
 int color = 0;
 int pressed = 0;
@@ -111,7 +111,7 @@ void competition_initialize() {
       if(con.get_digital_new_press(E_CONTROLLER_DIGITAL_A)){
         atn++;
       }
-      if(atn>7){
+      if(atn>8){
         atn = 0;
       }
 
@@ -149,6 +149,14 @@ void competition_initialize() {
         con.print(0, 0, "Aut 6: %s", autstr);
       } 
       else if (atn == 7) {
+        autstr = "BLUE GOAL SAFE";
+         con.print(0, 0, "Aut 6: %s", autstr);
+       } 
+       else if (atn == 8) {
+        autstr = "RED GOAL SAFE";
+         con.print(0, 0, "Aut 6: %s", autstr);
+       } 
+      else if (atn == 9) {
        atn = 0;
       }
   
@@ -452,6 +460,12 @@ TEST.move(127);
       autstr = "RED RIGHT RING RUSH";
     }
     else if (atn == 7) {
+      autstr = "BLUE GOAL SAFE";
+    }
+    else if (atn == 8) {
+      autstr = "RED GOAL SAFE";
+    }
+    else if (atn == 9) {
       atn = 0;
     }
 
